@@ -17,7 +17,6 @@ mapped to database tables. Database driver, location, userid and pw
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- Define the object that should be persisted in the database -->
         <class>r13.javafx.Varastonhallinta.Product</class>
-        <class>r13.javafx.Varastonhallinta.Test</class>
         <properties>
             <!-- Driver for DB database -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
@@ -26,7 +25,7 @@ mapped to database tables. Database driver, location, userid and pw
             <!-- Username -->
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <!-- Password -->
-            <property name="javax.persistence.jdbc.password" value="gobahGu17F4df451"/>
+            <property name="javax.persistence.jdbc.password" value="password"/>
         </properties>
     </persistence-unit>
 </persistence>
