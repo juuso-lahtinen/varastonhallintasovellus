@@ -7,7 +7,7 @@
     <list default="true" id="c4936bc8-ef47-4bb9-963f-3a25707a2e2a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/DataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/DataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/PrimaryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/PrimaryController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +76,7 @@
       <recent name="r13.javafx.Varastonhallinta" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DataAccessObject">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="r13.javafx.Varastonhallinta.App" />
       <module name="Varastonhallinta" />
@@ -118,8 +118,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DataAccessObject" />
         <item itemvalue="Application.App" />
+        <item itemvalue="Application.DataAccessObject" />
       </list>
     </recent_temporary>
   </component>

@@ -8,14 +8,15 @@ public class DataAccessObject {
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         System.out.println("Single product");
         getProduct(1);
         System.out.println("All products");
-        System.out.println("Adding product");
-        addProduct("Test3", 1123.95, "Tuotekuvaus3", 1, "C125");
+        getProducts();
+        //System.out.println("Adding product");
+        //addProduct("Villasukat", 9.95, "Lämpimät", 10, "C126");
         ENTITY_MANAGER_FACTORY.close();
-    }
+    }*/
 
     public static void getProducts() {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
