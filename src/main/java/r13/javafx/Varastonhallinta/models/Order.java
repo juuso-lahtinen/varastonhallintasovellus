@@ -1,4 +1,4 @@
-package r13.javafx.Varastonhallinta;
+package r13.javafx.Varastonhallinta.models;
 
 //import javafx.beans.property.SimpleStringProperty; tarvitaan että voidaan muokata kenttiä, setText ei kuitenkaan toiminut tän kanssa
 

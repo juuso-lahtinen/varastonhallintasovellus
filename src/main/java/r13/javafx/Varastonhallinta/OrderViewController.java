@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import r13.javafx.Varastonhallinta.models.Order;
 
 
 public class OrderViewController implements Initializable {

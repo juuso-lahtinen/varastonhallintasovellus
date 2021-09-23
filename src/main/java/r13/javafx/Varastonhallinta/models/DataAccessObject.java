@@ -1,6 +1,7 @@
-package r13.javafx.Varastonhallinta;
+package r13.javafx.Varastonhallinta.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataAccessObject {
@@ -8,17 +9,8 @@ public class DataAccessObject {
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
-    /*public static void main(String[] args) {
-        System.out.println("Single product");
-        getProduct(1);
-        System.out.println("All products");
-        getProducts();
-        //System.out.println("Adding product");
-        //addProduct("Villasukat", 9.95, "Lämpimät", 10, "C126");
-        ENTITY_MANAGER_FACTORY.close();
-    }*/
 
-    public static void getProducts() {
+    public static List getProducts() {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         // the lowercase p refers to the object
@@ -26,16 +18,16 @@ public class DataAccessObject {
 
         // Issue the query and all Products
         TypedQuery<Product> tq = em.createQuery(strQuery, Product.class);
-        List<Product> products;
+        List<Product> products = null;
         try {
             // Get matching product objects and output
             products = tq.getResultList();
-            products.forEach(product -> System.out.println(product.getId() + ": " + product.getName()));
         } catch (NoResultException ex) {
             ex.printStackTrace();
         } finally {
             em.close();
         }
+        return products;
     }
 
     public static void getProduct(int id) {

@@ -1,17 +1,19 @@
-package r13.javafx.Varastonhallinta;
+package r13.javafx.Varastonhallinta.models;
 
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Currency;
 
 
-@Entity
-@Table(name = "product")
+@Entity()
+@Table(name = "\"Product\"")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
-    private int id;
+    private String id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -28,11 +30,27 @@ public class Product {
     @Column(name = "location", nullable = false)
     private String location;
 
-    public int getId() {
+    @Column(name = "\"productCategoryId\"", nullable = true)     // Works
+    private String categoryId;
+
+    public Product(String id, String name, double price, String description, int stock, String location, String categoryId) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.stock = stock;
+        this.location = location;
+        this.categoryId = categoryId;
+    }
+
+    public Product() {
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -74,5 +92,13 @@ public class Product {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 }
