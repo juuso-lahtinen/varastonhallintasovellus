@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Order;
@@ -18,6 +19,7 @@ import r13.javafx.Varastonhallinta.models.Order;
 public class OrderViewController implements Initializable {
 
     private Order selectedOrder;
+    
     
     @FXML 
     private Label orderNumberLabel;
@@ -48,6 +50,8 @@ public class OrderViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }   
+    
+    
     
 }

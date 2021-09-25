@@ -6,8 +6,8 @@
 
 <VBox alignment="CENTER" prefHeight="338.0" prefWidth="686.0" spacing="20.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.MainWindowController">
     <children>
-        <Button fx:id="orderControlBtn" onAction="#switchToPrimary" prefHeight="77.0" prefWidth="191.0" text="Order Management" />
-      <Button fx:id="productControlBtn" onAction="#switchToProductManagement" prefHeight="77.0" prefWidth="191.0" text="Product Management" />
+        <Button fx:id="orderControlBtn" onAction="#switchToOrderSearch" prefHeight="77.0" prefWidth="191.0" text="Tilausten hallinta" />
+      <Button fx:id="productControlBtn" onAction="#switchToProductManagement" prefHeight="77.0" prefWidth="191.0" text="Tuotteiden hallinta" />
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

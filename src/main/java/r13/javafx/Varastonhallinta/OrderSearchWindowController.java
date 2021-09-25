@@ -25,6 +25,9 @@ public class OrderSearchWindowController implements Initializable {
 	
 	@FXML
 	private Button searchButton;
+	
+	@FXML
+	private Button backButton;
 
 	@FXML
 	private TextField orderNumber;
@@ -107,7 +110,7 @@ public class OrderSearchWindowController implements Initializable {
     }
 
     @FXML
-    private void switchToSecondary() throws IOException {
+    private void switchToMainWindow() throws IOException {
         App.setRoot("mainwindow");
     }
 

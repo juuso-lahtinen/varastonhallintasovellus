@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import r13.javafx.Varastonhallinta.models.DataAccessObject;
 import r13.javafx.Varastonhallinta.models.Product;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ProductManagementController {
@@ -18,6 +19,9 @@ public class ProductManagementController {
 
     @FXML
     private Button addBtn;
+    
+    @FXML
+    private Button backButton;
 
     @FXML
     private TableView<Product> productTable;
@@ -63,5 +67,10 @@ public class ProductManagementController {
     private ObservableList<Product> getProducts() {
         ObservableList<Product> products = FXCollections.observableArrayList(dao.getProducts());
         return products;
+    }
+    
+    @FXML
+    private void switchToMainWindow() throws IOException {
+        App.setRoot("mainwindow");
     }
 }

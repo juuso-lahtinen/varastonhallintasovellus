@@ -50,6 +50,7 @@
                   <Font size="38.0" />
                </font>
             </Text>
+            <Button fx:id="backButton" layoutY="2.0" mnemonicParsing="false" onAction="#switchToMainWindow" text="Back" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
