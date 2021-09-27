@@ -2,8 +2,6 @@ package r13.javafx.Varastonhallinta.models;
 
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Currency;
 
 
 @Entity()

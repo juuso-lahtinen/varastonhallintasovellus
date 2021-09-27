@@ -22,89 +22,81 @@ import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Order;
 
 public class OrderSearchWindowController implements Initializable {
-	
-	@FXML
-	private Button searchButton;
-	
-	@FXML
-	private Button backButton;
 
-	@FXML
-	private TextField orderNumber;
-	@FXML
-	private TextField orderDate;
-	@FXML
-	private TextField productNumber;
-	
-	@FXML 
-	private TableView<Order> tableView;
-	@FXML
-	private TableColumn<Order, String> orderNumberColumn;
-	@FXML
-	private TableColumn<Order, String> orderDateColumn;
-	@FXML
-	private TableColumn<Order, String> orderSizeColumn;
-	
+    @FXML
+    private Button searchButton;
 
-	
-	
-	@FXML 
-	private Button detailedOrderViewButton;
-	
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    private Button backButton;
 
-		orderNumberColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("orderNumber"));
-		orderDateColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("orderDate"));
-		orderSizeColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("orderSize"));
-		
-		tableView.setItems(getOrders());
-		System.out.println("test");
-		
-		//Disable the detailed order view button until a row is selected
+    @FXML
+    private TextField orderNumber;
+    @FXML
+    private TextField orderDate;
+    @FXML
+    private TextField productNumber;
+
+    @FXML
+    private TableView<Order> tableView;
+    @FXML
+    private TableColumn<Order, String> orderNumberColumn;
+    @FXML
+    private TableColumn<Order, String> orderDateColumn;
+    @FXML
+    private TableColumn<Order, String> orderSizeColumn;
+
+
+    @FXML
+    private Button detailedOrderViewButton;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+        orderNumberColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("orderNumber"));
+        orderDateColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("orderDate"));
+        orderSizeColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("orderSize"));
+
+        tableView.setItems(getOrders());
+        System.out.println("test");
+
+        //Disable the detailed order view button until a row is selected
         this.detailedOrderViewButton.setDisable(true);
-		
-	}
-	
-	public void userClickedOnTable()
-    {
+
+    }
+
+    public void userClickedOnTable() {
         this.detailedOrderViewButton.setDisable(false);
     }
-    
-	
-	@FXML
-	public void search(ActionEvent event) throws IOException {
-		searchOrders();
-	}
-	
-	@FXML
-	private void searchOrders() throws IOException {
-		//orderNumber.getText() / orderDate.getText() haku tietokantaan
-		
-	}
-	
-	public ObservableList<Order>  getOrders()
-    {
+
+
+    @FXML
+    public void search(ActionEvent event) throws IOException {
+        searchOrders();
+    }
+
+    @FXML
+    private void searchOrders() throws IOException {
+        //orderNumber.getText() / orderDate.getText() haku tietokantaan
+
+    }
+
+    public ObservableList<Order> getOrders() {
         ObservableList<Order> orders = FXCollections.observableArrayList();
-        orders.add(new Order("1234324", "1.1.1999", "99"));
-        orders.add(new Order("5432123", "1.1.1939", "9"));
-        orders.add(new Order("5443251", "1.1.1974", "200"));
-        
+
         return orders;
     }
-	
-    public void changeSceneToDetailedOrderView(ActionEvent event) throws IOException
-    {
+
+    public void changeSceneToDetailedOrderView(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("orderview.fxml")); //ei toimi
         Parent tableViewParent = loader.load();
-        
+
         Scene tableViewScene = new Scene(tableViewParent);
-        
+
         OrderViewController controller = loader.getController();
         controller.initData(tableView.getSelectionModel().getSelectedItem());
 
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(tableViewScene);
         window.show();
     }

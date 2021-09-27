@@ -69,7 +69,7 @@
             </Text>
             <TextArea layoutX="571.0" layoutY="39.0" prefHeight="31.0" prefWidth="200.0" />
             <TextArea layoutX="571.0" layoutY="100.0" prefHeight="31.0" prefWidth="200.0" />
-            <Text layoutX="440.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TIlauspäivämäärä" wrappingWidth="130.484375">
+            <Text layoutX="440.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tilauspäivämäärä" wrappingWidth="130.484375">
                <font>
                   <Font size="13.0" />
                </font>
@@ -86,7 +86,7 @@
          <children>
             <TableView fx:id="tableView" onMouseClicked="#userClickedOnTable" prefHeight="759.0" prefWidth="1920.0">
               <columns>
-                <TableColumn fx:id="orderNumberColumn" prefWidth="150.0" text="TIlausnumeroasd" />
+                <TableColumn fx:id="orderNumberColumn" prefWidth="150.0" text="Tilausnumero" />
                   <TableColumn fx:id="orderDateColumn" prefWidth="198.0" text="Tilauspäivämäärä" />
                   <TableColumn fx:id="orderSizeColumn" prefWidth="176.0" text="Tuotteita tilauksella" />
               </columns>

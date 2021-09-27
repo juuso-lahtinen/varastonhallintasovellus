@@ -1,49 +1,31 @@
 package r13.javafx.Varastonhallinta.models;
 
-//import javafx.beans.property.SimpleStringProperty; tarvitaan että voidaan muokata kenttiä, setText ei kuitenkaan toiminut tän kanssa
+import javax.persistence.*;
+import java.sql.Timestamp;
 
+@Entity()
+@Table(name = "\"Order\"")
 public class Order {
 
-	private String orderDate, orderSize, orderNumber;
+    @Id
+    @Column(name = "id")
+    private String id;
 
+    @Column(name = "\"orderedAt\"")
+    private Timestamp orderedAt;
 
-	public Order(String orderNumber, String orderDate, String orderSize) {
-		
-		this.orderNumber = orderNumber;
-		this.orderDate = orderDate;
-		this.orderSize = orderSize;
-	}
+    @Column(name = "description")
+    private String description;
 
-	public String getOrderNumber() {
-		return orderNumber;
-	}
+    @Column(name = "\"orderStatusCodeId\"")
+    private String orderStatusCodeId;
 
-	public void setOrderNumber(String orderNumber) {
-		this.orderNumber = orderNumber;
-	}
+    public Order(String id, Timestamp orderedAt, String description) {
+        this.id = id;
+        this.orderedAt = orderedAt;
+        this.description = description;
+    }
 
-	public String getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(String orderDate) {
-		this.orderDate = orderDate;
-	}
-
-	public String getOrderSize() {
-		return orderSize;
-	}
-
-	public void setOrderSize(String orderSize) {
-		this.orderSize = orderSize;
-	}
-	
-	public String toString()	{
-	        return String.format("%s %s", orderNumber, orderDate);
-	}
-
-	
-	
-	
-	
+    public Order() {
+    }
 }

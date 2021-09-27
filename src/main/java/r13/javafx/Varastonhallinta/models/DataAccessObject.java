@@ -1,6 +1,10 @@
 package r13.javafx.Varastonhallinta.models;
 
+import org.hibernate.SQLQuery;
+import org.hibernate.query.NativeQuery;
+
 import javax.persistence.*;
+import java.sql.SQLData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +13,10 @@ public class DataAccessObject {
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
+
+    public static void main(String[] args) {
+        getOrders();
+    }
 
     public static List getProducts() {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
@@ -28,6 +36,26 @@ public class DataAccessObject {
             em.close();
         }
         return products;
+    }
+
+    public static void getOrders() {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        String strQuery = "SELECT o.id, o.orderedAt, os.description " +
+                "FROM Order o INNER JOIN OrderStatusCode os " +
+                "On o.orderStatusCodeId = os.id";
+
+        System.out.println("Query read start");
+        TypedQuery<Order> tq = em.createQuery(strQuery, Order.class);
+
+        try {
+            //orders = tq.getResultList();
+        } catch (NoResultException ex) {
+            System.out.println("Fatal Error");
+            ex.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public static void getProduct(int id) {

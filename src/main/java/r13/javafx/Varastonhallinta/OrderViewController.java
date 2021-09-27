@@ -30,8 +30,8 @@ public class OrderViewController implements Initializable {
     public void initData(Order  order)
     {
         selectedOrder = order;
-        orderNumberLabel.setText(selectedOrder.getOrderNumber());
-        orderDateLabel.setText(selectedOrder.getOrderDate());
+        //orderNumberLabel.setText(selectedOrder.getOrderNumber());
+        //orderDateLabel.setText(selectedOrder.getOrderDate());
     }
     
     

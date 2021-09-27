@@ -6,20 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="c4936bc8-ef47-4bb9-963f-3a25707a2e2a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/DataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/DataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/MainWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/MainWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderSearchWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderSearchWindowController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/DataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/DataAccessObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/mainwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/mainwindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/r13/javafx/Varastonhallinta/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/r13/javafx/Varastonhallinta/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/r13/javafx/Varastonhallinta/PrimaryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/r13/javafx/Varastonhallinta/PrimaryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/r13/javafx/Varastonhallinta/SecondaryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/r13/javafx/Varastonhallinta/SecondaryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/OrderPicking.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/orderPicking.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/ordersearch.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/ordersearch.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +83,7 @@
       <recent name="r13.javafx.Varastonhallinta" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="Application.DataAccessObject">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="r13.javafx.Varastonhallinta.App" />
       <module name="Varastonhallinta" />
@@ -131,8 +125,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.App" />
         <item itemvalue="Application.DataAccessObject" />
+        <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
   </component>
