@@ -1,5 +1,6 @@
 package r13.javafx.Varastonhallinta;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,19 +8,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import r13.javafx.Varastonhallinta.models.DataAccessObject;
+import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
+import r13.javafx.Varastonhallinta.models.dao.ProductCategoryAccessObject;
 import r13.javafx.Varastonhallinta.models.Product;
 
 import java.io.IOException;
-import java.util.List;
 
 public class ProductManagementController {
 
-    private DataAccessObject dao = new DataAccessObject();
+    private ProductAccessObject dao = new ProductAccessObject();
 
     @FXML
     private Button addBtn;
-    
+
     @FXML
     private Button backButton;
 
@@ -59,7 +60,7 @@ public class ProductManagementController {
         tableDescription.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));
         tableStock.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
         tableLocation.setCellValueFactory(new PropertyValueFactory<Product, String>("location"));
-        tableCategory.setCellValueFactory(new PropertyValueFactory<Product, String>("\"productCategoryId\""));
+        tableCategory.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductCategory() == null ? "Uncategorized" : cellData.getValue().getProductCategory().getDescription()));
 
         productTable.setItems(getProducts());
     }
@@ -68,7 +69,7 @@ public class ProductManagementController {
         ObservableList<Product> products = FXCollections.observableArrayList(dao.getProducts());
         return products;
     }
-    
+
     @FXML
     private void switchToMainWindow() throws IOException {
         App.setRoot("mainwindow");

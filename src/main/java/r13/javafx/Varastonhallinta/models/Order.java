@@ -1,5 +1,7 @@
 package r13.javafx.Varastonhallinta.models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -8,24 +10,65 @@ import java.sql.Timestamp;
 public class Order {
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", unique = true)
     private String id;
 
     @Column(name = "\"orderedAt\"")
     private Timestamp orderedAt;
 
-    @Column(name = "description")
-    private String description;
 
-    @Column(name = "\"orderStatusCodeId\"")
-    private String orderStatusCodeId;
+    @ManyToOne
+    @JoinColumn(name = "\"customerId\"", nullable = false)
+    private Customer customer;
 
-    public Order(String id, Timestamp orderedAt, String description) {
+    @ManyToOne
+    @JoinColumn(name = "\"orderStatusCodeId\"")
+    private OrderStatusCode orderStatusCode;
+
+    public Order(String id, Timestamp orderedAt) {
         this.id = id;
         this.orderedAt = orderedAt;
-        this.description = description;
     }
 
     public Order() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Timestamp getOrderedAt() {
+        return orderedAt;
+    }
+
+    public void setOrderedAt(Timestamp orderedAt) {
+        this.orderedAt = orderedAt;
+    }
+
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+
+    public OrderStatusCode getOrderStatusCode() {
+        return orderStatusCode;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setOrderStatusCode(OrderStatusCode orderStatusCode) {
+        this.orderStatusCode = orderStatusCode;
     }
 }

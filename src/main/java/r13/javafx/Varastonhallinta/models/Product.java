@@ -1,7 +1,10 @@
 package r13.javafx.Varastonhallinta.models;
 
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.util.UUID;
 
 
 @Entity()
@@ -9,9 +12,13 @@ import javax.persistence.*;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
-    private String id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", nullable = false)
+    private UUID id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -28,27 +35,27 @@ public class Product {
     @Column(name = "location", nullable = false)
     private String location;
 
-    @Column(name = "\"productCategoryId\"", nullable = true)     // Works
-    private String categoryId;
+    @ManyToOne
+    @JoinColumn(name = "\"productCategoryId\"", nullable = true)
+    private ProductCategory productCategory;
 
-    public Product(String id, String name, double price, String description, int stock, String location, String categoryId) {
+    public Product(UUID id, String name, double price, String description, int stock, String location) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.stock = stock;
         this.location = location;
-        this.categoryId = categoryId;
     }
 
     public Product() {
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -92,11 +99,8 @@ public class Product {
         this.location = location;
     }
 
-    public String getCategoryId() {
-        return categoryId;
-    }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public ProductCategory getProductCategory() {
+        return productCategory;
     }
 }

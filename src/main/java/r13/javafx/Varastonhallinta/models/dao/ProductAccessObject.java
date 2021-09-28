@@ -1,21 +1,45 @@
-package r13.javafx.Varastonhallinta.models;
+package r13.javafx.Varastonhallinta.models.dao;
 
-import org.hibernate.SQLQuery;
-import org.hibernate.query.NativeQuery;
+import r13.javafx.Varastonhallinta.models.Product;
+import r13.javafx.Varastonhallinta.models.ProductCategory;
 
 import javax.persistence.*;
-import java.sql.SQLData;
-import java.util.ArrayList;
 import java.util.List;
 
-public class DataAccessObject {
+public class ProductAccessObject {
     // Create an EntityManagerFactory when you start the application
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
 
     public static void main(String[] args) {
-        getOrders();
+       List<Product> list = getProducts();
+       list.forEach(p -> System.out.println(p.getProductCategory()));
+    }
+
+    public static void createProductCategory(String name, String description) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = em.getTransaction();
+            transaction.begin();
+
+            ProductCategory category = new ProductCategory();
+            category.setName(name);
+            category.setDescription(description);
+
+            em.persist(category);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public static List getProducts() {
@@ -36,26 +60,6 @@ public class DataAccessObject {
             em.close();
         }
         return products;
-    }
-
-    public static void getOrders() {
-        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
-
-        String strQuery = "SELECT o.id, o.orderedAt, os.description " +
-                "FROM Order o INNER JOIN OrderStatusCode os " +
-                "On o.orderStatusCodeId = os.id";
-
-        System.out.println("Query read start");
-        TypedQuery<Order> tq = em.createQuery(strQuery, Order.class);
-
-        try {
-            //orders = tq.getResultList();
-        } catch (NoResultException ex) {
-            System.out.println("Fatal Error");
-            ex.printStackTrace();
-        } finally {
-            em.close();
-        }
     }
 
     public static void getProduct(int id) {

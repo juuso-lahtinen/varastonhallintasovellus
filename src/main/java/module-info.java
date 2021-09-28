@@ -11,4 +11,6 @@ module r13.javafx.Varastonhallinta {
     exports r13.javafx.Varastonhallinta;
     exports r13.javafx.Varastonhallinta.models;
     opens r13.javafx.Varastonhallinta.models to javafx.fxml, org.hibernate.orm.core;
+    exports r13.javafx.Varastonhallinta.models.dao;
+    opens r13.javafx.Varastonhallinta.models.dao to javafx.fxml, org.hibernate.orm.core;
 }
