@@ -1,18 +1,28 @@
 package r13.javafx.Varastonhallinta;
 
-import javafx.beans.property.SimpleStringProperty;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
-import r13.javafx.Varastonhallinta.models.dao.ProductCategoryAccessObject;
+
 import r13.javafx.Varastonhallinta.models.Product;
+import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductManagementController {
 
@@ -20,9 +30,16 @@ public class ProductManagementController {
 
     @FXML
     private Button addBtn;
-
+    
+    
     @FXML
     private Button backButton;
+    
+    @FXML
+    private Button newProductButton;
+    
+    @FXML
+    private Button deleteButton;
 
     @FXML
     private TableView<Product> productTable;
@@ -49,9 +66,11 @@ public class ProductManagementController {
     private TableColumn<Product, String> tableCategory;
 
     @FXML
-    private void addProduct() {
-
-    }
+    private TextField filterField;
+    
+    @FXML
+    
+    
 
     public void initialize() {
         tableId.setCellValueFactory(new PropertyValueFactory<Product, String>("id"));
@@ -60,18 +79,58 @@ public class ProductManagementController {
         tableDescription.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));
         tableStock.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
         tableLocation.setCellValueFactory(new PropertyValueFactory<Product, String>("location"));
-        tableCategory.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductCategory() == null ? "Uncategorized" : cellData.getValue().getProductCategory().getDescription()));
+        //tableCategory.setCellValueFactory(new PropertyValueFactory<Product, String>("productCategoryId"));        
+        
+        FilteredList<Product> filteredData = new FilteredList<>(getProducts(), p -> true);
+        
+		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(product -> {
 
-        productTable.setItems(getProducts());
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (product.getName().toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+				} else if (product.getDescription().toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+				} else if (product.getLocation().toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+				}
+				return false;
+			});
+		});
+		
+		SortedList<Product> sortedData = new SortedList<>(filteredData);
+
+		sortedData.comparatorProperty().bind(productTable.comparatorProperty());
+
+		productTable.setItems(sortedData);
     }
 
     private ObservableList<Product> getProducts() {
         ObservableList<Product> products = FXCollections.observableArrayList(dao.getProducts());
         return products;
     }
+    @FXML
+    private void deleteProduct()	{
+    	productTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    	ObservableList<Product> selectedRows = productTable.getSelectionModel().getSelectedItems();
 
+    	ArrayList<Product> rows = new ArrayList<>(selectedRows);
+    	rows.forEach(row -> productTable.getItems().remove(row));
+    }
+    
     @FXML
     private void switchToMainWindow() throws IOException {
         App.setRoot("mainwindow");
+    }
+    
+
+    @FXML
+    private void switchToNewProductWindow() throws IOException {
+        App.setRoot("NewProduct");
     }
 }

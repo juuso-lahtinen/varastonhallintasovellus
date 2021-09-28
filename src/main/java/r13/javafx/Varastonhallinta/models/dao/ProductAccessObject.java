@@ -81,11 +81,10 @@ public class ProductAccessObject {
         }
     }
 
-    public static void addProduct(String name, double price, String description, int stock, String location) {
+    public static boolean addProduct(String name, double price, String description, int stock, String location) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         EntityTransaction transaction = null;
-
         try {
             transaction = em.getTransaction();
             transaction.begin();
@@ -99,11 +98,13 @@ public class ProductAccessObject {
 
             em.persist(product);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
+            return false;
         } finally {
             em.close();
         }

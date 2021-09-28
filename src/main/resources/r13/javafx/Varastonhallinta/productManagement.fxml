@@ -17,12 +17,8 @@
                   <Button fx:id="newProductBtn" layoutX="708.0" layoutY="116.0" mnemonicParsing="false" onAction="#switchToNewProductWindow" prefHeight="25.0" prefWidth="87.0" text="Create new" />
                   <Button fx:id="backButton" layoutY="2.0" mnemonicParsing="false" onAction="#switchToMainWindow" text="Back" />
                   <Button fx:id="deleteButton" layoutX="617.0" layoutY="116.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="17.0" prefWidth="71.0" text="Delete" />
-                  <TextField fx:id="productNameField" layoutX="156.0" layoutY="27.0" />
-                  <Text layoutX="73.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product name" />
-                  <TextField fx:id="productPriceField" layoutX="156.0" layoutY="65.0" />
-                  <Text layoutX="73.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product price" />
-                  <TextField fx:id="productLocationField" layoutX="156.0" layoutY="108.0" />
-                  <Text layoutX="64.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product location" />
+                  <TextField fx:id="filterField" layoutX="115.0" layoutY="28.0" />
+                  <Text layoutX="73.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">

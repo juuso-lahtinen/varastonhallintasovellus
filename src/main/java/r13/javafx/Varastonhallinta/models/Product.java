@@ -11,6 +11,7 @@ import java.util.UUID;
 @Table(name = "\"Product\"")
 public class Product {
 
+	/*
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -19,6 +20,17 @@ public class Product {
     )
     @Column(name = "id", nullable = false)
     private UUID id;
+    */
+	
+	@Id
+    @Column(name = "id", unique = true)
+    private String id;
+    
+    @PrePersist
+    private void ensureId(){
+        this.setId(UUID.randomUUID().toString());
+    }
+	
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -39,7 +51,7 @@ public class Product {
     @JoinColumn(name = "\"productCategoryId\"", nullable = true)
     private ProductCategory productCategory;
 
-    public Product(UUID id, String name, double price, String description, int stock, String location) {
+    public Product(String id, String name, double price, String description, int stock, String location) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -51,11 +63,21 @@ public class Product {
     public Product() {
     }
 
+    /*
     public UUID getId() {
         return id;
     }
 
     public void setId(UUID id) {
+        this.id = id;
+    }
+    */
+    
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
