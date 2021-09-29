@@ -16,7 +16,7 @@ public class MainWindowController {
 
     @FXML
     private void switchToOrderSearch() throws IOException {
-        App.setRoot("ordersearch");
+        App.setRoot("orderManagement");
     }
 
     @FXML

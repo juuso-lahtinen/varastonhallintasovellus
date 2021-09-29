@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity()
 @Table(name = "\"Order\"")
@@ -15,7 +16,7 @@ public class Order {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column(name = "id", unique = true)
+    @Column(name = "id", nullable = false)
     private String id;
 
     @Column(name = "\"orderedAt\"")
@@ -29,6 +30,9 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "\"orderStatusCodeId\"")
     private OrderStatusCode orderStatusCode;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 
     public Order(String id, Timestamp orderedAt) {
         this.id = id;
@@ -70,5 +74,13 @@ public class Order {
 
     public void setOrderStatusCode(OrderStatusCode orderStatusCode) {
         this.orderStatusCode = orderStatusCode;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

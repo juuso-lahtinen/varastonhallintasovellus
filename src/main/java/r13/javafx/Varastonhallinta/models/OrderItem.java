@@ -3,7 +3,6 @@ package r13.javafx.Varastonhallinta.models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity()
 @Table(name = "\"OrderItem\"")
@@ -16,7 +15,7 @@ public class OrderItem {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "id", nullable = false)
-    private UUID id;
+    private String id;
 
     @Column(name = "quantity")
     private int quantity;
@@ -24,21 +23,28 @@ public class OrderItem {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "\"orderId\"")
-    private String orderId;
+    @ManyToOne
+    @JoinColumn(name = "\"productId\"", nullable = false)
+    private Product product;
 
-    @Column(name = "\"productId\"")
-    private String productId;
+    @ManyToOne
+    @JoinColumn(name = "\"orderId\"")
+    private Order order;
 
-    public OrderItem(int quantity, double price, String orderId, String productId) {
-        this.quantity = quantity;
-        this.price = price;
-        this.orderId = orderId;
-        this.productId = productId;
+    public Order getOrder() {
+        return order;
     }
 
     public OrderItem() {
 
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getQuantity() {
@@ -57,19 +63,15 @@ public class OrderItem {
         this.price = price;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

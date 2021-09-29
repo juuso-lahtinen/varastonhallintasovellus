@@ -5,19 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c4936bc8-ef47-4bb9-963f-3a25707a2e2a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/dao/ProductCategoryAccessObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderSearchWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderSearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/ProductManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/ProductManagementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/DataAccessObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/MainWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/MainWindowController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderSearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderManagementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderViewController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/OrderItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/OrderStatusCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/OrderStatusCode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/ordersearch.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/ordersearch.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/dao/ProductAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/dao/ProductAccessObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/ordersearch.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/orderManagement.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/orderview.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,12 +98,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DataAccessObject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="r13.javafx.Varastonhallinta.DataAccessObject" />
+    <configuration name="OrderAccessObject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="r13.javafx.Varastonhallinta.models.dao.OrderAccessObject" />
       <module name="Varastonhallinta" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="r13.javafx.Varastonhallinta.*" />
+          <option name="PATTERN" value="r13.javafx.Varastonhallinta.models.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -114,8 +111,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderAccessObject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="r13.javafx.Varastonhallinta.models.dao.OrderAccessObject" />
+    <configuration name="OrderItemAccessObject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="r13.javafx.Varastonhallinta.models.dao.OrderItemAccessObject" />
       <module name="Varastonhallinta" />
       <extension name="coverage">
         <pattern>
@@ -156,6 +153,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.App" />
+        <item itemvalue="Application.OrderItemAccessObject" />
         <item itemvalue="Application.ProductAccessObject" />
         <item itemvalue="Application.OrderAccessObject" />
         <item itemvalue="Application.ProductCategoryAccessObject" />

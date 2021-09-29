@@ -4,6 +4,7 @@ package r13.javafx.Varastonhallinta.models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -21,16 +22,16 @@ public class Product {
     @Column(name = "id", nullable = false)
     private UUID id;
     */
-	
-	@Id
+
+    @Id
     @Column(name = "id", unique = true)
     private String id;
-    
+
     @PrePersist
-    private void ensureId(){
+    private void ensureId() {
         this.setId(UUID.randomUUID().toString());
     }
-	
+
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -50,6 +51,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "\"productCategoryId\"", nullable = true)
     private ProductCategory productCategory;
+
+    @OneToMany(mappedBy = "product")
+    private List<OrderItem> orderItems;
 
     public Product(String id, String name, double price, String description, int stock, String location) {
         this.id = id;
@@ -72,7 +76,7 @@ public class Product {
         this.id = id;
     }
     */
-    
+
     public String getId() {
         return id;
     }

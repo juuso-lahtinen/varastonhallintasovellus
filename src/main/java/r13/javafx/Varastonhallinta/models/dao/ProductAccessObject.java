@@ -13,8 +13,7 @@ public class ProductAccessObject {
 
 
     public static void main(String[] args) {
-       List<Product> list = getProducts();
-       list.forEach(p -> System.out.println(p.getProductCategory()));
+       getProduct("4e0f2f6e-d461-4c7d-94fa-c02a1a49da5f");
     }
 
     public static void createProductCategory(String name, String description) {
@@ -62,7 +61,7 @@ public class ProductAccessObject {
         return products;
     }
 
-    public static void getProduct(int id) {
+    public static void getProduct(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         String query = "SELECT p FROM Product p WHERE p.id = :id";
