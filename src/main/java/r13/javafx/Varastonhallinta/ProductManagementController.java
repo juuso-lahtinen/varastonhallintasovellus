@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductManagementController {
+public class ProductManagementController  {
 
     private ProductAccessObject dao = new ProductAccessObject();
 
@@ -128,7 +128,7 @@ public class ProductManagementController {
     	ArrayList<Product> rows = new ArrayList<>(selectedRows);
     	rows.forEach(row -> productTable.getItems().remove(row));
     }
-
+    @FXML
     public void changeSceneToMainView(ActionEvent event) throws IOException {
         Parent mainViewParent = FXMLLoader.load(getClass().getResource("mainwindow.fxml"));
         Scene productManagementViewScene = new Scene(mainViewParent);
@@ -141,7 +141,30 @@ public class ProductManagementController {
     
 
     @FXML
-    private void switchToNewProductWindow() throws IOException {
-        App.setRoot("NewProduct");
+    private void switchToNewProductWindow(ActionEvent event) throws IOException {
+    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("NewProduct.fxml"));
+        Scene newProductViewScene = new Scene(mainViewParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(newProductViewScene);
+        window.show();
+    }
+    
+    @FXML
+    public void changeSceneToProductDetailsView(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("singleProduct.fxml"));
+        Parent orderViewParent = loader.load();
+
+        Scene singleOrderViewScene = new Scene(orderViewParent);
+
+        SingleProductController controller = loader.getController();
+        controller.initData(productTable.getSelectionModel().getSelectedItem());
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(singleOrderViewScene);
+        window.show();
     }
 }

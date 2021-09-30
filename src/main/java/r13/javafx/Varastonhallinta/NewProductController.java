@@ -3,19 +3,20 @@ package r13.javafx.Varastonhallinta;
 import java.io.IOException;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
-import r13.javafx.Varastonhallinta.models.Product;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
 
 public class NewProductController {
@@ -44,38 +45,60 @@ public class NewProductController {
     @FXML
     private Button backButton;
     
-
-   
-
+    @FXML
+    private AnchorPane anchorPane2;
+    
     
     @FXML
-    
-    
     private void addProduct() {
-    	if(dao.addProduct(productNameField.getText(), Double.parseDouble(productPriceField.getText()), productDescriptionField.getText(), 0, productLocationField.getText()))	{
+    	if(productNameField.getText().trim().equals("") || productPriceField.getText().trim().equals("") || productLocationField.getText().trim().equals(""))	{
     		Platform.runLater(() -> {
-    	        Alert dialog = new Alert(AlertType.INFORMATION, "Success", ButtonType.OK);
+    	        Alert dialog = new Alert(AlertType.ERROR, "Please fill all the required fields", ButtonType.OK);
     	        dialog.showAndWait();
-    	        try {
-					switchToProductManagementWindow();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
     	    });
+    		
     	} else	{
-    		Platform.runLater(() -> {
-    	        Alert dialog = new Alert(AlertType.ERROR, "Error adding product", ButtonType.OK);
-    	        dialog.showAndWait();
-    	    });
+    		if(dao.addProduct(productNameField.getText(), Double.parseDouble(productPriceField.getText()), productDescriptionField.getText(), 0, productLocationField.getText()))	{
+        		Platform.runLater(() -> {
+        	        Alert dialog = new Alert(AlertType.INFORMATION, "Product added", ButtonType.OK);
+        	        dialog.showAndWait();
+        	        clear();
+        	    });
+        	} else	{
+        		Platform.runLater(() -> {
+        	        Alert dialog = new Alert(AlertType.ERROR, "Error adding product", ButtonType.OK);
+        	        dialog.showAndWait();
+        	    });
+        	}
+
     	}
     }
 
 
 
     
-    @FXML
-    private void switchToProductManagementWindow() throws IOException {
-        App.setRoot("productManagement");
+    private void clear() {
+    	for (Node node : anchorPane2.getChildren()) {
+    	    if (node instanceof TextField) {
+    	        ((TextField)node).setText("");
+    	    } else if (node instanceof TextArea)	{
+    	    	((TextArea)node).setText("");
+    	    }
+    	}
+	}
+
+
+
+
+	@FXML
+    private void switchToProductManagementWindow(ActionEvent event) throws IOException {
+    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("productManagement.fxml"));
+        Scene newProductViewScene = new Scene(mainViewParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(newProductViewScene);
+        window.show();
     }
     
 

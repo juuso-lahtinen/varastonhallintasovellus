@@ -16,9 +16,10 @@
                <children>
                   <Button fx:id="newProductBtn" layoutX="708.0" layoutY="116.0" mnemonicParsing="false" onAction="#switchToNewProductWindow" prefHeight="25.0" prefWidth="87.0" text="Create new" />
                   <Button fx:id="backButton" layoutY="2.0" mnemonicParsing="false" onAction="#changeSceneToMainView" text="Back" />
-                  <Button fx:id="deleteButton" layoutX="617.0" layoutY="116.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="17.0" prefWidth="71.0" text="Delete" />
+                  <Button fx:id="deleteButton" layoutX="538.0" layoutY="116.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="17.0" prefWidth="71.0" text="Delete" />
                   <TextField fx:id="filterField" layoutX="115.0" layoutY="28.0" />
                   <Text layoutX="73.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
+                  <Button fx:id="detailsButton" layoutX="618.0" layoutY="116.0" mnemonicParsing="false" onAction="#changeSceneToProductDetailsView" text="View details" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">

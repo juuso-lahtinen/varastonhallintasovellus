@@ -8,11 +8,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="534.0" maxWidth="835.0" minHeight="534.0" minWidth="835.0" prefHeight="534.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.NewProductController">
+<AnchorPane fx:id="anchorPane" maxHeight="534.0" maxWidth="835.0" minHeight="534.0" minWidth="835.0" prefHeight="534.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.NewProductController">
    <children>
       <SplitPane orientation="VERTICAL" prefHeight="534.0" prefWidth="835.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
+            <AnchorPane fx:id="anchorPane2" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
                <children>
                   <Button fx:id="backButton" layoutY="2.0" mnemonicParsing="false" onAction="#switchToProductManagementWindow" text="Back" />
                   <TextField fx:id="productNameField" layoutX="147.0" layoutY="116.0" />
