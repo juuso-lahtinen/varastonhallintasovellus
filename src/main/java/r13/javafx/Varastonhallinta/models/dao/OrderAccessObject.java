@@ -1,6 +1,7 @@
 package r13.javafx.Varastonhallinta.models.dao;
 
 import r13.javafx.Varastonhallinta.models.Order;
+import r13.javafx.Varastonhallinta.models.OrderItem;
 import r13.javafx.Varastonhallinta.models.Product;
 
 import javax.persistence.*;
@@ -36,5 +37,24 @@ public class OrderAccessObject {
             em.close();
         }
         return orders;
+    }
+
+    public static Order getOrderByOrderId(String id) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        String query = "SELECT o FROM Order o WHERE o.id = :id";
+
+        TypedQuery<Order> tq = em.createQuery(query, Order.class);
+        tq.setParameter("id", id);
+
+        Order order = null;
+        try {
+            order = tq.getSingleResult();
+        } catch (NoResultException ex) {
+            ex.printStackTrace();
+        } finally {
+            //em.close();
+        }
+        return order;
     }
 }

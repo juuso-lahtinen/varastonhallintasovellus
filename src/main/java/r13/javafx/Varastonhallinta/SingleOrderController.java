@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.OrderItem;
+import r13.javafx.Varastonhallinta.models.dao.OrderAccessObject;
 import r13.javafx.Varastonhallinta.models.dao.OrderItemAccessObject;
 
 import java.io.IOException;
@@ -25,20 +26,11 @@ public class SingleOrderController {
     private Order selectedOrder;
 
     private OrderItemAccessObject dao = new OrderItemAccessObject();
-
+    private OrderAccessObject orderDao = new OrderAccessObject();
 
     /* ************************* Product view ************************* */
     @FXML
     private Button backBtn;
-
-    @FXML
-    private Tab generalTab;
-
-    @FXML
-    private Tab recipientTab;
-
-    @FXML
-    private Tab productTab;
 
     @FXML
     private TableView<OrderItem> productTable;
@@ -83,6 +75,25 @@ public class SingleOrderController {
     @FXML
     private Label registerDateLabel;
 
+    /* ************************* General view ************************* */
+
+    @FXML
+    private Button generalTabBackBtn;
+
+    @FXML
+    private Button processOrderBtn;
+
+    @FXML
+    private CheckBox processCheckBox;
+
+    @FXML
+    private Label orderId;
+
+    @FXML
+    private Label totalProducts;
+
+    @FXML
+    private Label totalPrice;
 
     private void initializeProducts() {
         productId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getId()));
@@ -104,6 +115,12 @@ public class SingleOrderController {
         registerDateLabel.setText(selectedOrder.getCustomer().getRegisteredAt().toString());
     }
 
+    private void initializeGeneral() {
+        orderId.setText(selectedOrder.getId());
+        totalProducts.setText(Integer.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream().mapToInt(s -> s.getQuantity()).sum()));
+        totalPrice.setText(Double.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream().mapToDouble(s -> s.getPrice()).sum()) + " €");
+    }
+
     private ObservableList<OrderItem> getOrderItems() {
         ObservableList<OrderItem> orderItems = FXCollections.observableArrayList(dao.getOrderItemsByOrderId(selectedOrder.getId()));
 
@@ -114,6 +131,7 @@ public class SingleOrderController {
     // Get Order object and initialize the view
     public void initData(Order order) {
         selectedOrder = order;
+        initializeGeneral();
         initializeCustomer();
         initializeProducts();
     }

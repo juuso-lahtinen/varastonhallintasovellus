@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -19,7 +21,54 @@
   <tabs>
     <Tab text="General">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="371.0" prefWidth="600.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <GridPane prefHeight="117.0" prefWidth="481.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Order Id">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label text="Total Products" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label fx:id="orderId" text="Label" GridPane.columnIndex="1" />
+                              <Label fx:id="totalProducts" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Total Price" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label fx:id="totalPrice" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </children>
+                           <VBox.margin>
+                              <Insets right="150.0" />
+                           </VBox.margin>
+                        </GridPane>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                          <buttons>
+                              <CheckBox fx:id="processCheckBox" mnemonicParsing="false" text="Order is ready" />
+                            <Button fx:id="processOrderBtn" mnemonicParsing="false" text="Process order" />
+                          </buttons>
+                        </ButtonBar>
+                        <Button fx:id="generalTabBackBtn" mnemonicParsing="false" onAction="#changeSceneToOrderView" text="Back" />
+                     </children>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </VBox>
+               </children></AnchorPane>
       </content>
     </Tab>
     <Tab text="Recipient">

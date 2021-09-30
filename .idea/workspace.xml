@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c4936bc8-ef47-4bb9-963f-3a25707a2e2a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/MainWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/MainWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderManagementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/ProductManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/ProductManagementController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/SingleOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/SingleOrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/mainwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/mainwindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/orderManagement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/orderManagement.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/dao/OrderAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/dao/OrderAccessObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/singleOrder.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/singleOrder.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
