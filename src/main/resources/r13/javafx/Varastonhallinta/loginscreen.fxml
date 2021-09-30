@@ -27,7 +27,7 @@
             </Label>
             <TextField fx:id="username" layoutX="241.0" layoutY="172.0" promptText="käyttäjätunnus" />
             <PasswordField fx:id="password" layoutX="241.0" layoutY="222.0" promptText="salasana" />
-            <Button fx:id="loginButton" layoutX="88.0" layoutY="311.0" mnemonicParsing="false" onAction="#userLogin" text="Kirjaudu sisään" />
+            <Button fx:id="loginButton" layoutX="88.0" layoutY="311.0" mnemonicParsing="false" onAction="#checkLogin" text="Kirjaudu sisään" />
             <Label layoutX="27.0" layoutY="47.0" text="Kirjaudu sisään">
                <font>
                   <Font size="36.0" />

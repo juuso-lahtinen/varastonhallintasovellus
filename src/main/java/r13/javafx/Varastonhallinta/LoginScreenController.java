@@ -5,8 +5,11 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
 public class LoginScreenController {
+	
+	private UserAccessObject dao = new UserAccessObject();
 	
 	@FXML
 	private Button loginButton;
@@ -17,24 +20,14 @@ public class LoginScreenController {
 	@FXML
 	private PasswordField password;
 	
-	
-	@FXML
-	public void userLogin(ActionEvent event) throws IOException {
-		checkLogin();
-	}
-	
 	@FXML
 	private void checkLogin() throws IOException {
-		
-		if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
+
+		if (dao.checkLogin(username.getText().toString(), password.getText().toString())) {
+			System.out.println("Login successful");
 			App.setRoot("mainwindow");
 		} else {
 			loginError.setText("Väärä käyttäjätunnus tai salasana.");
 		}
 	}
-
-    @FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("mainwindow");
-    }
 }
