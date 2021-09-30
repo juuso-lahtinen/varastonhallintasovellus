@@ -82,5 +82,6 @@ public class OrderManagementController {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         window.setScene(singleOrderViewScene);
+        window.show();
     }
 }

@@ -18,7 +18,7 @@ public class OrderItemAccessObject {
     public static List getOrderItemsByOrderId(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
-        String query = "SELECT oi FROM OrderItem oi WHERE oi.orderId = :id";
+        String query = "SELECT o FROM OrderItem o WHERE o.order.id = :id";
 
         TypedQuery<OrderItem> tq = em.createQuery(query, OrderItem.class);
         tq.setParameter("id", id);
