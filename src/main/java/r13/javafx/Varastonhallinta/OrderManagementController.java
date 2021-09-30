@@ -49,9 +49,14 @@ public class OrderManagementController {
     @FXML
     private TableColumn<Order, String> orderStatus;
 
-    @FXML
-    private void switchToMainWindow() throws IOException {
-        App.setRoot("mainwindow");
+    public void changeSceneToMainView(ActionEvent event) throws IOException {
+        Parent orderManagementViewParent = FXMLLoader.load(getClass().getResource("mainwindow.fxml"));
+        Scene mainViewScene = new Scene(orderManagementViewParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(mainViewScene);
+        window.show();
     }
 
     public void initialize() {

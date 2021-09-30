@@ -11,10 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.OrderItem;
@@ -29,6 +26,8 @@ public class SingleOrderController {
 
     private OrderItemAccessObject dao = new OrderItemAccessObject();
 
+
+    /* ************************* Product view ************************* */
     @FXML
     private Button backBtn;
 
@@ -62,8 +61,30 @@ public class SingleOrderController {
     @FXML
     private TableColumn<OrderItem, String> productLocation;
 
+    /* ************************* Customer view ************************* */
+    @FXML
+    private Button customerTabBackBtn;
 
-    public void initializeList() {
+    @FXML
+    private Label customerIdLabel;
+
+    @FXML
+    private Label firstNameLabel;
+
+    @FXML
+    private Label lastNameLabel;
+
+    @FXML
+    private Label emailLabel;
+
+    @FXML
+    private Label phoneLabel;
+
+    @FXML
+    private Label registerDateLabel;
+
+
+    private void initializeProducts() {
         productId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getId()));
         productName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
         productQuantity.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
@@ -72,6 +93,15 @@ public class SingleOrderController {
         productLocation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getLocation()));
 
         productTable.setItems(getOrderItems());
+    }
+
+    private void initializeCustomer() {
+        customerIdLabel.setText(selectedOrder.getCustomer().getId());
+        firstNameLabel.setText(selectedOrder.getCustomer().getFirstName());
+        lastNameLabel.setText(selectedOrder.getCustomer().getLastName());
+        emailLabel.setText(selectedOrder.getCustomer().getEmail());
+        phoneLabel.setText(selectedOrder.getCustomer().getPhone());
+        registerDateLabel.setText(selectedOrder.getCustomer().getRegisteredAt().toString());
     }
 
     private ObservableList<OrderItem> getOrderItems() {
@@ -84,7 +114,8 @@ public class SingleOrderController {
     // Get Order object and initialize the view
     public void initData(Order order) {
         selectedOrder = order;
-        initializeList();
+        initializeCustomer();
+        initializeProducts();
     }
 
     public void changeSceneToOrderView(ActionEvent event) throws IOException {

@@ -12,7 +12,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="263.0" prefWidth="680.0">
                <children>
-                  <Button fx:id="backBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainWindow" text="Back" />
+                  <Button fx:id="backBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeSceneToMainView" text="Back" />
                   <Button fx:id="orderDetailsBtn" layoutX="732.0" layoutY="201.0" mnemonicParsing="false" onAction="#changeSceneToOrderDetailsView" text="Show Order" />
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="290.0" prefWidth="825.0">
