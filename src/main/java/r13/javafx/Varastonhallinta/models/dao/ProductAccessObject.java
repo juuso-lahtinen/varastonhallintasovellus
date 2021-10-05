@@ -61,7 +61,7 @@ public class ProductAccessObject {
         return products;
     }
 
-    public static void getProduct(String id) {
+    public static Product getProduct(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         String query = "SELECT p FROM Product p WHERE p.id = :id";
@@ -73,11 +73,13 @@ public class ProductAccessObject {
         try {
             product = tq.getSingleResult();
             System.out.println(product.getId() + ": " + product.getName());
+            
         } catch (NoResultException ex) {
             ex.printStackTrace();
         } finally {
             em.close();
         }
+        return product;
     }
 
     public static boolean addProduct(String name, double price, String description, int stock, String location) {
@@ -107,5 +109,40 @@ public class ProductAccessObject {
         } finally {
             em.close();
         }
+    }
+    
+    
+    public static Product editProduct(String id, String name, double price, String description, int stock, String location) {
+    	
+    	
+    	
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        EntityTransaction transaction = null;
+        try {
+        	transaction = em.getTransaction();
+            transaction.begin();
+            
+            Product editedProduct = getProduct(id);
+            em.detach(editedProduct);
+            editedProduct.setName(name);
+            editedProduct.setPrice(price);
+            editedProduct.setDescription(description);
+            editedProduct.setStock(stock);
+            editedProduct.setLocation(location);
+            
+            em.merge(editedProduct);
+            transaction.commit();
+            return editedProduct;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            
+        } finally {
+            em.close();
+        }
+        return null;
     }
 }

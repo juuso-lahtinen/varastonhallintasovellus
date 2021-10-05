@@ -33,4 +33,23 @@ public class OrderItemAccessObject {
         }
         return orderItems;
     }
+    
+    public static List getOrderItemsByProductId(String id) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        String query = "SELECT o FROM OrderItem o WHERE o.product.id = :id";
+
+        TypedQuery<OrderItem> tq = em.createQuery(query, OrderItem.class);
+        tq.setParameter("id", id);
+
+        List<OrderItem> orderItems = null;
+        try {
+            orderItems = tq.getResultList();
+        } catch (NoResultException ex) {
+            ex.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return orderItems;
+    }
 }
