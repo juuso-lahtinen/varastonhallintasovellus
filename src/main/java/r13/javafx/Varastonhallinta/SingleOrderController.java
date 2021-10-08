@@ -12,7 +12,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.OrderItem;
 import r13.javafx.Varastonhallinta.models.dao.OrderAccessObject;
@@ -43,6 +45,10 @@ public class SingleOrderController {
 
     @FXML
     private TableColumn<OrderItem, Integer> productQuantity;
+    
+    //lean code
+    @FXML
+    private TableColumn<OrderItem, Integer> productPicking;
 
     @FXML
     private TableColumn<OrderItem, Integer> productStock;
@@ -94,6 +100,7 @@ public class SingleOrderController {
 
     @FXML
     private Label totalPrice;
+    
 
     private void initializeProducts() {
         productId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getId()));
@@ -102,8 +109,11 @@ public class SingleOrderController {
         productStock.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getProduct().getStock()).asObject());
         productTotalPrice.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
         productLocation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getLocation()));
+        productPicking.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
         productTable.setItems(getOrderItems());
+        productTable.setEditable(true);
+        productTable.refresh();
     }
 
     private void initializeCustomer() {

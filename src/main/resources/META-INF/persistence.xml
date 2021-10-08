@@ -26,7 +26,7 @@ mapped to database tables. Database driver, location, userid and pw
             <!-- Driver for DB database -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <!-- URL for DB -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/storage-control"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/storage-control"/>
             <!-- Username -->
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <!-- Password -->
