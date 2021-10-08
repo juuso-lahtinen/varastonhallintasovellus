@@ -25,134 +25,139 @@ import java.util.List;
 
 public class SingleOrderController {
 
-    private Order selectedOrder;
+	private Order selectedOrder;
 
-    private OrderItemAccessObject dao = new OrderItemAccessObject();
-    private OrderAccessObject orderDao = new OrderAccessObject();
+	private OrderItemAccessObject dao = new OrderItemAccessObject();
+	private OrderAccessObject orderDao = new OrderAccessObject();
 
-    /* ************************* Product view ************************* */
-    @FXML
-    private Button backBtn;
+	/* ************************* Product view ************************* */
+	@FXML
+	private Button backBtn;
 
-    @FXML
-    private TableView<OrderItem> productTable;
+	@FXML
+	private TableView<OrderItem> productTable;
 
-    @FXML
-    private TableColumn<OrderItem, String> productId;
+	@FXML
+	private TableColumn<OrderItem, String> productId;
 
-    @FXML
-    private TableColumn<OrderItem, String> productName;
+	@FXML
+	private TableColumn<OrderItem, String> productName;
 
-    @FXML
-    private TableColumn<OrderItem, Integer> productQuantity;
-    
-    //lean code
-    @FXML
-    private TableColumn<OrderItem, Integer> productPicking;
+	@FXML
+	private TableColumn<OrderItem, Integer> productQuantity;
 
-    @FXML
-    private TableColumn<OrderItem, Integer> productStock;
+	@FXML
+	private TableColumn<OrderItem, Integer> productPicking;
 
-    @FXML
-    private TableColumn<OrderItem, Double> productTotalPrice;
+	@FXML
+	private TableColumn<OrderItem, Integer> productStock;
 
-    @FXML
-    private TableColumn<OrderItem, String> productLocation;
+	@FXML
+	private TableColumn<OrderItem, Double> productTotalPrice;
 
-    /* ************************* Customer view ************************* */
-    @FXML
-    private Button customerTabBackBtn;
+	@FXML
+	private TableColumn<OrderItem, String> productLocation;
 
-    @FXML
-    private Label customerIdLabel;
+	/* ************************* Customer view ************************* */
+	@FXML
+	private Button customerTabBackBtn;
 
-    @FXML
-    private Label firstNameLabel;
+	@FXML
+	private Label customerIdLabel;
 
-    @FXML
-    private Label lastNameLabel;
+	@FXML
+	private Label firstNameLabel;
 
-    @FXML
-    private Label emailLabel;
+	@FXML
+	private Label lastNameLabel;
 
-    @FXML
-    private Label phoneLabel;
+	@FXML
+	private Label emailLabel;
 
-    @FXML
-    private Label registerDateLabel;
+	@FXML
+	private Label phoneLabel;
 
-    /* ************************* General view ************************* */
+	@FXML
+	private Label registerDateLabel;
 
-    @FXML
-    private Button generalTabBackBtn;
+	/* ************************* General view ************************* */
 
-    @FXML
-    private Button processOrderBtn;
+	@FXML
+	private Button generalTabBackBtn;
 
-    @FXML
-    private CheckBox processCheckBox;
+	@FXML
+	private Button processOrderBtn;
 
-    @FXML
-    private Label orderId;
+	@FXML
+	private CheckBox processCheckBox;
 
-    @FXML
-    private Label totalProducts;
+	@FXML
+	private Label orderId;
 
-    @FXML
-    private Label totalPrice;
-    
+	@FXML
+	private Label totalProducts;
 
-    private void initializeProducts() {
-        productId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getId()));
-        productName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
-        productQuantity.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
-        productStock.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getProduct().getStock()).asObject());
-        productTotalPrice.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
-        productLocation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getLocation()));
-        productPicking.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+	@FXML
+	private Label totalPrice;
 
-        productTable.setItems(getOrderItems());
-        productTable.setEditable(true);
-        productTable.refresh();
-    }
+	private void initializeProducts() {
+		productId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getId()));
+		productName
+				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
+		productQuantity.setCellValueFactory(
+				cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
+		productStock.setCellValueFactory(
+				cellData -> new SimpleIntegerProperty(cellData.getValue().getProduct().getStock()).asObject());
+		productTotalPrice
+				.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+		productLocation.setCellValueFactory(
+				cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getLocation()));
+		productPicking.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
-    private void initializeCustomer() {
-        customerIdLabel.setText(selectedOrder.getCustomer().getId());
-        firstNameLabel.setText(selectedOrder.getCustomer().getFirstName());
-        lastNameLabel.setText(selectedOrder.getCustomer().getLastName());
-        emailLabel.setText(selectedOrder.getCustomer().getEmail());
-        phoneLabel.setText(selectedOrder.getCustomer().getPhone());
-        registerDateLabel.setText(selectedOrder.getCustomer().getRegisteredAt().toString());
-    }
+		productTable.setItems(getOrderItems());
+		productTable.setEditable(true);
+		productTable.refresh();
+	}
 
-    private void initializeGeneral() {
-        orderId.setText(selectedOrder.getId());
-        totalProducts.setText(Integer.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream().mapToInt(s -> s.getQuantity()).sum()));
-        totalPrice.setText(Double.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream().mapToDouble(s -> s.getPrice()).sum()) + " €");
-    }
+	private void initializeCustomer() {
+		customerIdLabel.setText(selectedOrder.getCustomer().getId());
+		firstNameLabel.setText(selectedOrder.getCustomer().getFirstName());
+		lastNameLabel.setText(selectedOrder.getCustomer().getLastName());
+		emailLabel.setText(selectedOrder.getCustomer().getEmail());
+		phoneLabel.setText(selectedOrder.getCustomer().getPhone());
+		registerDateLabel.setText(selectedOrder.getCustomer().getRegisteredAt().toString());
+	}
 
-    private ObservableList<OrderItem> getOrderItems() {
-        ObservableList<OrderItem> orderItems = FXCollections.observableArrayList(dao.getOrderItemsByOrderId(selectedOrder.getId()));
+	private void initializeGeneral() {
+		orderId.setText(selectedOrder.getId());
+		totalProducts.setText(Integer.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems()
+				.stream().mapToInt(s -> s.getQuantity()).sum()));
+		totalPrice.setText(Double.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream()
+				.mapToDouble(s -> s.getPrice()).sum()) + " €");
+	}
 
-        return orderItems;
-    }
+	private ObservableList<OrderItem> getOrderItems() {
+		ObservableList<OrderItem> orderItems = FXCollections
+				.observableArrayList(dao.getOrderItemsByOrderId(selectedOrder.getId()));
 
+		return orderItems;
+	}
 
-    // Get Order object and initialize the view
-    public void initData(Order order) {
-        selectedOrder = order;
-        initializeGeneral();
-        initializeCustomer();
-        initializeProducts();
-    }
+	// Get Order object and initialize the view
+	public void initData(Order order) {
+		selectedOrder = order;
+		initializeGeneral();
+		initializeCustomer();
+		initializeProducts();
+	}
 
-    public void changeSceneToOrderView(ActionEvent event) throws IOException {
-        Parent orderManagementViewParent = FXMLLoader.load(getClass().getResource("orderManagement.fxml"));
-        Scene orderViewScene = new Scene(orderManagementViewParent);
+	public void changeSceneToOrderView(ActionEvent event) throws IOException {
+		Parent orderManagementViewParent = FXMLLoader.load(getClass().getResource("orderManagement.fxml"));
+		Scene orderViewScene = new Scene(orderManagementViewParent);
 
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        window.setScene(orderViewScene);
-        window.show();
-    }
+		window.setScene(orderViewScene);
+		window.show();
+	}
 }
