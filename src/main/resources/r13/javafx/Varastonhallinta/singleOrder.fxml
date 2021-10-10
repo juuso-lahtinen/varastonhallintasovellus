@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.SingleOrderController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.SingleOrderController">
   <tabs>
     <Tab text="General">
       <content>
@@ -56,12 +56,7 @@
                               <Insets right="150.0" />
                            </VBox.margin>
                         </GridPane>
-                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                          <buttons>
-                              <CheckBox fx:id="processCheckBox" mnemonicParsing="false" text="Order is ready" />
-                            <Button fx:id="processOrderBtn" mnemonicParsing="false" text="Process order" />
-                          </buttons>
-                        </ButtonBar>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0" />
                         <Button fx:id="generalTabBackBtn" mnemonicParsing="false" onAction="#changeSceneToOrderView" text="Back" />
                      </children>
                      <padding>
@@ -147,6 +142,8 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
                               <Button fx:id="backBtn" layoutX="5.0" layoutY="6.0" mnemonicParsing="false" onAction="#changeSceneToOrderView" text="Back" />
+                              <CheckBox fx:id="processCheckBox" layoutX="391.0" layoutY="147.0" mnemonicParsing="false" text="Order is ready" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="391.0" AnchorPane.rightAnchor="111.0" AnchorPane.topAnchor="147.0" />
+                              <Button fx:id="processOrderBtn" layoutX="496.0" layoutY="143.0" mnemonicParsing="false" onAction="#testOrderHandle" text="Process order" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="143.0" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

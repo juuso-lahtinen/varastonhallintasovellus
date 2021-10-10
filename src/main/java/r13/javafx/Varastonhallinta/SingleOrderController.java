@@ -17,147 +17,185 @@ import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.OrderItem;
+import r13.javafx.Varastonhallinta.models.Product;
 import r13.javafx.Varastonhallinta.models.dao.OrderAccessObject;
 import r13.javafx.Varastonhallinta.models.dao.OrderItemAccessObject;
+import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SingleOrderController {
 
-	private Order selectedOrder;
+    private Order selectedOrder;
 
-	private OrderItemAccessObject dao = new OrderItemAccessObject();
-	private OrderAccessObject orderDao = new OrderAccessObject();
+    private OrderItemAccessObject dao = new OrderItemAccessObject();
+    private OrderAccessObject orderDao = new OrderAccessObject();
+    private ProductAccessObject productDao = new ProductAccessObject();
 
-	/* ************************* Product view ************************* */
-	@FXML
-	private Button backBtn;
+    /* ************************* Product view ************************* */
+    @FXML
+    private Button backBtn;
 
-	@FXML
-	private TableView<OrderItem> productTable;
+    @FXML
+    private TableView<OrderItem> productTable;
 
-	@FXML
-	private TableColumn<OrderItem, String> productId;
+    @FXML
+    private TableColumn<OrderItem, String> productId;
 
-	@FXML
-	private TableColumn<OrderItem, String> productName;
+    @FXML
+    private TableColumn<OrderItem, String> productName;
 
-	@FXML
-	private TableColumn<OrderItem, Integer> productQuantity;
+    @FXML
+    private TableColumn<OrderItem, Integer> productQuantity;
 
-	@FXML
-	private TableColumn<OrderItem, Integer> productPicking;
+    @FXML
+    private TableColumn<OrderItem, Integer> productPicking;
 
-	@FXML
-	private TableColumn<OrderItem, Integer> productStock;
+    @FXML
+    private TableColumn<OrderItem, Integer> productStock;
 
-	@FXML
-	private TableColumn<OrderItem, Double> productTotalPrice;
+    @FXML
+    private TableColumn<OrderItem, Double> productTotalPrice;
 
-	@FXML
-	private TableColumn<OrderItem, String> productLocation;
+    @FXML
+    private TableColumn<OrderItem, String> productLocation;
 
-	/* ************************* Customer view ************************* */
-	@FXML
-	private Button customerTabBackBtn;
+    /* ************************* Customer view ************************* */
+    @FXML
+    private Button customerTabBackBtn;
 
-	@FXML
-	private Label customerIdLabel;
+    @FXML
+    private Label customerIdLabel;
 
-	@FXML
-	private Label firstNameLabel;
+    @FXML
+    private Label firstNameLabel;
 
-	@FXML
-	private Label lastNameLabel;
+    @FXML
+    private Label lastNameLabel;
 
-	@FXML
-	private Label emailLabel;
+    @FXML
+    private Label emailLabel;
 
-	@FXML
-	private Label phoneLabel;
+    @FXML
+    private Label phoneLabel;
 
-	@FXML
-	private Label registerDateLabel;
+    @FXML
+    private Label registerDateLabel;
 
-	/* ************************* General view ************************* */
+    /* ************************* General view ************************* */
 
-	@FXML
-	private Button generalTabBackBtn;
+    @FXML
+    private Button generalTabBackBtn;
 
-	@FXML
-	private Button processOrderBtn;
+    @FXML
+    private Button processOrderBtn;
 
-	@FXML
-	private CheckBox processCheckBox;
+    @FXML
+    private CheckBox processCheckBox;
 
-	@FXML
-	private Label orderId;
+    @FXML
+    private Label orderId;
 
-	@FXML
-	private Label totalProducts;
+    @FXML
+    private Label totalProducts;
 
-	@FXML
-	private Label totalPrice;
+    @FXML
+    private Label totalPrice;
 
-	private void initializeProducts() {
-		productId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getId()));
-		productName
-				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
-		productQuantity.setCellValueFactory(
-				cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
-		productStock.setCellValueFactory(
-				cellData -> new SimpleIntegerProperty(cellData.getValue().getProduct().getStock()).asObject());
-		productTotalPrice
-				.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
-		productLocation.setCellValueFactory(
-				cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getLocation()));
-		productPicking.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+    private void initializeProducts() {
+        productId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getId()));
+        productName
+                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
+        productQuantity.setCellValueFactory(
+                cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
+        productStock.setCellValueFactory(
+                cellData -> new SimpleIntegerProperty(cellData.getValue().getProduct().getStock()).asObject());
+        productTotalPrice
+                .setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+        productLocation.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getLocation()));
+        productPicking.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
-		productTable.setItems(getOrderItems());
-		productTable.setEditable(true);
-		productTable.refresh();
-	}
+        productTable.setItems(getOrderItems());
+        productTable.setEditable(true);
+        productTable.refresh();
 
-	private void initializeCustomer() {
-		customerIdLabel.setText(selectedOrder.getCustomer().getId());
-		firstNameLabel.setText(selectedOrder.getCustomer().getFirstName());
-		lastNameLabel.setText(selectedOrder.getCustomer().getLastName());
-		emailLabel.setText(selectedOrder.getCustomer().getEmail());
-		phoneLabel.setText(selectedOrder.getCustomer().getPhone());
-		registerDateLabel.setText(selectedOrder.getCustomer().getRegisteredAt().toString());
-	}
+    }
 
-	private void initializeGeneral() {
-		orderId.setText(selectedOrder.getId());
-		totalProducts.setText(Integer.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems()
-				.stream().mapToInt(s -> s.getQuantity()).sum()));
-		totalPrice.setText(Double.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream()
-				.mapToDouble(s -> s.getPrice()).sum()) + " €");
-	}
+    @FXML
+    private void testOrderHandle() {
+        Order curr = orderDao.getOrderByOrderId(selectedOrder.getId());
+        AtomicBoolean invalidStock = new AtomicBoolean(false);
 
-	private ObservableList<OrderItem> getOrderItems() {
-		ObservableList<OrderItem> orderItems = FXCollections
-				.observableArrayList(dao.getOrderItemsByOrderId(selectedOrder.getId()));
+        if (!orderIsProcessed(curr)) {
+            productTable.getItems().stream().forEach(item -> {
+                if (item.getQuantity() > item.getProduct().getStock()) {
+                    invalidStock.set(true);
+                }
+            });
+            if (!invalidStock.get()) {
+                productTable.getItems().stream().forEach(item -> {
+                    productDao.decreaseStock(item.getProduct().getId(), item.getQuantity());
+                });
+                orderDao.setOrderProcessed(curr.getId());
+            }
+        }
 
-		return orderItems;
-	}
 
-	// Get Order object and initialize the view
-	public void initData(Order order) {
-		selectedOrder = order;
-		initializeGeneral();
-		initializeCustomer();
-		initializeProducts();
-	}
+    }
 
-	public void changeSceneToOrderView(ActionEvent event) throws IOException {
-		Parent orderManagementViewParent = FXMLLoader.load(getClass().getResource("orderManagement.fxml"));
-		Scene orderViewScene = new Scene(orderManagementViewParent);
+    private Boolean orderIsProcessed(Order o) {
+        if (o.getOrderStatusCode().getDescription().equals("Order has been processed")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    private String getColumnValue(TableColumn tc) {
+        return tc.getCellValueFactory().toString();
+    }
 
-		window.setScene(orderViewScene);
-		window.show();
-	}
+    private void initializeCustomer() {
+        customerIdLabel.setText(selectedOrder.getCustomer().getId());
+        firstNameLabel.setText(selectedOrder.getCustomer().getFirstName());
+        lastNameLabel.setText(selectedOrder.getCustomer().getLastName());
+        emailLabel.setText(selectedOrder.getCustomer().getEmail());
+        phoneLabel.setText(selectedOrder.getCustomer().getPhone());
+        registerDateLabel.setText(selectedOrder.getCustomer().getRegisteredAt().toString());
+    }
+
+    private void initializeGeneral() {
+        orderId.setText(selectedOrder.getId());
+        totalProducts.setText(Integer.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems()
+                .stream().mapToInt(s -> s.getQuantity()).sum()));
+        totalPrice.setText(Double.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream()
+                .mapToDouble(s -> s.getPrice()).sum()) + " €");
+    }
+
+    private ObservableList<OrderItem> getOrderItems() {
+        ObservableList<OrderItem> orderItems = FXCollections
+                .observableArrayList(dao.getOrderItemsByOrderId(selectedOrder.getId()));
+
+        return orderItems;
+    }
+
+    // Get Order object and initialize the view
+    public void initData(Order order) {
+        selectedOrder = order;
+        initializeGeneral();
+        initializeCustomer();
+        initializeProducts();
+    }
+
+    public void changeSceneToOrderView(ActionEvent event) throws IOException {
+        Parent orderManagementViewParent = FXMLLoader.load(getClass().getResource("orderManagement.fxml"));
+        Scene orderViewScene = new Scene(orderManagementViewParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(orderViewScene);
+        window.show();
+    }
 }

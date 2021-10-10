@@ -13,7 +13,24 @@ public class ProductAccessObject {
 
 
     public static void main(String[] args) {
-       getProduct("4e0f2f6e-d461-4c7d-94fa-c02a1a49da5f");
+        decreaseStock("4e0f2f6e-d461-4c7d-94fa-c02a1a49da5f", 2);
+    }
+
+    public static void decreaseStock(String id, int amount) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        String query = "UPDATE Product p SET p.stock = p.stock - :amount WHERE p.id = :id";
+
+        try {
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("id", id).setParameter("amount", amount).executeUpdate();
+            em.getTransaction().commit();
+            System.out.println("Update executed");
+        } catch (NoResultException ex) {
+            ex.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public static void createProductCategory(String name, String description) {
@@ -73,7 +90,7 @@ public class ProductAccessObject {
         try {
             product = tq.getSingleResult();
             System.out.println(product.getId() + ": " + product.getName());
-            
+
         } catch (NoResultException ex) {
             ex.printStackTrace();
         } finally {
@@ -110,19 +127,18 @@ public class ProductAccessObject {
             em.close();
         }
     }
-    
-    
+
+
     public static Product editProduct(String id, String name, double price, String description, int stock, String location) {
-    	
-    	
-    	
+
+
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         EntityTransaction transaction = null;
         try {
-        	transaction = em.getTransaction();
+            transaction = em.getTransaction();
             transaction.begin();
-            
+
             Product editedProduct = getProduct(id);
             em.detach(editedProduct);
             editedProduct.setName(name);
@@ -130,7 +146,7 @@ public class ProductAccessObject {
             editedProduct.setDescription(description);
             editedProduct.setStock(stock);
             editedProduct.setLocation(location);
-            
+
             em.merge(editedProduct);
             transaction.commit();
             return editedProduct;
@@ -139,7 +155,7 @@ public class ProductAccessObject {
                 transaction.rollback();
             }
             e.printStackTrace();
-            
+
         } finally {
             em.close();
         }
