@@ -1,10 +1,15 @@
 package r13.javafx.Varastonhallinta.models.dao;
 
 import r13.javafx.Varastonhallinta.models.Product;
+
 import r13.javafx.Varastonhallinta.models.ProductCategory;
+
 
 import javax.persistence.*;
 import java.util.List;
+
+
+
 
 public class ProductAccessObject {
     // Create an EntityManagerFactory when you start the application
@@ -99,20 +104,13 @@ public class ProductAccessObject {
         return product;
     }
 
-    public static boolean addProduct(String name, double price, String description, int stock, String location) {
+    public static boolean addProduct(Product product) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         EntityTransaction transaction = null;
         try {
             transaction = em.getTransaction();
             transaction.begin();
-
-            Product product = new Product();
-            product.setName(name);
-            product.setPrice(price);
-            product.setDescription(description);
-            product.setStock(stock);
-            product.setLocation(location);
 
             em.persist(product);
             transaction.commit();
@@ -127,9 +125,28 @@ public class ProductAccessObject {
             em.close();
         }
     }
+    
+    
+    public static boolean removeProduct(Product product) {
+    	
+    	EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+    	em.persist(product);
+    	em.flush();
+        em.clear();
+
+        em.createNativeQuery("delete from Product where id = :id")
+        .setParameter("id", product.getId())
+        .executeUpdate();
+        
+        return true; //palauttaa nyt aina true
+
+      //assertThat(em.find(Product.class, product.getId()), nullValue()); nullValue() ei toimi
+    }
+    
 
 
-    public static Product editProduct(String id, String name, double price, String description, int stock, String location) {
+    public static Product editProduct(Product product) {
 
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
@@ -139,13 +156,13 @@ public class ProductAccessObject {
             transaction = em.getTransaction();
             transaction.begin();
 
-            Product editedProduct = getProduct(id);
+            Product editedProduct = getProduct(product.getId());
             em.detach(editedProduct);
-            editedProduct.setName(name);
-            editedProduct.setPrice(price);
-            editedProduct.setDescription(description);
-            editedProduct.setStock(stock);
-            editedProduct.setLocation(location);
+            editedProduct.setName(product.getName());
+            editedProduct.setPrice(product.getPrice());
+            editedProduct.setDescription(product.getDescription());
+            editedProduct.setStock(product.getStock());
+            editedProduct.setLocation(product.getLocation());
 
             em.merge(editedProduct);
             transaction.commit();
