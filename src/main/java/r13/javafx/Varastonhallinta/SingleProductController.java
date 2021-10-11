@@ -116,8 +116,13 @@ public class SingleProductController {
     }
 
     private ObservableList<OrderItem> getOrderItems() {
-        ObservableList<OrderItem> orderItems = FXCollections.observableArrayList(orderItemDao.getOrderItemsByProductId(selectedProduct.getId()));
-        return orderItems;
+    	if(selectedProduct != null) {
+	        ObservableList<OrderItem> orderItems = FXCollections.observableArrayList(orderItemDao.getOrderItemsByProductId(selectedProduct.getId()));
+	        return orderItems;
+    	}
+    	else	{
+    		return null;
+    	}
     }
 
     private void initializeDetails() {
@@ -132,39 +137,48 @@ public class SingleProductController {
     	priceTextField.setVisible(false);
     	stockTextField.setVisible(false);
     	
-        idLabel.setText(selectedProduct.getId());
-        nameLabel.setText(selectedProduct.getName());
-        descriptionLabel.setText(selectedProduct.getDescription());
-        locationLabel.setText(selectedProduct.getLocation());
-        priceLabel.setText(Double.toString(selectedProduct.getPrice()));
-        stockLabel.setText(Integer.toString(selectedProduct.getStock()));
+    	if(selectedProduct != null) {
+    		idLabel.setText(selectedProduct.getId());
+            nameLabel.setText(selectedProduct.getName());
+            descriptionLabel.setText(selectedProduct.getDescription());
+            locationLabel.setText(selectedProduct.getLocation());
+            priceLabel.setText(Double.toString(selectedProduct.getPrice()));
+            stockLabel.setText(Integer.toString(selectedProduct.getStock()));
+    	}
+    	
+        
     }
     
     @FXML
     public void startEdit()	{
-    	saveBtn.setVisible(true);
-    	cancelBtn.setVisible(true);
-    	editBtn.setVisible(false);
-    	
+    	if(selectedProduct != null) {
+    		saveBtn.setVisible(true);
+        	cancelBtn.setVisible(true);
+        	editBtn.setVisible(false);
+        	
 
-		nameTextField.setVisible(true);
-    	descriptionTextField.setVisible(true);
-    	locationTextField.setVisible(true);
-    	priceTextField.setVisible(true);
-    	stockTextField.setVisible(true);
+    		nameTextField.setVisible(true);
+        	descriptionTextField.setVisible(true);
+        	locationTextField.setVisible(true);
+        	priceTextField.setVisible(true);
+        	stockTextField.setVisible(true);
+        	
+        	nameTextField.setText(selectedProduct.getName());
+        	descriptionTextField.setText(selectedProduct.getDescription());
+        	locationTextField.setText(selectedProduct.getLocation());
+        	priceTextField.setText(Double.toString(selectedProduct.getPrice()));
+        	stockTextField.setText(Integer.toString(selectedProduct.getStock()));
+    	}
     	
-    	nameTextField.setText(selectedProduct.getName());
-    	descriptionTextField.setText(selectedProduct.getDescription());
-    	locationTextField.setText(selectedProduct.getLocation());
-    	priceTextField.setText(Double.toString(selectedProduct.getPrice()));
-    	stockTextField.setText(Integer.toString(selectedProduct.getStock()));
 
     
     }
 
     
     public void saveEdit()	{
-    	Product editedProduct = dao.editProduct(selectedProduct.getId(), nameTextField.getText(), Double.parseDouble(priceTextField.getText()), descriptionTextField.getText(), Integer.parseInt(stockTextField.getText()), locationTextField.getText());
+    	
+    	Product product = new Product(selectedProduct.getId(), nameTextField.getText(), Double.parseDouble(priceTextField.getText()), descriptionTextField.getText(), Integer.parseInt(stockTextField.getText()), locationTextField.getText());
+    	Product editedProduct = dao.editProduct(product);
     	nameTextField.setVisible(false);
     	descriptionTextField.setVisible(false);
     	locationTextField.setVisible(false);
@@ -182,6 +196,7 @@ public class SingleProductController {
     	stockTextField.setVisible(false);
     	saveBtn.setVisible(false);
     	cancelBtn.setVisible(false);
+    	editBtn.setVisible(true);
 
     }
     

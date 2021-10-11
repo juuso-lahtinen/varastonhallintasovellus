@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import r13.javafx.Varastonhallinta.models.Product;
 import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
 
 public class NewProductController {
@@ -58,7 +59,8 @@ public class NewProductController {
     	    });
     		
     	} else	{
-    		if(dao.addProduct(productNameField.getText(), Double.parseDouble(productPriceField.getText()), productDescriptionField.getText(), 0, productLocationField.getText()))	{
+    		Product product = new Product ("123", productNameField.getText(), Double.parseDouble(productPriceField.getText()), productDescriptionField.getText(), 0, productLocationField.getText());
+    		if(dao.addProduct(product))	{
         		Platform.runLater(() -> {
         	        Alert dialog = new Alert(AlertType.INFORMATION, "Product added", ButtonType.OK);
         	        dialog.showAndWait();
