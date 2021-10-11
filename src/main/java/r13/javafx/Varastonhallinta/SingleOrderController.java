@@ -139,10 +139,14 @@ public class SingleOrderController {
                     productDao.decreaseStock(item.getProduct().getId(), item.getQuantity());
                 });
                 orderDao.setOrderProcessed(curr.getId());
+            } else {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Invalid stock", ButtonType.OK);
+                a.showAndWait();
             }
+        } else {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Order already processed", ButtonType.OK);
+            a.showAndWait();
         }
-
-
     }
 
     private Boolean orderIsProcessed(Order o) {
