@@ -12,14 +12,18 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.OrderItem;
+import r13.javafx.Varastonhallinta.models.Product;
 import r13.javafx.Varastonhallinta.models.dao.OrderAccessObject;
 import r13.javafx.Varastonhallinta.models.dao.OrderItemAccessObject;
+import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SingleOrderController {
 
@@ -27,6 +31,7 @@ public class SingleOrderController {
 
     private OrderItemAccessObject dao = new OrderItemAccessObject();
     private OrderAccessObject orderDao = new OrderAccessObject();
+    private ProductAccessObject productDao = new ProductAccessObject();
 
     /* ************************* Product view ************************* */
     @FXML
@@ -43,6 +48,9 @@ public class SingleOrderController {
 
     @FXML
     private TableColumn<OrderItem, Integer> productQuantity;
+
+    @FXML
+    private TableColumn<OrderItem, Integer> productPicking;
 
     @FXML
     private TableColumn<OrderItem, Integer> productStock;
@@ -97,13 +105,60 @@ public class SingleOrderController {
 
     private void initializeProducts() {
         productId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getId()));
-        productName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
-        productQuantity.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
-        productStock.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getProduct().getStock()).asObject());
-        productTotalPrice.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
-        productLocation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getLocation()));
+        productName
+                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
+        productQuantity.setCellValueFactory(
+                cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
+        productStock.setCellValueFactory(
+                cellData -> new SimpleIntegerProperty(cellData.getValue().getProduct().getStock()).asObject());
+        productTotalPrice
+                .setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+        productLocation.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getLocation()));
+        productPicking.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
         productTable.setItems(getOrderItems());
+        productTable.setEditable(true);
+        productTable.refresh();
+
+    }
+
+    @FXML
+    private void testOrderHandle() {
+        Order curr = orderDao.getOrderByOrderId(selectedOrder.getId());
+        AtomicBoolean invalidStock = new AtomicBoolean(false);
+
+        if (!orderIsProcessed(curr)) {
+            productTable.getItems().stream().forEach(item -> {
+                if (item.getQuantity() > item.getProduct().getStock()) {
+                    invalidStock.set(true);
+                }
+            });
+            if (!invalidStock.get()) {
+                productTable.getItems().stream().forEach(item -> {
+                    productDao.decreaseStock(item.getProduct().getId(), item.getQuantity());
+                });
+                orderDao.setOrderProcessed(curr.getId());
+            } else {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Invalid stock", ButtonType.OK);
+                a.showAndWait();
+            }
+        } else {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Order already processed", ButtonType.OK);
+            a.showAndWait();
+        }
+    }
+
+    private Boolean orderIsProcessed(Order o) {
+        if (o.getOrderStatusCode().getDescription().equals("Order has been processed")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private String getColumnValue(TableColumn tc) {
+        return tc.getCellValueFactory().toString();
     }
 
     private void initializeCustomer() {
@@ -117,16 +172,18 @@ public class SingleOrderController {
 
     private void initializeGeneral() {
         orderId.setText(selectedOrder.getId());
-        totalProducts.setText(Integer.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream().mapToInt(s -> s.getQuantity()).sum()));
-        totalPrice.setText(Double.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream().mapToDouble(s -> s.getPrice()).sum()) + " €");
+        totalProducts.setText(Integer.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems()
+                .stream().mapToInt(s -> s.getQuantity()).sum()));
+        totalPrice.setText(Double.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream()
+                .mapToDouble(s -> s.getPrice()).sum()) + " €");
     }
 
     private ObservableList<OrderItem> getOrderItems() {
-        ObservableList<OrderItem> orderItems = FXCollections.observableArrayList(dao.getOrderItemsByOrderId(selectedOrder.getId()));
+        ObservableList<OrderItem> orderItems = FXCollections
+                .observableArrayList(dao.getOrderItemsByOrderId(selectedOrder.getId()));
 
         return orderItems;
     }
-
 
     // Get Order object and initialize the view
     public void initData(Order order) {

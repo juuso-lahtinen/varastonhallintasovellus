@@ -56,12 +56,7 @@
                               <Insets right="150.0" />
                            </VBox.margin>
                         </GridPane>
-                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                          <buttons>
-                              <CheckBox fx:id="processCheckBox" mnemonicParsing="false" text="Order is ready" />
-                            <Button fx:id="processOrderBtn" mnemonicParsing="false" text="Process order" />
-                          </buttons>
-                        </ButtonBar>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0" />
                         <Button fx:id="generalTabBackBtn" mnemonicParsing="false" onAction="#changeSceneToOrderView" text="Back" />
                      </children>
                      <padding>
@@ -147,6 +142,8 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
                               <Button fx:id="backBtn" layoutX="5.0" layoutY="6.0" mnemonicParsing="false" onAction="#changeSceneToOrderView" text="Back" />
+                              <CheckBox fx:id="processCheckBox" layoutX="391.0" layoutY="147.0" mnemonicParsing="false" text="Order is ready" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="391.0" AnchorPane.rightAnchor="111.0" AnchorPane.topAnchor="147.0" />
+                              <Button fx:id="processOrderBtn" layoutX="496.0" layoutY="143.0" mnemonicParsing="false" onAction="#testOrderHandle" text="Process order" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="143.0" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -156,10 +153,14 @@
                                   <TableColumn fx:id="productId" prefWidth="73.0" text="Id" />
                                   <TableColumn fx:id="productName" prefWidth="104.0" text="Name" />
                                     <TableColumn fx:id="productQuantity" prefWidth="82.0" text="Quantity" />
+                                    <TableColumn fx:id="productPicking" prefWidth="75.0" text="Picking" />
                                     <TableColumn fx:id="productStock" prefWidth="110.0" text="Current Stock" />
                                     <TableColumn fx:id="productTotalPrice" prefWidth="128.0" text="Total Price" />
                                     <TableColumn fx:id="productLocation" prefWidth="102.0" text="Location" />
                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </children>
                         </AnchorPane>

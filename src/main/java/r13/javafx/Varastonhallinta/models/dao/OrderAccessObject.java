@@ -1,5 +1,6 @@
 package r13.javafx.Varastonhallinta.models.dao;
 
+import org.hibernate.SessionFactory;
 import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.OrderItem;
 import r13.javafx.Varastonhallinta.models.Product;
@@ -15,8 +16,7 @@ public class OrderAccessObject {
 
 
     public static void main(String[] args) {
-        List<Order> list = getOrders();
-        list.forEach(e -> System.out.println(e.getOrderedAt()));
+        setOrderNotProcessed("a923174d-f2ad-4618-a1ca-2db455d18744");
     }
 
     public static List getOrders() {
@@ -56,5 +56,44 @@ public class OrderAccessObject {
             //em.close();
         }
         return order;
+    }
+
+    /*
+    UPDATE "Order" SET "orderStatusCodeId"='293edb06-6e18-4251-9da8-dc5f457124c9'
+    WHERE "id"='3790831f-0ddb-4285-8a6e-15aaae17a463';
+    */
+
+    public static void setOrderProcessed(String id) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        String query = "UPDATE Order o SET o.orderStatusCode='293edb06-6e18-4251-9da8-dc5f457124c9' WHERE o.id = :id";
+
+        try {
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("id", id).executeUpdate();
+            em.getTransaction().commit();
+            System.out.println("Update executed");
+        } catch (NoResultException ex) {
+            ex.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static void setOrderNotProcessed(String id) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        String query = "UPDATE Order o SET o.orderStatusCode='f0a7dfb3-ff48-4e9c-b0a5-ccada90b7fb9' WHERE o.id = :id";
+
+        try {
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("id", id).executeUpdate();
+            em.getTransaction().commit();
+            System.out.println("Update executed");
+        } catch (NoResultException ex) {
+            ex.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 }

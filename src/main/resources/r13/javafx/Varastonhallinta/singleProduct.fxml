@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -71,6 +72,11 @@
                                  </font>
                               </Label>
                               <Label fx:id="stockLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="nameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="descriptionTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="locationTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="priceTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="stockTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                            </children>
                            <VBox.margin>
                               <Insets right="150.0" />
@@ -78,7 +84,9 @@
                         </GridPane>
                         <ButtonBar prefHeight="40.0" prefWidth="200.0">
                           <buttons>
-                              <Button fx:id="editBtn" mnemonicParsing="false" text="Edit" />
+                              <Button fx:id="editBtn" mnemonicParsing="false" onAction="#startEdit" text="Edit" />
+                              <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
+                              <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveEdit" text="Save" />
                           </buttons>
                         </ButtonBar>
                         <Button fx:id="generalTabBackBtn" mnemonicParsing="false" onAction="#switchToProductManagementWindow" text="Back" />
@@ -103,12 +111,11 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <TableView fx:id="orderTable" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="orderItemTable" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
                                   <TableColumn fx:id="orderId" prefWidth="126.0" text="ID" />
-                                  <TableColumn fx:id="orderstatus" prefWidth="135.0" text="Status" />
-                                    <TableColumn fx:id="orderQuantity" prefWidth="161.0" text="Quantity" />
-                                    <TableColumn fx:id="orderedAt" prefWidth="175.0" text="Order date" />
+                                    <TableColumn fx:id="quantity" prefWidth="161.0" text="Quantity" />
+                                    <TableColumn fx:id="price" prefWidth="175.0" text="Price" />
                                 </columns>
                               </TableView>
                            </children>
