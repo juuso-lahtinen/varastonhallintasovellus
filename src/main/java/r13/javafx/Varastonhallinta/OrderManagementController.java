@@ -52,6 +52,9 @@ public class OrderManagementController {
     public void changeSceneToMainView(ActionEvent event) throws IOException {
         Parent orderManagementViewParent = FXMLLoader.load(getClass().getResource("mainwindow.fxml"));
         Scene mainViewScene = new Scene(orderManagementViewParent);
+        
+        
+        
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 

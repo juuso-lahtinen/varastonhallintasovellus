@@ -9,16 +9,29 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import r13.javafx.Varastonhallinta.models.Singleton;
+import r13.javafx.Varastonhallinta.models.User;
+import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
 public class MainWindowController {
+	
+	public static User userLoggedIn;
+	
+	@FXML
+	private Label usernameField;
+	
+	@FXML
+	private Button logoutButton;
 
     @FXML
     private Button orderControlBtn;
 
     @FXML
     private Button productControlBtn;
-
+    
 
     public void changeSceneToOrderManagementView(ActionEvent event) throws IOException {
         Parent mainViewParent = FXMLLoader.load(getClass().getResource("orderManagement.fxml"));
@@ -43,5 +56,26 @@ public class MainWindowController {
     @FXML
     private void switchToProductManagement() throws IOException {
         App.setRoot("productManagement");
+    }
+    
+    @FXML
+    private void logOut(ActionEvent event) throws IOException {
+    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("loginscreen.fxml"));
+    	Scene loginScreenViewScene = new Scene(mainViewParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(loginScreenViewScene);
+        window.show();
+    }
+    
+    private void initializeUser() {    	
+    	Singleton.Instance().setUsername(userLoggedIn.getUsername());    	
+    	usernameField.setText(Singleton.Instance().getUsername());
+    }
+    
+    public void initUserData(User user) {
+    	userLoggedIn = user;
+    	initializeUser();
     }
 }

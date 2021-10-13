@@ -2,6 +2,7 @@ package r13.javafx.Varastonhallinta.models.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -35,5 +36,25 @@ public class UserAccessObject {
     		em.close();
     		return false;
     	}
+    }
+    
+    public static User getDBUsername(String username) {
+    	EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+    	
+    	String strQuery = "SELECT u FROM User u WHERE u.username=:username";
+    	
+    	TypedQuery<User> tq = em.createQuery(strQuery, User.class);
+    	tq.setParameter("username", username);
+    	
+    	User user = null;
+    	try {
+    		user = tq.getSingleResult();
+    		
+    	} catch (NoResultException ex) {
+            ex.printStackTrace();
+        } finally {
+            em.close();
+        }
+    	return user;
     }
 }
