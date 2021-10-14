@@ -124,7 +124,7 @@ public class SingleOrderController {
     }
 
     @FXML
-    private void testOrderHandle() {
+    private void handleOrder() {
         Order curr = orderDao.getOrderByOrderId(selectedOrder.getId());
         AtomicBoolean invalidStock = new AtomicBoolean(false);
 
@@ -139,6 +139,8 @@ public class SingleOrderController {
                     productDao.decreaseStock(item.getProduct().getId(), item.getQuantity());
                 });
                 orderDao.setOrderProcessed(curr.getId());
+                Alert a = new Alert(Alert.AlertType.INFORMATION, "Order processed", ButtonType.OK);
+                a.showAndWait();
             } else {
                 Alert a = new Alert(Alert.AlertType.ERROR, "Invalid stock", ButtonType.OK);
                 a.showAndWait();
