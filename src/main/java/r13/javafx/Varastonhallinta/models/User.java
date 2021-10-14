@@ -15,7 +15,11 @@ public class User {
 	private String username;
 	
 	@Column(name = "password", nullable = false)
-	private String password;		
+	private String password;
+
+
+
+
 
 	public User(String id, String username, String password) {
 		this.id = id;

@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.User;
 import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
@@ -34,8 +35,8 @@ public class LoginScreenController {
 		if (dao.checkLogin(username.getText().toString(), password.getText().toString())) {
 					
 			currentUser = username.getText().toString();
-			System.out.println("Login successful, logged in as: " + currentUser);		
-				
+			System.out.println("Login successful, logged in as: " + currentUser);	
+			Singleton.Instance().setUsername(username.getText().toString());
 			
 			FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(getClass().getResource("mainwindow.fxml"));
@@ -44,7 +45,6 @@ public class LoginScreenController {
 	        Scene mainWindowScene = new Scene(mainWindowParent);
 	        
 	        MainWindowController controller = loader.getController();
-	        controller.initUserData(UserAccessObject.getDBUsername(currentUser));
 	        
 	        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	        

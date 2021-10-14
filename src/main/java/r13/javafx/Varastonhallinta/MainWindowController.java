@@ -1,10 +1,13 @@
 package r13.javafx.Varastonhallinta;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,7 +19,7 @@ import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.User;
 import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
-public class MainWindowController {
+public class MainWindowController implements Initializable {
 	
 	public static User userLoggedIn;
 	
@@ -31,6 +34,12 @@ public class MainWindowController {
 
     @FXML
     private Button productControlBtn;
+    
+    
+    
+    public void initialize()	{
+    	initializeUser();
+    }
     
 
     public void changeSceneToOrderManagementView(ActionEvent event) throws IOException {
@@ -70,12 +79,15 @@ public class MainWindowController {
     }
     
     private void initializeUser() {    	
-    	Singleton.Instance().setUsername(userLoggedIn.getUsername());    	
+
     	usernameField.setText(Singleton.Instance().getUsername());
     }
-    
-    public void initUserData(User user) {
-    	userLoggedIn = user;
-    	initializeUser();
-    }
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		initializeUser();
+		
+	}
+   
 }
