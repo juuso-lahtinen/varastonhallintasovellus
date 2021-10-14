@@ -10,15 +10,9 @@ import r13.javafx.Varastonhallinta.models.User;
 
 
 public class UserAccessObject {
-	
-	// Create an EntityManagerFactory when you start the application
+
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
-    
-    public static void main(String[] args) {      
-    	//testi
-        //System.out.println(checkLogin("123", "juuso")); 
-    }
     
     public boolean checkLogin(String username, String password) {
     	EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();

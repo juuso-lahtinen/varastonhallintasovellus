@@ -187,7 +187,6 @@ public class SingleOrderController {
         return orderItems;
     }
 
-    // Get Order object and initialize the view
     public void initData(Order order) {
         selectedOrder = order;
         initializeGeneral();

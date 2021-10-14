@@ -1,10 +1,7 @@
 package r13.javafx.Varastonhallinta.models.dao;
 
 import r13.javafx.Varastonhallinta.models.Product;
-
 import r13.javafx.Varastonhallinta.models.ProductCategory;
-
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,13 +9,12 @@ import java.util.List;
 
 
 public class ProductAccessObject {
-    // Create an EntityManagerFactory when you start the application
+	
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
 
     public static void main(String[] args) {
-        //decreaseStock("4e0f2f6e-d461-4c7d-94fa-c02a1a49da5f", 2);
         removeProduct("f6a05785-3e72-43c0-99af-0755881f524c");
     }
 
@@ -67,14 +63,11 @@ public class ProductAccessObject {
     public static List getProducts() {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
-        // the lowercase p refers to the object
         String strQuery = "SELECT p FROM Product p WHERE p.id IS NOT NULL";
 
-        // Issue the query and all Products
         TypedQuery<Product> tq = em.createQuery(strQuery, Product.class);
         List<Product> products = null;
         try {
-            // Get matching product objects and output
             products = tq.getResultList();
         } catch (NoResultException ex) {
             ex.printStackTrace();
@@ -148,11 +141,8 @@ public class ProductAccessObject {
         } finally {
             em.close();
         }
-
-      //assertThat(em.find(Product.class, product.getId()), nullValue()); nullValue() ei toimi
     }
     
-
 
     public static Product editProduct(Product product) {
 

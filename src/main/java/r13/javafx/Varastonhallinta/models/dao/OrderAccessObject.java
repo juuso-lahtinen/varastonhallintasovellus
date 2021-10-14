@@ -1,16 +1,12 @@
 package r13.javafx.Varastonhallinta.models.dao;
 
-import org.hibernate.SessionFactory;
 import r13.javafx.Varastonhallinta.models.Order;
-import r13.javafx.Varastonhallinta.models.OrderItem;
-import r13.javafx.Varastonhallinta.models.Product;
 
 import javax.persistence.*;
 import java.util.List;
 
 public class OrderAccessObject {
 
-    // Create an EntityManagerFactory when you start the application
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
@@ -57,11 +53,6 @@ public class OrderAccessObject {
         }
         return order;
     }
-
-    /*
-    UPDATE "Order" SET "orderStatusCodeId"='293edb06-6e18-4251-9da8-dc5f457124c9'
-    WHERE "id"='3790831f-0ddb-4285-8a6e-15aaae17a463';
-    */
 
     public static void setOrderProcessed(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();

@@ -12,17 +12,6 @@ import java.util.UUID;
 @Table(name = "\"Product\"")
 public class Product {
 
-	/*
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Column(name = "id", nullable = false)
-    private UUID id;
-    */
-
     @Id
     @Column(name = "id", unique = true)
     private String id;
@@ -66,16 +55,6 @@ public class Product {
 
     public Product() {
     }
-
-    /*
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-    */
 
     public String getId() {
         return id;
@@ -124,7 +103,6 @@ public class Product {
     public void setLocation(String location) {
         this.location = location;
     }
-
 
     public ProductCategory getProductCategory() {
         return productCategory;

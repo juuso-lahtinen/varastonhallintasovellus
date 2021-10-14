@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Singleton;
-import r13.javafx.Varastonhallinta.models.User;
 import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
 public class LoginScreenController {
@@ -44,15 +43,13 @@ public class LoginScreenController {
 	        
 	        Scene mainWindowScene = new Scene(mainWindowParent);
 	        
-	        MainWindowController controller = loader.getController();
-	        
 	        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	        
 	        window.setScene(mainWindowScene);
 	        window.show(); 
 	        
 		} else {
-			loginError.setText("Wrong account account name or password");
+			loginError.setText("Wrong account name or password");
 		}		
 	}
 

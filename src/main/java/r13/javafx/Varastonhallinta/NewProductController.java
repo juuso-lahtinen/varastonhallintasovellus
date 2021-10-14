@@ -77,7 +77,6 @@ public class NewProductController {
     }
 
 
-
     
     private void clear() {
     	for (Node node : anchorPane2.getChildren()) {
@@ -88,8 +87,6 @@ public class NewProductController {
     	    }
     	}
 	}
-
-
 
 
 	@FXML

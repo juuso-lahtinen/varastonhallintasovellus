@@ -7,15 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 public class ProductCategoryAccessObject {
-    // Create an EntityManagerFactory when you start the application
+
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
-
-
-    public static void main(String[] args) {
-        //createProductCategory("Pyjamas", "For sleepless nights");
-        //addProduct("Blue Pyjama", 19.99, "Warm", 10, "C8784D", "0943ee31-e715-476c-b4e6-a63a64adf16c");
-    }
 
     public static void createProductCategory(String name, String description) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();

@@ -101,13 +101,9 @@ public class SingleProductController {
         orderId.setCellValueFactory(new PropertyValueFactory<OrderItem, String>("id"));
         quantity.setCellValueFactory(new PropertyValueFactory<OrderItem, Integer>("quantity"));
         price.setCellValueFactory(new PropertyValueFactory<OrderItem, Double>("price"));
-
-        //tableCategory.setCellValueFactory(new PropertyValueFactory<Product, String>("productCategoryId"));        
         
         FilteredList<OrderItem> filteredData = new FilteredList<>(getOrderItems(), p -> true);
         
-	
-		
 		SortedList<OrderItem> sortedData = new SortedList<>(filteredData);
 
 		sortedData.comparatorProperty().bind(orderItemTable.comparatorProperty());
@@ -169,9 +165,6 @@ public class SingleProductController {
         	priceTextField.setText(Double.toString(selectedProduct.getPrice()));
         	stockTextField.setText(Integer.toString(selectedProduct.getStock()));
     	}
-    	
-
-    
     }
 
     
@@ -218,7 +211,5 @@ public class SingleProductController {
         window.setScene(newProductViewScene);
         window.show();
     }
-	
-	
-	
+
 }

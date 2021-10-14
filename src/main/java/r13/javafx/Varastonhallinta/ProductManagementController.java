@@ -84,8 +84,7 @@ public class ProductManagementController  {
         tablePrice.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
         tableDescription.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));
         tableStock.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
-        tableLocation.setCellValueFactory(new PropertyValueFactory<Product, String>("location"));
-        //tableCategory.setCellValueFactory(new PropertyValueFactory<Product, String>("productCategoryId"));        
+        tableLocation.setCellValueFactory(new PropertyValueFactory<Product, String>("location"));    
         
         FilteredList<Product> filteredData = new FilteredList<>(getProducts(), p -> true);
         
