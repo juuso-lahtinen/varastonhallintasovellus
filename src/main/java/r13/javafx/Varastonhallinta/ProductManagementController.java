@@ -122,12 +122,30 @@ public class ProductManagementController  {
     }
     @FXML
     private void deleteProduct()	{
-    	productTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-    	ObservableList<Product> selectedRows = productTable.getSelectionModel().getSelectedItems();
+    	//int selectedIndex = productTable.getSelectionModel().getSelectedIndex();
+    	
+    	Product p = productTable.getSelectionModel().getSelectedItem();
+    
+    	dao.removeProduct(p.getId());
+    	initialize();
+    	
 
-    	ArrayList<Product> rows = new ArrayList<>(selectedRows);
-    	rows.forEach(row -> productTable.getItems().remove(row));
-    }
+    	
+    	
+    	
+        	//productTable.getItems().remove(selectedIndex);
+
+        	/*
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Product Selected");
+            alert.setContentText("Please select a product in the table.");
+
+            alert.showAndWait();
+            */
+        }
+    
+
     @FXML
     public void changeSceneToMainView(ActionEvent event) throws IOException {
         Parent mainViewParent = FXMLLoader.load(getClass().getResource("mainwindow.fxml"));

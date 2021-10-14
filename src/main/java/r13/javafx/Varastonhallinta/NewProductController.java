@@ -60,7 +60,7 @@ public class NewProductController {
     		
     	} else	{
     		Product product = new Product ("123", productNameField.getText(), Double.parseDouble(productPriceField.getText()), productDescriptionField.getText(), 0, productLocationField.getText());
-    		if(dao.addProduct(product))	{
+    		if(dao.addProduct(product) != null)	{
         		Platform.runLater(() -> {
         	        Alert dialog = new Alert(AlertType.INFORMATION, "Product added", ButtonType.OK);
         	        dialog.showAndWait();

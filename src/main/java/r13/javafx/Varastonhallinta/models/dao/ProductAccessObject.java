@@ -18,7 +18,8 @@ public class ProductAccessObject {
 
 
     public static void main(String[] args) {
-        decreaseStock("4e0f2f6e-d461-4c7d-94fa-c02a1a49da5f", 2);
+        //decreaseStock("4e0f2f6e-d461-4c7d-94fa-c02a1a49da5f", 2);
+        removeProduct("f6a05785-3e72-43c0-99af-0755881f524c");
     }
 
     public static void decreaseStock(String id, int amount) {
@@ -104,7 +105,7 @@ public class ProductAccessObject {
         return product;
     }
 
-    public static boolean addProduct(Product product) {
+    public static Product addProduct(Product product) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         EntityTransaction transaction = null;
@@ -114,32 +115,39 @@ public class ProductAccessObject {
 
             em.persist(product);
             transaction.commit();
-            return true;
+            return product;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
-            return false;
+            return null;
         } finally {
             em.close();
         }
     }
     
     
-    public static boolean removeProduct(Product product) {
+    public static boolean removeProduct(String id) {
+    	
     	
     	EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+    	String query = "DELETE Product p WHERE p.id = :id";
+    	
+        try {
 
-    	em.persist(product);
-    	em.flush();
-        em.clear();
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("id", id).executeUpdate();
+            em.getTransaction().commit();
+            System.out.println("query success");
+            return true;
 
-        em.createNativeQuery("delete from Product where id = :id")
-        .setParameter("id", product.getId())
-        .executeUpdate();
-        
-        return true; //palauttaa nyt aina true
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            em.close();
+        }
 
       //assertThat(em.find(Product.class, product.getId()), nullValue()); nullValue() ei toimi
     }

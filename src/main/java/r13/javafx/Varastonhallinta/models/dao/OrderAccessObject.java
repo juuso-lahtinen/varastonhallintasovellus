@@ -42,7 +42,7 @@ public class OrderAccessObject {
     public static Order getOrderByOrderId(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
-        String query = "SELECT o FROM Order o WHERE o.id = :id";
+        String query = "DELETE p FROM Product p WHERE o.id = :id";
 
         TypedQuery<Order> tq = em.createQuery(query, Order.class);
         tq.setParameter("id", id);
