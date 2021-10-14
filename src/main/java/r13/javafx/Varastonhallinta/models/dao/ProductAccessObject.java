@@ -132,7 +132,6 @@ public class ProductAccessObject {
             em.getTransaction().begin();
             em.createQuery(query).setParameter("id", id).executeUpdate();
             em.getTransaction().commit();
-            System.out.println("query success");
             return true;
 
         } catch (Exception e) {

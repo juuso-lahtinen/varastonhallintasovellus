@@ -121,28 +121,29 @@ public class ProductManagementController  {
     }
     @FXML
     private void deleteProduct()	{
-    	//int selectedIndex = productTable.getSelectionModel().getSelectedIndex();
     	
     	Product p = productTable.getSelectionModel().getSelectedItem();
-    
-    	dao.removeProduct(p.getId());
-    	initialize();
     	
-
-    	
-    	
-    	
-        	//productTable.getItems().remove(selectedIndex);
-
-        	/*
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Product Selected");
-            alert.setContentText("Please select a product in the table.");
-
-            alert.showAndWait();
-            */
-        }
+	    if(p != null)	{
+	    	if(dao.removeProduct(p.getId()))	{
+	    		Platform.runLater(() -> {
+	    	        Alert dialog = new Alert(AlertType.INFORMATION, "Product removed.", ButtonType.OK);
+	    	        dialog.showAndWait();
+	    	    });
+	    	} else	{
+	    		Platform.runLater(() -> {
+	    	        Alert dialog = new Alert(AlertType.ERROR, "Error removing product. Product is part of an order.", ButtonType.OK);
+	    	        dialog.showAndWait();
+	    	    });
+	    	}
+	    	initialize();
+	    } else	{
+	    	Platform.runLater(() -> {
+		        Alert dialog = new Alert(AlertType.ERROR, "Please select a product.", ButtonType.OK);
+		        dialog.showAndWait();
+		    });
+	    }
+    }
     
 
     @FXML
