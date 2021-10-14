@@ -52,7 +52,7 @@ public class LoginScreenController {
 	        window.show(); 
 	        
 		} else {
-			loginError.setText("Väärä käyttäjätunnus tai salasana.");
+			loginError.setText("Wrong account account name or password");
 		}		
 	}
 
