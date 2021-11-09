@@ -3,20 +3,29 @@ package r13.javafx.Varastonhallinta;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.dao.OrderAccessObject;
 
+import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
 public class OrderController implements Initializable {
+
+    private OrderAccessObject dao = new OrderAccessObject();
 
     @FXML
     private TextField searchBar;
@@ -39,17 +48,73 @@ public class OrderController implements Initializable {
     @FXML
     private TableColumn<Order, String> statusCol;
 
-    private OrderAccessObject dao = new OrderAccessObject();
+    /*@FXML
+    private void openOrder() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("singleOrderView.fxml"));
 
+        Parent root = loader.load();
+
+        // Pass selected order
+        SingleOrderViewController controller = loader.getController();
+        controller.initData(orderTable.getSelectionModel().getSelectedItem());
+
+        Stage stage = new Stage();
+        stage.setTitle("Single order");
+        stage.setScene(new Scene(root, 800, 600));
+        stage.show();
+    }*/
+
+    @FXML
+    private void openOrder() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("singleOrderView.fxml"));
+
+        Stage stage = new Stage();
+        stage.setTitle("Single order");
+        stage.setScene(new Scene(loader.load(), 800, 600));
+
+        // Pass selected order
+        SingleOrderViewController controller = loader.getController();
+        controller.initData(orderTable.getSelectionModel().getSelectedItem());
+
+        stage.show();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<Order> orderList = FXCollections.observableArrayList(dao.getOrders());
-        orderTable.setItems(orderList);
-
         orderidCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         customerCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCustomer().getFirstName() + " " + cellData.getValue().getCustomer().getLastName()));
         dateCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOrderedAt().toString()));
         statusCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOrderStatusCode().getDescription()));
+
+        // Add order filtering
+        FilteredList<Order> filteredData = new FilteredList(FXCollections.observableArrayList(dao.getOrders()), p -> true);
+        searchBar.textProperty().addListener((observable, oldVal, newVal) -> {
+            filteredData.setPredicate(order -> {
+                if (newVal == null || newVal.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newVal.toLowerCase();
+
+                if (order.getId().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (order.getCustomer().getFirstName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (order.getCustomer().getLastName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (order.getOrderedAt().toString().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (order.getOrderStatusCode().getDescription().contains(lowerCaseFilter)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+
+        SortedList<Order> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(orderTable.comparatorProperty());
+        orderTable.setItems(sortedData);
     }
 }

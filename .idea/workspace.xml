@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c4936bc8-ef47-4bb9-963f-3a25707a2e2a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/LoginScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/LoginScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/MainWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/MainWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/mainwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/mainwindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/orderManagement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/orderManagement.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/orders.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/orders.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

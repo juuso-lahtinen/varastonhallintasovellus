@@ -19,7 +19,7 @@
             </TextField>
          </left>
          <right>
-            <Button fx:id="openOrder" mnemonicParsing="false" text="Open" BorderPane.alignment="CENTER">
+            <Button fx:id="openOrder" mnemonicParsing="false" onAction="#openOrder" text="Open" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets right="10.0" />
                </BorderPane.margin>
