@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**
@@ -16,11 +15,13 @@ public class App extends Application {
     private static Scene scene;
 
     @Override
-    public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("loginscreen"), 1920, 1080);
+    public void start(Stage stage) throws IOException {	
+        scene = new Scene(loadFXML("loginscreen"), 800, 600);
+        stage.setTitle("Varastonhallinta");
         stage.setScene(scene);
-        stage.setWidth(835);
-        stage.setHeight(534);
+        stage.setWidth(800);
+        stage.setHeight(600);
+        stage.setResizable(false);
         stage.show();
     }
 
