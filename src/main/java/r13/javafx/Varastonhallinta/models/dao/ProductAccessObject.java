@@ -123,7 +123,10 @@ public class ProductAccessObject {
     
     public static boolean removeProduct(String id) {
     	
-    	
+    	if(id == null || (getProduct(id) == null))	{
+    		return false;
+    	}
+
     	EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
     	String query = "DELETE Product p WHERE p.id = :id";
     	
@@ -136,6 +139,7 @@ public class ProductAccessObject {
 
         } catch (Exception e) {
             e.printStackTrace();
+
             return false;
         } finally {
             em.close();

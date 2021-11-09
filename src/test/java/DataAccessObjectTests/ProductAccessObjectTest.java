@@ -25,29 +25,14 @@ public class ProductAccessObjectTest {
 	
 
 	private Product product;
-	private Product productToRemove;
-	private Product newProduct;
 	private boolean productState = false;
 	private String productId;
 	
 	@BeforeEach
 	public void beforeEach() {
-		
-
-		
 		product = new Product("123", "Boots", 99.99, "Big red boots", 66, "BBBBB");
-
-		
 	}
 	
-	@AfterEach
-	public void afterEach() {
-		
-
-		productDAO.removeProduct(productId);
-
-		
-	}
 	
 	@Test
 	@Order(1)
@@ -58,8 +43,8 @@ public class ProductAccessObjectTest {
 		boolean productState = false;
 		if(newProduct != null)
 			productState = true;
-		assertTrue(productState, "createTilasto() ei toimi");	
-		assertTrue((product = (Product) productDAO.getProduct(newProduct.getId())) != null, "readTilasto() ei toimi");
+		assertTrue(productState, "Creating a product doesn't work");	
+		assertTrue((product = (Product) productDAO.getProduct(newProduct.getId())) != null, "Fetching a product doesn't work");
 		
 		
 		assertEquals("Boots", product.getName(), "Wrong name");
@@ -68,13 +53,15 @@ public class ProductAccessObjectTest {
 		assertEquals(66, product.getStock(), "Wrong stock");
 		assertEquals("BBBBB", product.getLocation(), "Wrong location");	
 		productId = newProduct.getId();
+		productDAO.removeProduct(productId);
 	}
 	
 	
-	/*
+	
 	@Test
-	@DisplayName("Identical products should not exist")
 	@Order(2)
+	@DisplayName("Identical products should not exist")
+	
 	public void testAddIdentical() {
 		
 		Product newProduct = productDAO.addProduct(product);
@@ -82,6 +69,7 @@ public class ProductAccessObjectTest {
 		if(newProduct != null)
 			productState = true;
 		assertTrue(productState, "addProduct() - adding a product does not work");
+		String productId = newProduct.getId();
 		
 		Product newProduct2 = productDAO.addProduct(product);
 		productState = false;
@@ -89,42 +77,50 @@ public class ProductAccessObjectTest {
 			productState = true;
 		assertFalse(productState, "addProduct(): The same product can be added twice");
 		
-		
-		
+		productDAO.removeProduct(productId);	
 	}
 	
 	
-	/*
 	@Test
-	@DisplayName("Test for deleting a product")
 	@Order(3)
-	public void testRemove() {
-		assertTrue(productDAO.addProduct(products.get(0)), "addProduct() - adding a product does not work.");
-		assertTrue(productDAO.removeProduct(products.get(0)), "removeProduct() - removing a product does not work.");
-		assertTrue(productDAO.getProduct(products.get(0).getId()) == null, "deleteProduct() - a deleted product was still in the database");
-	}
-	
-	@Test
 	@DisplayName("Removing a non-existent product should not work")
-	@Order(5)
 	public void testRemoveNull() {
-		assertFalse(productDAO.removeProduct(products.get(0)), "removeProduct() - Non-existent product was removed");
+		
+		Product fakeproduct3 = new Product("123123", "Shirt", 99.99, "Big red boots", 66, "123asd");
+		System.out.println("feikkitesti" + fakeproduct3.getId());
+		assertFalse(productDAO.removeProduct(fakeproduct3.getId()), "removeProduct() - Non-existent product was removed");
 	}
 	
 	@Test
+	@Order(4)
 	@DisplayName("Editing the details of a product should work")
-	@Order(6)
 	public void testEdit() {
-		assertTrue(productDAO.addProduct(product), "addProduct() - adding a product does not work.");
-
-		products.get(0).setName("New boots");
-		products.get(0).setDescription("Orange boots");
 		
-		assertEquals(productDAO.editProduct(products.get(0)), products.get(0), "editProduct() - editing a product failed");
-		product = productDAO.getProduct(products.get(0).getId());
-		assertEquals("New boots", product.getName(), "editProduct() - name of the product is wrong");
+		Product newProduct = productDAO.addProduct(product);
+		boolean productState = false;
+		if(newProduct != null)
+			productState = true;
+		assertTrue(productState, "Creating a product doesn't nyt");	
+		assertTrue((product = (Product) productDAO.getProduct(newProduct.getId())) != null, "Fetching a product doesn't work");
+		
+		
+		assertEquals("Boots", product.getName(), "Wrong name");
+		assertEquals(99.99, product.getPrice(), "Wrong price");
+		assertEquals("Big red boots", product.getDescription(), "Wrong description");
+		assertEquals(66, product.getStock(), "Wrong stock");
+		assertEquals("BBBBB", product.getLocation(), "Wrong location");	
+		
+		product.setName("New boots");
+		product.setDescription("Orange boots");
+		assertEquals((productDAO.editProduct(product)).getId(), product.getId(), "editProduct() - editing a product failed");
+		
+		
+		productId = newProduct.getId();
+		productDAO.removeProduct(productId);
+		
+	
 	}
-	*/
+	
 	
 
 }
