@@ -19,9 +19,9 @@ public class App extends Application {
         scene = new Scene(loadFXML("loginscreen"), 800, 600);
         stage.setTitle("Varastonhallinta");
         stage.setScene(scene);
-        stage.setWidth(800);
-        stage.setHeight(600);
-        stage.setResizable(false);
+        //stage.setWidth(800);
+        //stage.setHeight(600);
+        //stage.setResizable(false);
         stage.show();
     }
 

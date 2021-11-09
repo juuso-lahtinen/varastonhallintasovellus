@@ -6,14 +6,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.OrderManagementController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.OrderManagementController">
    <children>
-      <SplitPane dividerPositions="0.4673076923076923" layoutX="199.0" layoutY="118.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.4673076923076923" layoutX="199.0" layoutY="118.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="263.0" prefWidth="680.0">
                <children>
                   <Button fx:id="backBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeSceneToMainView" text="Back" />
-                  <Button fx:id="orderDetailsBtn" layoutX="732.0" layoutY="201.0" mnemonicParsing="false" onAction="#changeSceneToOrderDetailsView" text="Show Order" />
+                  <Button fx:id="orderDetailsBtn" layoutX="679.0" layoutY="217.0" mnemonicParsing="false" onAction="#changeSceneToOrderDetailsView" text="Show Order" />
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="290.0" prefWidth="825.0">
                <children>

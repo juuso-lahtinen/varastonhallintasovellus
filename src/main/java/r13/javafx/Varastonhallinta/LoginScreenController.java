@@ -38,7 +38,7 @@ public class LoginScreenController {
 			Singleton.Instance().setUsername(username.getText().toString());
 			
 			FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(getClass().getResource("mainwindow.fxml"));
+	        loader.setLocation(getClass().getResource("mainWindowNew.fxml"));
 	        Parent mainWindowParent = loader.load();
 	        
 	        Scene mainWindowScene = new Scene(mainWindowParent);
