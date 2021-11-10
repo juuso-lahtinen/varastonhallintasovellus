@@ -38,7 +38,7 @@ public class SideBarController implements Initializable {
 
     @FXML
     private void products(MouseEvent event) throws IOException {
-        loadPage("products");
+        loadPage("productManagement");
     }
 
     private void loadPage(String page) throws IOException {

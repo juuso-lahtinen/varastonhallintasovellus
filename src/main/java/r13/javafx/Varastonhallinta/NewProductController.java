@@ -16,6 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Product;
 import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
@@ -47,7 +48,7 @@ public class NewProductController {
     private Button backButton;
     
     @FXML
-    private AnchorPane anchorPane2;
+    private VBox anchorPane2;
     
     
     @FXML

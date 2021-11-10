@@ -6,33 +6,31 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="534.0" maxWidth="835.0" minHeight="534.0" minWidth="835.0" prefHeight="534.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.ProductManagementController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.ProductManagementController">
    <children>
-      <SplitPane dividerPositions="0.32894736842105265" orientation="VERTICAL" prefHeight="534.0" prefWidth="835.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.09318181818181819" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
+          <AnchorPane prefHeight="34.0" prefWidth="620.0" style="-fx-background-color: white;" SplitPane.resizableWithParent="false">
                <children>
-                  <Button fx:id="newProductBtn" layoutX="708.0" layoutY="116.0" mnemonicParsing="false" onAction="#switchToNewProductWindow" prefHeight="25.0" prefWidth="87.0" text="Create new" />
+                  <Button fx:id="newProductBtn" layoutX="375.0" layoutY="2.0" mnemonicParsing="false" onAction="#switchToNewProductWindow" prefHeight="25.0" prefWidth="87.0" text="Create new" />
                   <Button fx:id="backButton" layoutY="2.0" mnemonicParsing="false" onAction="#changeSceneToMainView" text="Back" />
-                  <Button fx:id="deleteButton" layoutX="538.0" layoutY="116.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="17.0" prefWidth="71.0" text="Delete" />
-                  <TextField fx:id="filterField" layoutX="115.0" layoutY="28.0" />
-                  <Text layoutX="73.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                  <Button fx:id="detailsButton" layoutX="618.0" layoutY="116.0" mnemonicParsing="false" onAction="#changeSceneToProductDetailsView" text="View details" />
+                  <Button fx:id="deleteButton" layoutX="205.0" layoutY="2.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="17.0" prefWidth="71.0" text="Delete" />
+                  <TextField fx:id="filterField" layoutX="47.0" layoutY="2.0" promptText="Search..." />
+                  <Button fx:id="detailsButton" layoutX="286.0" layoutY="2.0" mnemonicParsing="false" onAction="#changeSceneToProductDetailsView" text="View details" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
+          <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" SplitPane.resizableWithParent="false">
                <children>
-                  <TableView fx:id="productTable" prefHeight="354.0" prefWidth="833.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="productTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="tableId" prefWidth="168.0" text="ID" />
-                      <TableColumn fx:id="tableName" minWidth="0.0" prefWidth="104.0" text="Name" />
-                        <TableColumn fx:id="tableDescription" prefWidth="177.0" text="Description" />
-                        <TableColumn fx:id="tablePrice" prefWidth="83.0" text="Price" />
-                        <TableColumn fx:id="tableStock" prefWidth="72.0" text="Stock" />
-                        <TableColumn fx:id="tableLocation" prefWidth="99.0" text="Location" />
-                        <TableColumn fx:id="tableCategory" prefWidth="129.0" text="Category" />
+                      <TableColumn fx:id="tableId" prefWidth="83.0" text="ID" />
+                      <TableColumn fx:id="tableName" minWidth="0.0" prefWidth="100.0" text="Name" />
+                        <TableColumn fx:id="tableDescription" prefWidth="123.0" text="Description" />
+                        <TableColumn fx:id="tablePrice" prefWidth="107.0" text="Price" />
+                        <TableColumn fx:id="tableStock" prefWidth="74.0" text="Stock" />
+                        <TableColumn fx:id="tableLocation" prefWidth="85.0" text="Location" />
+                        <TableColumn fx:id="tableCategory" prefWidth="73.0" text="Category" />
                     </columns>
                   </TableView>
                </children>

@@ -11,119 +11,112 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.SingleProductController">
-  <tabs>
-    <Tab text="Details">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="371.0" prefWidth="600.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.SingleProductController">
+   <top>
+      <HBox prefHeight="62.0" prefWidth="800.0" spacing="5.0" style="-fx-background-color: white; -fx-border-color: #9e9e9e; -fx-border-width: 0px 0px 1px 0px;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Product details">
+               <font>
+                  <Font name="Arial Bold" size="25.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </HBox>
+   </top>
+   <left>
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Details">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="800.0">
                      <children>
-                        <GridPane prefHeight="202.0" prefWidth="430.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                        <VBox prefWidth="800.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label text="ID">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font></Label>
-                              <Label text="Name" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font></Label>
-                              <Label fx:id="idLabel" text="Label" GridPane.columnIndex="1" />
-                              <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label text="Desciption" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font></Label>
-                              <Label fx:id="descriptionLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label text="Location" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="locationLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label text="Price" GridPane.rowIndex="4">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="priceLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label text="Stock" GridPane.rowIndex="5">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="stockLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <TextField fx:id="nameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="descriptionTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="locationTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <TextField fx:id="priceTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField fx:id="stockTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <GridPane prefHeight="202.0" prefWidth="430.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label fx:id="idLabel" text="Label" />
+                                    <Label fx:id="nameLabel" text="Label" GridPane.rowIndex="1" />
+                                    <Label fx:id="descriptionLabel" text="Label" GridPane.rowIndex="2" />
+                                    <Label fx:id="locationLabel" text="Label" GridPane.rowIndex="3" />
+                                    <Label fx:id="priceLabel" text="Label" GridPane.rowIndex="4" />
+                                    <Label fx:id="stockLabel" text="Label" GridPane.rowIndex="5" />
+                                    <TextField fx:id="nameTextField" promptText="Name" GridPane.rowIndex="1" />
+                                    <TextField fx:id="descriptionTextField" promptText="Description" GridPane.rowIndex="2" />
+                                    <TextField fx:id="locationTextField" promptText="Location" GridPane.rowIndex="3" />
+                                    <TextField fx:id="priceTextField" promptText="Price" GridPane.rowIndex="4" />
+                                    <TextField fx:id="stockTextField" promptText="Stock" GridPane.rowIndex="5" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets right="150.0" />
+                                 </VBox.margin>
+                              </GridPane>
+                              <ButtonBar>
+                                <buttons>
+                                    <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveEdit" text="Save" />
+                                    <Button fx:id="editBtn" mnemonicParsing="false" onAction="#startEdit" text="Edit" />
+                                    <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
+                                </buttons>
+                              </ButtonBar>
                            </children>
-                           <VBox.margin>
-                              <Insets right="150.0" />
-                           </VBox.margin>
-                        </GridPane>
-                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                          <buttons>
-                              <Button fx:id="editBtn" mnemonicParsing="false" onAction="#startEdit" text="Edit" />
-                              <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
-                              <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveEdit" text="Save" />
-                          </buttons>
-                        </ButtonBar>
-                        <Button fx:id="generalTabBackBtn" mnemonicParsing="false" onAction="#switchToProductManagementWindow" text="Back" />
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </VBox>
                      </children>
-                     <padding>
-                        <Insets left="10.0" right="10.0" />
-                     </padding>
-                  </VBox>
-               </children></AnchorPane>
-      </content>
-    </Tab>
-      <Tab text="Orders">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                           <children>
-                              <Button fx:id="backBtn" layoutX="5.0" layoutY="6.0" mnemonicParsing="false" onAction="#switchToProductManagementWindow" text="Back" />
-                           </children>
-                        </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                           <children>
-                              <TableView fx:id="orderItemTable" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <columns>
-                                  <TableColumn fx:id="orderId" prefWidth="126.0" text="ID" />
-                                    <TableColumn fx:id="quantity" prefWidth="161.0" text="Quantity" />
-                                    <TableColumn fx:id="price" prefWidth="175.0" text="Price" />
-                                </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                    </items>
-                  </SplitPane>
-               </children></AnchorPane>
-        </content>
-      </Tab>
-  </tabs>
-</TabPane>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Orders">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="598.0">
+                                 <children>
+                                    <Button fx:id="backBtn" layoutX="5.0" layoutY="6.0" mnemonicParsing="false" onAction="#switchToProductManagementWindow" text="Back" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView fx:id="orderItemTable" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="orderId" prefWidth="126.0" text="ID" />
+                                          <TableColumn fx:id="quantity" prefWidth="161.0" text="Quantity" />
+                                          <TableColumn fx:id="price" prefWidth="175.0" text="Price" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </left>
+</BorderPane>

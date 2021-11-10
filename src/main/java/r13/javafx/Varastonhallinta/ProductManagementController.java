@@ -119,6 +119,12 @@ public class ProductManagementController  {
         ObservableList<Product> products = FXCollections.observableArrayList(dao.getProducts());
         return products;
     }
+    
+    
+    
+    
+    
+    
     @FXML
     private void deleteProduct()	{
     	
@@ -160,6 +166,7 @@ public class ProductManagementController  {
 
     @FXML
     private void switchToNewProductWindow(ActionEvent event) throws IOException {
+    	/*
     	Parent mainViewParent = FXMLLoader.load(getClass().getResource("NewProduct.fxml"));
         Scene newProductViewScene = new Scene(mainViewParent);
 
@@ -167,8 +174,18 @@ public class ProductManagementController  {
 
         window.setScene(newProductViewScene);
         window.show();
+*/
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("newProduct.fxml"));
+
+        Stage stage = new Stage();
+        stage.setTitle("Create a product");
+        stage.setScene(new Scene(loader.load(), 800, 600));
+
+        stage.show();
+        
+        
     }
-    
+    /*
     @FXML
     public void changeSceneToProductDetailsView(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -184,5 +201,20 @@ public class ProductManagementController  {
 
         window.setScene(singleOrderViewScene);
         window.show();
+    }
+    */
+    
+    @FXML
+    private void changeSceneToProductDetailsView() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("singleProduct.fxml"));
+
+        Stage stage = new Stage();
+        stage.setTitle("Manage product");
+        stage.setScene(new Scene(loader.load(), 800, 600));
+
+        SingleProductController controller = loader.getController();
+        controller.initData(productTable.getSelectionModel().getSelectedItem());
+
+        stage.show();
     }
 }
