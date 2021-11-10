@@ -152,10 +152,11 @@
          <children>
             <TableView fx:id="orderItemsTable" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn fx:id="orderItemProduct" prefWidth="209.0" resizable="false" text="Product" />
-                <TableColumn fx:id="orderItemPrice" prefWidth="66.0" resizable="false" text="Price" />
-                  <TableColumn fx:id="orderItemQuantity" prefWidth="73.0" resizable="false" text="Quantity" />
-                  <TableColumn fx:id="orderItemSubtotal" prefWidth="64.0" resizable="false" text="Subtotal" />
+                <TableColumn fx:id="orderItemProduct" prefWidth="156.0" resizable="false" text="Product" />
+                  <TableColumn fx:id="orderItemStock" prefWidth="45.0" resizable="false" text="Stock" />
+                <TableColumn fx:id="orderItemPrice" prefWidth="57.0" resizable="false" text="Price" />
+                  <TableColumn fx:id="orderItemQuantity" prefWidth="56.0" resizable="false" text="Quantity" />
+                  <TableColumn fx:id="orderItemSubtotal" prefWidth="98.0" resizable="false" text="Subtotal" />
               </columns>
             </TableView>
             <GridPane alignment="CENTER" style="-fx-background-color: white;" GridPane.rowIndex="1">

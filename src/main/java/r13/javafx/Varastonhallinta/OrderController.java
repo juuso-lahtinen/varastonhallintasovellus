@@ -48,29 +48,12 @@ public class OrderController implements Initializable {
     @FXML
     private TableColumn<Order, String> statusCol;
 
-    /*@FXML
-    private void openOrder() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("singleOrderView.fxml"));
-
-        Parent root = loader.load();
-
-        // Pass selected order
-        SingleOrderViewController controller = loader.getController();
-        controller.initData(orderTable.getSelectionModel().getSelectedItem());
-
-        Stage stage = new Stage();
-        stage.setTitle("Single order");
-        stage.setScene(new Scene(root, 800, 600));
-        stage.show();
-    }*/
-
     @FXML
     private void openOrder() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("singleOrderView.fxml"));
 
         Stage stage = new Stage();
-        stage.setTitle("Single order");
+        stage.setTitle("Manage order");
         stage.setScene(new Scene(loader.load(), 800, 600));
 
         // Pass selected order

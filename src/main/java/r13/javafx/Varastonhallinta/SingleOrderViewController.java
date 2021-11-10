@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.OrderItem;
@@ -52,6 +53,9 @@ public class SingleOrderViewController {
     private TableColumn<OrderItem, Double> orderItemSubtotal;
 
     @FXML
+    private TableColumn<OrderItem, Integer> orderItemStock;
+
+    @FXML
     private Label orderTotal;
 
     @FXML
@@ -83,8 +87,24 @@ public class SingleOrderViewController {
         orderItemPrice.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getProduct().getPrice()).asObject());
         orderItemQuantity.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
         orderItemSubtotal.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+        orderItemStock.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getProduct().getStock()).asObject());
 
         orderItemsTable.setItems(FXCollections.observableArrayList(dao.getOrderItemsByOrderId(selectedOrder.getId())));
+
+        // Update bg-color
+        orderItemsTable.setRowFactory(row -> new TableRow<>() {
+            @Override
+            protected void updateItem(OrderItem item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || item.getProduct() == null) {
+                    setStyle("");
+                } else if (item.getProduct().getStock() < item.getQuantity()) {
+                    setStyle("-fx-background-color: red;");
+                } else {
+                    setStyle("-fx-background-color: green;");
+                }
+            }
+        });
     }
 
     private void setTotalValues() {
