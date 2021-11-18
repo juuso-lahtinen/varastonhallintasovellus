@@ -41,6 +41,11 @@ public class SideBarController implements Initializable {
         loadPage("productManagement");
     }
 
+    @FXML
+    private void admin(MouseEvent event) throws IOException {
+        loadPage("admin");
+    }
+
     private void loadPage(String page) throws IOException {
         Parent root = null;
         root = FXMLLoader.load(getClass().getResource(page + ".fxml"));

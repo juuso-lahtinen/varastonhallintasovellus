@@ -48,10 +48,6 @@ public class MainWindowController implements Initializable {
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        //window.setWidth(800);
-        //window.setHeight(600);
-        //window.setResizable(false);
-
         window.setScene(orderManagementViewScene);
         window.show();
     }
@@ -61,10 +57,6 @@ public class MainWindowController implements Initializable {
         Scene productManagementViewScene = new Scene(mainViewParent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        //window.setWidth(800);
-        //window.setHeight(600);
-        //window.setResizable(false);
 
         window.setScene(productManagementViewScene);
         window.show();
