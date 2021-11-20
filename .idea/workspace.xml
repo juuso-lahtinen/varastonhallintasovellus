@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c4936bc8-ef47-4bb9-963f-3a25707a2e2a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/MainWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/MainWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/SideBarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/SideBarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/AdminViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/AdminViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/dao/UserAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/r13/javafx/Varastonhallinta/models/dao/UserAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/mainWindowNew.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/mainWindowNew.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/r13/javafx/Varastonhallinta/admin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DataAccessObjectTests/UserAccessObjectTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DataAccessObjectTests/UserAccessObjectTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +52,7 @@
       <map>
         <entry key="JPA Inspector" value="false" />
         <entry key="JPA Palette" value="false" />
-        <entry key="JPA Structure" value="false" />
+        <entry key="JPA Structure" value="true" />
       </map>
     </option>
   </component>
@@ -70,7 +73,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -110,8 +113,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderItemAccessObject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="r13.javafx.Varastonhallinta.models.dao.OrderItemAccessObject" />
+    <configuration name="ProductAccessObject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="r13.javafx.Varastonhallinta.models.dao.ProductAccessObject" />
       <module name="Varastonhallinta" />
       <extension name="coverage">
         <pattern>
@@ -123,8 +126,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductAccessObject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="r13.javafx.Varastonhallinta.models.dao.ProductAccessObject" />
+    <configuration name="ShiftAccessObject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="r13.javafx.Varastonhallinta.models.dao.ShiftAccessObject" />
       <module name="Varastonhallinta" />
       <extension name="coverage">
         <pattern>
@@ -153,9 +156,9 @@
       <list>
         <item itemvalue="Application.App" />
         <item itemvalue="Application.UserAccessObject" />
+        <item itemvalue="Application.ShiftAccessObject" />
         <item itemvalue="Application.ProductAccessObject" />
         <item itemvalue="Application.OrderAccessObject" />
-        <item itemvalue="Application.OrderItemAccessObject" />
       </list>
     </recent_temporary>
   </component>

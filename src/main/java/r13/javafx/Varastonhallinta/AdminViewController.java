@@ -1,11 +1,15 @@
 package r13.javafx.Varastonhallinta;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.User;
 import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,71 +17,59 @@ import java.util.ResourceBundle;
 public class AdminViewController implements Initializable {
 
     @FXML
-    private TableView<?> openShiftTable;
+    private Button newShiftBtn;
 
     @FXML
-    private TableColumn<?, ?> openShiftDate;
+    private DatePicker fromDate;
 
     @FXML
-    private TableColumn<?, ?> openShiftStart;
+    private DatePicker tillDate;
 
     @FXML
-    private TableColumn<?, ?> openShiftEnd;
+    private TableView<?> shiftTable;
 
     @FXML
-    private TableView<?> upcomingShiftTable;
+    private TableColumn<?, ?> employeeCol;
 
     @FXML
-    private TableColumn<?, ?> upcomingShiftEmployee;
+    private TableColumn<?, ?> mondayCol;
 
     @FXML
-    private TableColumn<?, ?> upcomingShiftDate;
+    private TableColumn<?, ?> tuesdayCol;
 
     @FXML
-    private TableColumn<?, ?> upcomingShiftStart;
+    private TableColumn<?, ?> wednesdayCol;
 
     @FXML
-    private TableColumn<?, ?> upcomingShiftEnd;
+    private TableColumn<?, ?> thursdayCol;
 
     @FXML
-    private DatePicker newShiftDate;
+    private TableColumn<?, ?> fridayCol;
 
     @FXML
-    private ComboBox newShiftStart;
+    private TableColumn<?, ?> saturdayCol;
 
     @FXML
-    private ComboBox newShiftEnd;
+    private TableColumn<?, ?> sundayCol;
 
     @FXML
-    private ComboBox newShiftEmployeeId;
+    private void openNewShift() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("newShift.fxml"));
 
-    @FXML
-    private Button newShiftAdd;
+        Stage stage = new Stage();
+        stage.setTitle("New shift");
+        stage.setScene(new Scene(loader.load()));
 
-    private UserAccessObject userDao = new UserAccessObject();
+        // Pass controller if needed
+        //SingleOrderViewController controller = loader.getController();
+        //controller.initData(orderTable.getSelectionModel().getSelectedItem());
+
+        stage.show();
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        fillUserIdMenu();
-        fillTimeTabs();
-    }
 
-    public void fillUserIdMenu() {
-        List<User> users = userDao.getUsers();
-        users.forEach(u -> {
-            newShiftEmployeeId.getItems().add(u.getId());
-        });
-    }
-
-    public void fillTimeTabs() {
-        newShiftStart.getItems().add("6.00");
-        newShiftStart.getItems().add("9.00");
-        newShiftStart.getItems().add("14.00");
-        newShiftStart.getItems().add("22.00");
-
-        newShiftEnd.getItems().add("6.00");
-        newShiftEnd.getItems().add("14.00");
-        newShiftEnd.getItems().add("17.00");
-        newShiftEnd.getItems().add("22.00");
     }
 }

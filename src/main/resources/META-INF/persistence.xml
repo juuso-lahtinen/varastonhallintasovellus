@@ -22,6 +22,8 @@ mapped to database tables. Database driver, location, userid and pw
         <class>r13.javafx.Varastonhallinta.models.OrderStatusCode</class>
         <class>r13.javafx.Varastonhallinta.models.ProductCategory</class>
         <class>r13.javafx.Varastonhallinta.models.Customer</class>
+        <class>r13.javafx.Varastonhallinta.models.User</class>
+        <class>r13.javafx.Varastonhallinta.models.Shift</class>
         <properties>
             <!-- Driver for DB database -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>

@@ -16,7 +16,7 @@ import java.util.List;
 public class UserAccessObject {
 
     public static void main(String[] args) {
-        System.out.println(getUsers());
+        removeUser("da7c9aa3-2705-4658-aaae-fc91d5da6f11");
     }
 
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
@@ -89,7 +89,7 @@ public class UserAccessObject {
         }
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
-        String query = "DELETE User u WHERE u.username = :id";
+        String query = "DELETE User u WHERE u.id = :id";
 
         try {
 
