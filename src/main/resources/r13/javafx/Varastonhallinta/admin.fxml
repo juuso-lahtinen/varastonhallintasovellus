@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.AdminViewController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="r13.javafx.Varastonhallinta.AdminViewController">
    <top>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -49,16 +49,12 @@
       </GridPane>
    </top>
    <center>
-      <TableView fx:id="shiftTable" BorderPane.alignment="CENTER">
+      <TableView fx:id="shiftTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="employeeCol" prefWidth="177.0" resizable="false" text="Employee" />
-            <TableColumn fx:id="mondayCol" prefWidth="100.0" text="Monday" />
-            <TableColumn fx:id="tuesdayCol" prefWidth="100.0" text="Tuesday" />
-            <TableColumn fx:id="wednesdayCol" prefWidth="100.0" text="Wednesday" />
-            <TableColumn fx:id="thursdayCol" prefWidth="100.0" text="Thursday" />
-            <TableColumn fx:id="fridayCol" prefWidth="100.0" text="Friday" />
-            <TableColumn fx:id="saturdayCol" prefWidth="100.0" text="Saturday" />
-            <TableColumn fx:id="sundayCol" prefWidth="100.0" text="Sunday" />
+          <TableColumn fx:id="employeeCol" prefWidth="243.0" resizable="false" text="Employee" />
+            <TableColumn fx:id="dateCol" prefWidth="160.0" text="Date" />
+            <TableColumn fx:id="startCol" prefWidth="100.0" text="Start" />
+            <TableColumn fx:id="endCol" prefWidth="100.0" text="End" />
         </columns>
       </TableView>
    </center>
