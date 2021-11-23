@@ -4,8 +4,6 @@ import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.Shift;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,9 +12,8 @@ public class ShiftAccessObject {
             .createEntityManagerFactory("test");
 
     public static void main(String[] args) {
-        LocalDate time = LocalDate.now();
-        Shift shift = new Shift("16.00", "18.00", time);
-        addShift(shift);
+        System.out.println(getShiftsByUserId("54a0e234-c980-4be6-a737-adcc137d132a"));
+
     }
 
     public static Shift addShift(Shift shift) {
@@ -39,6 +36,41 @@ public class ShiftAccessObject {
         } finally {
             em.close();
         }
+    }
+
+    public static boolean deleteShiftById(String id) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        String query = "DELETE Shift s WHERE s.id = :id";
+
+        try {
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("id", id).executeUpdate();
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List getShiftsByUserId(String id) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        String query = "SELECT s FROM Shift s WHERE s.user.id = :id";
+
+        TypedQuery<Shift> tq = em.createQuery(query, Shift.class);
+        tq.setParameter("id", id);
+        List<Shift> shifts = null;
+
+        try {
+            shifts = tq.getResultList();
+        } catch (NoResultException ex) {
+            ex.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return shifts;
     }
 
     public static List getShifts() {

@@ -43,7 +43,7 @@ public class SideBarController implements Initializable {
 
     @FXML
     private void admin(MouseEvent event) throws IOException {
-        loadPage("admin");
+        loadPage("shiftsAdmin");
     }
 
     private void loadPage(String page) throws IOException {

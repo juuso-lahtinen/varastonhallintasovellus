@@ -5,9 +5,11 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
@@ -16,7 +18,7 @@
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints hgrow="NEVER" maxWidth="295.0" minWidth="10.0" prefWidth="70.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="530.0" minWidth="10.0" prefWidth="530.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="530.0" minWidth="10.0" prefWidth="530.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -47,8 +49,46 @@
             </Label>
             <DatePicker fx:id="shiftDate" promptText="Select..." GridPane.columnIndex="1" />
             <ComboBox fx:id="shiftEmployee" prefWidth="150.0" promptText="Select..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ComboBox fx:id="shiftStart" prefWidth="150.0" promptText="Select..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox fx:id="shiftEnd" layoutX="80.0" layoutY="248.0" prefWidth="150.0" promptText="Select..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <ComboBox fx:id="shiftStart" prefWidth="150.0" promptText="Select..." />
+                  <Button fx:id="shiftStartCustom" mnemonicParsing="false" onAction="#setCustomStart" text="Set Custom">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="customStart" promptText="Custom time">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="shiftStartCancel" layoutX="170.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelCustomStart" text="Cancel">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <ComboBox fx:id="shiftEnd" prefWidth="150.0" promptText="Select..." />
+                  <Button fx:id="shiftEndCustom" mnemonicParsing="false" onAction="#setCustomEnd" text="Set Custom">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="customEnd" promptText="Custom time">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="shiftEndCancel" layoutX="170.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelCustomEnd" text="Cancel">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
          </children>
          <padding>
             <Insets bottom="10.0" top="10.0" />
@@ -56,7 +96,7 @@
       </GridPane>
    </center>
    <bottom>
-      <Button fx:id="addShiftBtn" mnemonicParsing="false" onAction="#addShift" text="Add Shift" BorderPane.alignment="CENTER">
+      <Button fx:id="addShiftBtn" mnemonicParsing="false" onAction="#addShift" style="-fx-background-color: blue; -fx-text-fill: white;" text="Add Shift" BorderPane.alignment="CENTER_LEFT">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
