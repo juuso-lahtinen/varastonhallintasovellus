@@ -1,10 +1,14 @@
 package r13.javafx.Varastonhallinta;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,11 +17,12 @@ import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
-public class LoginScreenController {
+public class LoginScreenController implements Initializable {
 	
 	private UserAccessObject dao = new UserAccessObject();	
 	
 	public String currentUser;
+	private String loginErrorText;
 	
 	@FXML
 	private Button loginButton;
@@ -49,8 +54,25 @@ public class LoginScreenController {
 	        window.show(); 
 	        
 		} else {
-			loginError.setText("Wrong account name or password");
+			loginError.setText(loginErrorText);
 		}		
 	}
-
- }
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		
+		try {
+			Locale fiLocale = new Locale("fi", "FI");
+			Locale enLocale = new Locale("en", "US");
+			ResourceBundle bundle = ResourceBundle.getBundle("bundles/TextResources", fiLocale);
+		
+			loginErrorText = bundle.getString("loginErrorText");				
+			
+		} catch (Exception e) {
+			System.err.println("Properties file was not found.");
+			System.exit(0);
+		}
+		
+	}
+	
+}
