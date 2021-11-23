@@ -1,8 +1,10 @@
 package r13.javafx.Varastonhallinta;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import r13.javafx.Varastonhallinta.models.Shift;
 import r13.javafx.Varastonhallinta.models.User;
@@ -20,6 +22,7 @@ public class NewShiftController implements Initializable {
     private UserAccessObject userDao = new UserAccessObject();
     private ShiftAccessObject shiftDao = new ShiftAccessObject();
 
+
     @FXML
     private DatePicker shiftDate;
 
@@ -33,15 +36,79 @@ public class NewShiftController implements Initializable {
     private ComboBox<String> shiftEnd;
 
     @FXML
-    private void addShift() {
+    private Button shiftStartCustom;
+
+    @FXML
+    private TextField customStart;
+
+    @FXML
+    private Button shiftStartCancel;
+
+    @FXML
+    private Button shiftEndCustom;
+
+    @FXML
+    private TextField customEnd;
+
+    @FXML
+    private Button shiftEndCancel;
+
+    @FXML
+    private Button addShiftBtn;
+
+    @FXML
+    void cancelCustomEnd(ActionEvent event) {
+        shiftEnd.setVisible(true);
+        customEnd.setVisible(false);
+        shiftEndCancel.setVisible(false);
+        shiftEndCustom.setVisible(true);
+        shiftEndCustom.toBack();
+        shiftEnd.toBack();
+    }
+
+    @FXML
+    void cancelCustomStart(ActionEvent event) {
+        shiftStart.setVisible(true);
+        customStart.setVisible(false);
+        shiftStartCancel.setVisible(false);
+        shiftStartCustom.setVisible(true);
+        shiftStartCustom.toBack();
+        shiftStart.toBack();
+    }
+
+    @FXML
+    void setCustomEnd(ActionEvent event) {
+        shiftEnd.setVisible(false);
+        customEnd.setVisible(true);
+        shiftEndCancel.setVisible(true);
+        shiftEndCustom.setVisible(false);
+        shiftEndCancel.toBack();
+        customEnd.toBack();
+    }
+
+    @FXML
+    void setCustomStart(ActionEvent event) {
+        shiftStart.setVisible(false);
+        customStart.setVisible(true);
+        shiftStartCancel.setVisible(true);
+        shiftStartCustom.setVisible(false);
+        shiftStartCancel.toBack();
+        customStart.toBack();
+
+    }
+
+    @FXML
+    void addShift(ActionEvent event) {
         User userForShift = userDao.getDBUsername(shiftEmployee.getValue());
-        String start = shiftStart.getValue();
-        String end = shiftEnd.getValue();
+        String start = shiftStart.isVisible() ? shiftStart.getValue() : customStart.getText();
+        String end = shiftEnd.isVisible() ? shiftEnd.getValue() : customEnd.getText();
         LocalDate date = shiftDate.getValue();
 
         Shift shiftToAdd = new Shift(userForShift, start, end, date);
 
-        if (shiftDate.getValue() == null || shiftEmployee.getValue().isEmpty() || shiftStart.getValue().isEmpty() || shiftEnd.getValue().isEmpty()) {
+        if (shiftDate.getValue() == null || shiftEmployee.getValue().isEmpty() || (shiftStart.isVisible() && shiftStart.getValue() == null) ||
+                (shiftEnd.isVisible() && shiftEnd.getValue() == null) || (customStart.isVisible() && customStart.getText().isEmpty()) ||
+                (customEnd.isVisible() && customEnd.getText().isEmpty())) {
             Platform.runLater(() -> {
                 Alert dialog = new Alert(Alert.AlertType.ERROR, "Please fill all the required fields", ButtonType.OK);
                 dialog.showAndWait();
@@ -70,6 +137,15 @@ public class NewShiftController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         fillTimeTabs();
         fillUserMenu();
+        customInitials();
+    }
+
+    private void customInitials() {
+        customStart.setVisible(false);
+        customEnd.setVisible(false);
+        shiftStartCancel.setVisible(false);
+        shiftEndCancel.setVisible(false);
+
     }
 
     private void fillUserMenu() {
