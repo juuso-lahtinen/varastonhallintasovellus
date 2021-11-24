@@ -30,6 +30,8 @@ public class AdminViewController implements Initializable {
 
     private List<TableColumn<Shift, String>> columns = new ArrayList<>();
 
+    final static int MAX_DAYS = 60;
+
     @FXML
     private Button newShiftBtn;
 
@@ -85,21 +87,62 @@ public class AdminViewController implements Initializable {
         }
     }
 
+    @FXML
+    void updateShifts(ActionEvent event) {
+        LocalDate newStart = fromDate.getValue();
+        LocalDate newTill = tillDate.getValue();
+
+        // Check if there are too many days
+        if (!tooManyDays(newStart, newTill)) {
+
+
+            // Clear old values
+            int dayCount = (int) ChronoUnit.DAYS.between(newStart, newTill);
+            shiftTable.getItems().clear();
+            shiftTable.getColumns().remove(1, shiftTable.getColumns().size());
+            columns.clear();
+
+            // Create new columns
+            for (int i = 0; i < dayCount; i++) {
+                columns.add(new TableColumn<>(newStart.plusDays(i).toString()));
+            }
+            shiftTable.getColumns().addAll(columns);
+
+            // Fill cells
+            employeeCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUser().getFirstName() + " " + cellData.getValue().getUser().getLastName()));
+            for (TableColumn<Shift, String> tc : columns) {
+                tc.setCellValueFactory(cellData -> {
+                    String cellVal = tc.getText().equals(cellData.getValue().getDate().toString()) ? cellData.getValue().getStart() + "-" + cellData.getValue().getEnd() : "";
+
+                    return new SimpleStringProperty(cellVal);
+                });
+            }
+            ObservableList<Shift> shifts = FXCollections.observableArrayList(shiftDao.getShifts());
+
+            shiftTable.setItems(shifts);
+        } else {
+            Platform.runLater(() -> {
+                Alert dialog = new Alert(Alert.AlertType.ERROR, "Can not show over " + MAX_DAYS + " days", ButtonType.OK);
+                dialog.setTitle("Too many days selected");
+                dialog.showAndWait();
+            });
+        }
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         //Default date values
         LocalDate now = LocalDate.now();
-        LocalDate weekFromNow = LocalDate.now().plusDays(7);
+        LocalDate weekFromNow = LocalDate.now().plusDays(MAX_DAYS);
         fromDate.setValue(now);
         tillDate.setValue(weekFromNow);
 
         //Create columns
-        int daycount = (int) ChronoUnit.DAYS.between(now, weekFromNow);
-        for (int i = 0; i < daycount; i++) {
-            columns.add(new TableColumn<Shift, String>(LocalDate.now().plusDays(i).toString()));
-            //shiftTable.getColumns().add(new TableColumn<Shift, String>(LocalDate.now().plusDays(i).toString()));
+        int dayCount = (int) ChronoUnit.DAYS.between(now, weekFromNow);
+        for (int i = 0; i < dayCount; i++) {
+            columns.add(new TableColumn<>(now.plusDays(i).toString()));
         }
         shiftTable.getColumns().addAll(columns);
 
@@ -118,10 +161,10 @@ public class AdminViewController implements Initializable {
         shiftTable.setItems(shifts);
     }
 
-    private boolean updateDays(LocalDate startDate, LocalDate tillDate) {
-        if (ChronoUnit.DAYS.between(startDate, tillDate) > 14) {
-            return false;
+    private boolean tooManyDays(LocalDate startDate, LocalDate tillDate) {
+        if (ChronoUnit.DAYS.between(startDate, tillDate) > MAX_DAYS) {
+            return true;
         }
-        return true;
+        return false;
     }
 }
