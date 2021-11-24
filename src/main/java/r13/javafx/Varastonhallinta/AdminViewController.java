@@ -12,12 +12,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Shift;
+import r13.javafx.Varastonhallinta.models.User;
 import r13.javafx.Varastonhallinta.models.dao.ShiftAccessObject;
+import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +29,8 @@ import java.util.ResourceBundle;
 public class AdminViewController implements Initializable {
 
     private ShiftAccessObject shiftDao = new ShiftAccessObject();
-
-    private List<TableColumn<Shift, String>> columns = new ArrayList<>();
+    private UserAccessObject userDao = new UserAccessObject();
+    private List<TableColumn<User, String>> columns = new ArrayList<>();
 
     final static int MAX_DAYS = 60;
 
@@ -45,10 +47,10 @@ public class AdminViewController implements Initializable {
     private DatePicker tillDate;
 
     @FXML
-    private TableView<Shift> shiftTable;
+    private TableView<User> shiftTable;
 
     @FXML
-    private TableColumn<Shift, String> employeeCol;
+    private TableColumn<User, String> employeeCol;
 
     @FXML
     void openNewShift(ActionEvent event) throws IOException {
@@ -66,14 +68,27 @@ public class AdminViewController implements Initializable {
     @FXML
     void deleteShift(ActionEvent event) {
         try {
-            Shift shiftToDelete = shiftTable.getSelectionModel().getSelectedItem();
+            // Get position
+            TablePosition pos = shiftTable.getSelectionModel().getSelectedCells().get(0);
+            int row = pos.getRow();
+            // Get user
+            User user = shiftTable.getItems().get(row);
+            // Get Date
+            TableColumn date = pos.getTableColumn();
+            // Get Time
+            String[] timeTable = date.getCellObservableValue(user).getValue().toString().split("-");
+            LocalTime startTime = LocalTime.parse(timeTable[0]);
+            LocalTime endTime = LocalTime.parse(timeTable[1]);
+
+            Shift shiftToDelete = user.getSingleShift(LocalDate.parse(date.getText()), startTime, endTime);
+
             Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
             confirmation.setTitle("Confirmation");
             confirmation.setHeaderText("Are you sure you want to delete this shift?");
             Optional<ButtonType> result = confirmation.showAndWait();
             if (result.get() == ButtonType.OK) {
                 shiftDao.deleteShiftById(shiftToDelete.getId());
-                shiftTable.getItems().remove(shiftToDelete);
+                fetchShifts();
 
             } else {
                 confirmation.close();
@@ -109,17 +124,18 @@ public class AdminViewController implements Initializable {
             shiftTable.getColumns().addAll(columns);
 
             // Fill cells
-            employeeCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUser().getFirstName() + " " + cellData.getValue().getUser().getLastName()));
-            for (TableColumn<Shift, String> tc : columns) {
+            employeeCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName() + " " + cellData.getValue().getLastName()));
+            for (TableColumn<User, String> tc : columns) {
                 tc.setCellValueFactory(cellData -> {
-                    String cellVal = tc.getText().equals(cellData.getValue().getDate().toString()) ? cellData.getValue().getStart() + "-" + cellData.getValue().getEnd() : "";
-
-                    return new SimpleStringProperty(cellVal);
+                    Optional<Shift> shift = cellData.getValue().getShifts().stream().filter(s -> s.getDate().equals(LocalDate.parse(tc.getText()))).findAny();
+                    if (shift.isPresent()) {
+                        return new SimpleStringProperty(shift.get().getStart().toString() + "-" + shift.get().getEnd().toString());
+                    } else {
+                        return new SimpleStringProperty("");
+                    }
                 });
             }
-            ObservableList<Shift> shifts = FXCollections.observableArrayList(shiftDao.getShifts());
-
-            shiftTable.setItems(shifts);
+            fetchShifts();
         } else {
             Platform.runLater(() -> {
                 Alert dialog = new Alert(Alert.AlertType.ERROR, "Can not show over " + MAX_DAYS + " days", ButtonType.OK);
@@ -147,18 +163,20 @@ public class AdminViewController implements Initializable {
         shiftTable.getColumns().addAll(columns);
 
         // Fill cells
-        employeeCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUser().getFirstName() + " " + cellData.getValue().getUser().getLastName()));
-        for (TableColumn<Shift, String> tc : columns) {
+        employeeCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName() + " " + cellData.getValue().getLastName()));
+        for (TableColumn<User, String> tc : columns) {
             tc.setCellValueFactory(cellData -> {
-                String cellVal = tc.getText().equals(cellData.getValue().getDate().toString()) ? cellData.getValue().getStart() + "-" + cellData.getValue().getEnd() : "";
-
-                return new SimpleStringProperty(cellVal);
+                Optional<Shift> shift = cellData.getValue().getShifts().stream().filter(s -> s.getDate().equals(LocalDate.parse(tc.getText()))).findAny();
+                if (shift.isPresent()) {
+                    return new SimpleStringProperty(shift.get().getStart().toString() + "-" + shift.get().getEnd().toString());
+                } else {
+                    return new SimpleStringProperty("");
+                }
             });
         }
 
-        ObservableList<Shift> shifts = FXCollections.observableArrayList(shiftDao.getShifts());
-
-        shiftTable.setItems(shifts);
+        fetchShifts();
+        shiftTable.getSelectionModel().setCellSelectionEnabled(true);
     }
 
     private boolean tooManyDays(LocalDate startDate, LocalDate tillDate) {
@@ -166,5 +184,11 @@ public class AdminViewController implements Initializable {
             return true;
         }
         return false;
+    }
+
+    private void fetchShifts() {
+        ObservableList<User> shifts = FXCollections.observableArrayList(userDao.getUsers());
+        shiftTable.setItems(shifts);
+        shiftTable.getItems().forEach(u -> u.setShifts(shiftDao.getShiftsByUserId(u.getId())));
     }
 }

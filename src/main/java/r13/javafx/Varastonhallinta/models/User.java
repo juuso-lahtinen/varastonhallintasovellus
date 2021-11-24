@@ -1,6 +1,8 @@
 package r13.javafx.Varastonhallinta.models;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -82,5 +84,22 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(List<Shift> shifts) {
+        this.shifts = shifts;
+    }
+
+    public Shift getSingleShift(LocalDate date, LocalTime startTime, LocalTime endTime) {
+        for (Shift s : shifts) {
+            if (s.getDate().equals(date) && s.getStart().equals(startTime) && s.getEnd().equals(endTime)) {
+                return s;
+            }
+        }
+        return null;
     }
 }

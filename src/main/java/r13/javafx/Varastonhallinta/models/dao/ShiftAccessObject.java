@@ -55,6 +55,23 @@ public class ShiftAccessObject {
         }
     }
 
+    public static Shift getShiftByUserId(String id) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        String query = "SELECT s FROM Shift s WHERE s.user.id = :id";
+        TypedQuery<Shift> tq = em.createQuery(query, Shift.class);
+        tq.setParameter("id", id);
+        Shift shift = null;
+
+        try {
+            shift = tq.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return shift;
+    }
+
     public static List getShiftsByUserId(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         String query = "SELECT s FROM Shift s WHERE s.user.id = :id";
