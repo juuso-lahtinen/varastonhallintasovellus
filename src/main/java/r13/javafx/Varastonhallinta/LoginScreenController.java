@@ -59,21 +59,9 @@ public class LoginScreenController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		try {
-			//Locale fiLocale = new Locale("fi", "FI");
-			//Locale enLocale = new Locale("en", "US");
-			//ResourceBundle bundle = ResourceBundle.getBundle("bundles/TextResources", fiLocale);
-		
-			ResourceBundle bundle = Singleton.getInstance().getBundle();
+			ResourceBundle bundle = Singleton.getInstance().getBundle();	
 			
 			loginErrorText = bundle.getString("loginErrorText");				
-			
-		} catch (Exception e) {
-			System.err.println("Properties file was not found.");
-			System.exit(0);
-		}
-		
 	}
 	
 }
