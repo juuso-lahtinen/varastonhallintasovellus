@@ -80,7 +80,7 @@ public class MainWindowController implements Initializable {
     
     private void initializeUser() {    	
 
-    	usernameField.setText(Singleton.Instance().getUsername());
+    	usernameField.setText(Singleton.getInstance().getUsername());
     }
 
 

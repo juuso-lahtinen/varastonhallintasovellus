@@ -2,7 +2,6 @@ package r13.javafx.Varastonhallinta;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -40,7 +39,7 @@ public class LoginScreenController implements Initializable {
 					
 			currentUser = username.getText().toString();
 			System.out.println("Login successful, logged in as: " + currentUser);	
-			Singleton.Instance().setUsername(username.getText().toString());
+			Singleton.getInstance().setUsername(username.getText().toString());
 			
 			FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(getClass().getResource("mainWindowNew.fxml"));
@@ -62,10 +61,12 @@ public class LoginScreenController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		try {
-			Locale fiLocale = new Locale("fi", "FI");
-			Locale enLocale = new Locale("en", "US");
-			ResourceBundle bundle = ResourceBundle.getBundle("bundles/TextResources", fiLocale);
+			//Locale fiLocale = new Locale("fi", "FI");
+			//Locale enLocale = new Locale("en", "US");
+			//ResourceBundle bundle = ResourceBundle.getBundle("bundles/TextResources", fiLocale);
 		
+			ResourceBundle bundle = Singleton.getInstance().getBundle();
+			
 			loginErrorText = bundle.getString("loginErrorText");				
 			
 		} catch (Exception e) {

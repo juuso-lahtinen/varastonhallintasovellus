@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import r13.javafx.Varastonhallinta.models.Singleton;
 
 /**
  * JavaFX App
@@ -17,7 +18,7 @@ public class App extends Application {
     private static Scene scene;
     private static Locale fiLocale = new Locale("fi", "FI");
     private static Locale enLocale = new Locale("en", "US");
-    private static ResourceBundle bundle = ResourceBundle.getBundle("bundles/TextResources", fiLocale);
+    private static ResourceBundle bundle = ResourceBundle.getBundle("bundles/TextResources", fiLocale);    
 
     @Override
     public void start(Stage stage) throws IOException {	
@@ -38,6 +39,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+    	Singleton.getInstance().setBundle(bundle);
         launch();
     }
 
