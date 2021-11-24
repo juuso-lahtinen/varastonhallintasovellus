@@ -13,6 +13,7 @@ import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -30,10 +31,10 @@ public class NewShiftController implements Initializable {
     private ComboBox<String> shiftEmployee;
 
     @FXML
-    private ComboBox<String> shiftStart;
+    private ComboBox<LocalTime> shiftStart;
 
     @FXML
-    private ComboBox<String> shiftEnd;
+    private ComboBox<LocalTime> shiftEnd;
 
     @FXML
     private Button shiftStartCustom;
@@ -99,36 +100,44 @@ public class NewShiftController implements Initializable {
 
     @FXML
     void addShift(ActionEvent event) {
-        User userForShift = userDao.getDBUsername(shiftEmployee.getValue());
-        String start = shiftStart.isVisible() ? shiftStart.getValue() : customStart.getText();
-        String end = shiftEnd.isVisible() ? shiftEnd.getValue() : customEnd.getText();
-        LocalDate date = shiftDate.getValue();
+        try {
+            User userForShift = userDao.getDBUsername(shiftEmployee.getValue());
+            LocalDate date = shiftDate.getValue();
+            LocalTime start = shiftStart.isVisible() ? shiftStart.getValue() : LocalTime.parse(customStart.getText());
+            LocalTime end = shiftEnd.isVisible() ? shiftEnd.getValue() : LocalTime.parse(customEnd.getText());
+            Shift shiftToAdd = new Shift(userForShift, start, end, date);
 
-        Shift shiftToAdd = new Shift(userForShift, start, end, date);
-
-        if (shiftDate.getValue() == null || shiftEmployee.getValue().isEmpty() || (shiftStart.isVisible() && shiftStart.getValue() == null) ||
-                (shiftEnd.isVisible() && shiftEnd.getValue() == null) || (customStart.isVisible() && customStart.getText().isEmpty()) ||
-                (customEnd.isVisible() && customEnd.getText().isEmpty())) {
-            Platform.runLater(() -> {
-                Alert dialog = new Alert(Alert.AlertType.ERROR, "Please fill all the required fields", ButtonType.OK);
-                dialog.showAndWait();
-            });
-        } else if (shiftExists(shiftToAdd)) {
-            Platform.runLater(() -> {
-                Alert dialog = new Alert(Alert.AlertType.ERROR, "User is already working", ButtonType.OK);
-                dialog.showAndWait();
-            });
-        } else {
-            try {
-                shiftDao.addShift(shiftToAdd);
+            if (shiftDate.getValue() == null || shiftEmployee.getValue().isEmpty() || (shiftStart.isVisible() && shiftStart.getValue() == null) ||
+                    (shiftEnd.isVisible() && shiftEnd.getValue() == null) || (customStart.isVisible() && customStart.getText().isEmpty()) ||
+                    (customEnd.isVisible() && customEnd.getText().isEmpty())) {
                 Platform.runLater(() -> {
-                    Alert dialog = new Alert(Alert.AlertType.INFORMATION, "Shift added", ButtonType.OK);
+                    Alert dialog = new Alert(Alert.AlertType.ERROR, "Please fill all the required fields", ButtonType.OK);
                     dialog.showAndWait();
-                    clearFields();
                 });
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else if (alreadyWorking(userForShift, shiftToAdd)) {
+                Platform.runLater(() -> {
+                    Alert dialog = new Alert(Alert.AlertType.ERROR, "User is already working", ButtonType.OK);
+                    dialog.showAndWait();
+                });
+            } else {
+                try {
+                    shiftDao.addShift(shiftToAdd);
+                    Platform.runLater(() -> {
+                        Alert dialog = new Alert(Alert.AlertType.INFORMATION, "Shift added", ButtonType.OK);
+                        dialog.showAndWait();
+                        clearFields();
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+
+        } catch (Exception e) {
+            Platform.runLater(() -> {
+                Alert dialog = new Alert(Alert.AlertType.ERROR, "Custom time must be in following format: 07:15:00", ButtonType.OK);
+                dialog.showAndWait();
+            });
+            e.printStackTrace();
         }
     }
 
@@ -156,15 +165,15 @@ public class NewShiftController implements Initializable {
     }
 
     private void fillTimeTabs() {
-        shiftStart.getItems().add("6.00");
-        shiftStart.getItems().add("9.00");
-        shiftStart.getItems().add("14.00");
-        shiftStart.getItems().add("22.00");
+        shiftStart.getItems().add(LocalTime.parse("06:00:00"));
+        shiftStart.getItems().add(LocalTime.parse("09:00:00"));
+        shiftStart.getItems().add(LocalTime.parse("14:00:00"));
+        shiftStart.getItems().add(LocalTime.parse("22:00:00"));
 
-        shiftEnd.getItems().add("6.00");
-        shiftEnd.getItems().add("14.00");
-        shiftEnd.getItems().add("17.00");
-        shiftEnd.getItems().add("22.00");
+        shiftEnd.getItems().add(LocalTime.parse("06:00:00"));
+        shiftEnd.getItems().add(LocalTime.parse("14:00:00"));
+        shiftEnd.getItems().add(LocalTime.parse("17:00:00"));
+        shiftEnd.getItems().add(LocalTime.parse("22:00:00"));
     }
 
     private void clearFields() {
@@ -175,15 +184,15 @@ public class NewShiftController implements Initializable {
     }
 
     // Super simple check if the user is working
-    private boolean shiftExists(Shift shift) {
-        List<Shift> shifts = shiftDao.getShifts();
-        boolean exists = false;
-        for (Shift s : shifts) {
-            if (s.getUser().getUsername().equals(shift.getUser().getUsername()) && s.getDate().equals(shift.getDate()) && s.getStart().equals(shift.getStart())) {
-                exists = true;
+    private boolean alreadyWorking(User user, Shift shift) {
+        boolean isWorking = false;
+        List<Shift> userShifts = shiftDao.getShiftsByUserId(user.getId());
+        for (Shift s : userShifts) {
+            if (s.getDate().equals(shift.getDate())) {
+                isWorking = true;
             }
         }
-        return exists;
+        return isWorking;
     }
 }
 

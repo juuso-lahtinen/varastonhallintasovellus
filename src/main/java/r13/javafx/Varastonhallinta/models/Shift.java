@@ -3,6 +3,7 @@ package r13.javafx.Varastonhallinta.models;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 @Entity
@@ -23,28 +24,28 @@ public class Shift {
     private User user;
 
     @Column(name = "\"startTime\"")
-    private String startTime;
+    private LocalTime startTime;
 
     @Column(name = "\"endTime\"")
-    private String endTime;
+    private LocalTime endTime;
 
     @Column(name = "date")
     private LocalDate date;
 
-    public Shift(User user, String startTime, String endTime, LocalDate timestamp) {
+    public Shift(User user, LocalTime startTime, LocalTime endTime, LocalDate timestamp) {
         this.user = user;
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = timestamp;
     }
 
-    public Shift(String start, String end, LocalDate date) {
+    public Shift(LocalTime start, LocalTime end, LocalDate date) {
         this.startTime = start;
         this.endTime = end;
         this.date = date;
     }
 
-    public Shift(String start, String end) {
+    public Shift(LocalTime start, LocalTime end) {
         this.startTime = start;
         this.endTime = end;
     }
@@ -69,19 +70,19 @@ public class Shift {
         this.user = user;
     }
 
-    public String getStart() {
+    public LocalTime getStart() {
         return startTime;
     }
 
-    public void setStart(String start) {
+    public void setStart(LocalTime start) {
         this.startTime = start;
     }
 
-    public String getEnd() {
+    public LocalTime getEnd() {
         return endTime;
     }
 
-    public void setEnd(String end) {
+    public void setEnd(LocalTime end) {
         this.endTime = end;
     }
 
