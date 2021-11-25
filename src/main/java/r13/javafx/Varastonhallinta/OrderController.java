@@ -47,14 +47,14 @@ public class OrderController implements Initializable {
 
     @FXML
     private void openOrder() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("singleOrderView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("singleOrder.fxml"));
 
         Stage stage = new Stage();
         stage.setTitle("Manage order");
         stage.setScene(new Scene(loader.load(), 800, 600));
 
         // Pass selected order
-        SingleOrderViewController controller = loader.getController();
+        SingleOrderController controller = loader.getController();
         controller.initData(orderTable.getSelectionModel().getSelectedItem());
 
         stage.show();

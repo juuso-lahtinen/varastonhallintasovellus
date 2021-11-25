@@ -4,203 +4,117 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.stage.Stage;
-import javafx.util.converter.IntegerStringConverter;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.OrderItem;
-import r13.javafx.Varastonhallinta.models.Product;
 import r13.javafx.Varastonhallinta.models.dao.OrderAccessObject;
 import r13.javafx.Varastonhallinta.models.dao.OrderItemAccessObject;
-import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
-
-import java.io.IOException;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SingleOrderController {
-
-    private Order selectedOrder;
-
-    private OrderItemAccessObject dao = new OrderItemAccessObject();
-    private OrderAccessObject orderDao = new OrderAccessObject();
-    private ProductAccessObject productDao = new ProductAccessObject();
-
-    /* ************************* Product view ************************* */
-    @FXML
-    private Button backBtn;
-
-    @FXML
-    private TableView<OrderItem> productTable;
-
-    @FXML
-    private TableColumn<OrderItem, String> productId;
-
-    @FXML
-    private TableColumn<OrderItem, String> productName;
-
-    @FXML
-    private TableColumn<OrderItem, Integer> productQuantity;
-
-    @FXML
-    private TableColumn<OrderItem, Integer> productPicking;
-
-    @FXML
-    private TableColumn<OrderItem, Integer> productStock;
-
-    @FXML
-    private TableColumn<OrderItem, Double> productTotalPrice;
-
-    @FXML
-    private TableColumn<OrderItem, String> productLocation;
-
-    /* ************************* Customer view ************************* */
-    @FXML
-    private Button customerTabBackBtn;
-
-    @FXML
-    private Label customerIdLabel;
-
-    @FXML
-    private Label firstNameLabel;
-
-    @FXML
-    private Label lastNameLabel;
-
-    @FXML
-    private Label emailLabel;
-
-    @FXML
-    private Label phoneLabel;
-
-    @FXML
-    private Label registerDateLabel;
-
-    /* ************************* General view ************************* */
-
-    @FXML
-    private Button generalTabBackBtn;
-
-    @FXML
-    private Button processOrderBtn;
-
-    @FXML
-    private CheckBox processCheckBox;
 
     @FXML
     private Label orderId;
 
     @FXML
-    private Label totalProducts;
+    private Label customerName;
 
     @FXML
-    private Label totalPrice;
-
-    private void initializeProducts() {
-        productId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getId()));
-        productName
-                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
-        productQuantity.setCellValueFactory(
-                cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
-        productStock.setCellValueFactory(
-                cellData -> new SimpleIntegerProperty(cellData.getValue().getProduct().getStock()).asObject());
-        productTotalPrice
-                .setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
-        productLocation.setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getLocation()));
-        productPicking.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-
-        productTable.setItems(getOrderItems());
-        productTable.setEditable(true);
-        productTable.refresh();
-
-    }
+    private Label customerEmail;
 
     @FXML
-    private void handleOrder() {
-        Order curr = orderDao.getOrderByOrderId(selectedOrder.getId());
-        AtomicBoolean invalidStock = new AtomicBoolean(false);
+    private Label customerPhone;
 
-        if (!orderIsProcessed(curr)) {
-            productTable.getItems().stream().forEach(item -> {
-                if (item.getQuantity() > item.getProduct().getStock()) {
-                    invalidStock.set(true);
-                }
-            });
-            if (!invalidStock.get()) {
-                productTable.getItems().stream().forEach(item -> {
-                    productDao.decreaseStock(item.getProduct().getId(), item.getQuantity());
-                });
-                orderDao.setOrderProcessed(curr.getId());
-                Alert a = new Alert(Alert.AlertType.INFORMATION, "Order processed", ButtonType.OK);
-                a.showAndWait();
-            } else {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Invalid stock", ButtonType.OK);
-                a.showAndWait();
-            }
-        } else {
-            Alert a = new Alert(Alert.AlertType.ERROR, "Order already processed", ButtonType.OK);
-            a.showAndWait();
-        }
-    }
+    @FXML
+    private Label customerAddress;
 
-    private Boolean orderIsProcessed(Order o) {
-        if (o.getOrderStatusCode().getDescription().equals("Order has been processed")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    @FXML
+    private Label customerCity;
 
-    private String getColumnValue(TableColumn tc) {
-        return tc.getCellValueFactory().toString();
-    }
+    @FXML
+    private Label customerPostal;
 
-    private void initializeCustomer() {
-        customerIdLabel.setText(selectedOrder.getCustomer().getId());
-        firstNameLabel.setText(selectedOrder.getCustomer().getFirstName());
-        lastNameLabel.setText(selectedOrder.getCustomer().getLastName());
-        emailLabel.setText(selectedOrder.getCustomer().getEmail());
-        phoneLabel.setText(selectedOrder.getCustomer().getPhone());
-        registerDateLabel.setText(selectedOrder.getCustomer().getRegisteredAt().toString());
-    }
+    @FXML
+    private TableView<OrderItem> orderItemsTable;
 
-    private void initializeGeneral() {
-        orderId.setText(selectedOrder.getId());
-        totalProducts.setText(Integer.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems()
-                .stream().mapToInt(s -> s.getQuantity()).sum()));
-        totalPrice.setText(Double.toString(orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream()
-                .mapToDouble(s -> s.getPrice()).sum()) + " €");
-    }
+    @FXML
+    private TableColumn<OrderItem, String> orderItemProduct;
 
-    private ObservableList<OrderItem> getOrderItems() {
-        ObservableList<OrderItem> orderItems = FXCollections
-                .observableArrayList(dao.getOrderItemsByOrderId(selectedOrder.getId()));
+    @FXML
+    private TableColumn<OrderItem, Double> orderItemPrice;
 
-        return orderItems;
-    }
+    @FXML
+    private TableColumn<OrderItem, Integer> orderItemQuantity;
+
+    @FXML
+    private TableColumn<OrderItem, Double> orderItemSubtotal;
+
+    @FXML
+    private TableColumn<OrderItem, Integer> orderItemStock;
+
+    @FXML
+    private Label orderTotal;
+
+    @FXML
+    private Label orderTax;
+
+    @FXML
+    private Label orderShippingFee;
+
+    @FXML
+    private Label orderSubtotal;
+
+    private Order selectedOrder = null;
+
+    private OrderItemAccessObject dao = new OrderItemAccessObject();
+    private OrderAccessObject orderDao = new OrderAccessObject();
 
     public void initData(Order order) {
-        selectedOrder = order;
-        initializeGeneral();
-        initializeCustomer();
-        initializeProducts();
+        this.selectedOrder = order;
+        orderId.setText(selectedOrder.getId());
+        customerName.setText(selectedOrder.getCustomer().getFirstName() + " " + selectedOrder.getCustomer().getLastName());
+        customerEmail.setText(selectedOrder.getCustomer().getEmail());
+        customerPhone.setText(selectedOrder.getCustomer().getPhone());
+        populateItemsTable();
+        setTotalValues();
     }
 
-    public void changeSceneToOrderView(ActionEvent event) throws IOException {
-        Parent orderManagementViewParent = FXMLLoader.load(getClass().getResource("orderManagement.fxml"));
-        Scene orderViewScene = new Scene(orderManagementViewParent);
+    private void populateItemsTable() {
+        orderItemProduct.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
+        orderItemPrice.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getProduct().getPrice()).asObject());
+        orderItemQuantity.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
+        orderItemSubtotal.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+        orderItemStock.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getProduct().getStock()).asObject());
 
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        orderItemsTable.setItems(FXCollections.observableArrayList(dao.getOrderItemsByOrderId(selectedOrder.getId())));
 
-        window.setScene(orderViewScene);
-        window.show();
+        // Update bg-color
+        orderItemsTable.setRowFactory(row -> new TableRow<>() {
+            @Override
+            protected void updateItem(OrderItem item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || item.getProduct() == null) {
+                    setStyle("");
+                } else if (item.getProduct().getStock() < item.getQuantity()) {
+                    setStyle("-fx-background-color: red;");
+                } else {
+                    setStyle("-fx-background-color: green;");
+                }
+            }
+        });
+    }
+
+    private void setTotalValues() {
+        double subTotal = orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream().mapToDouble(i -> i.getProduct().getPrice()).sum();
+        double tax = Math.round(((subTotal * 0.10) * 100.0) / 100.0);
+        double shipping = 0.0;
+        double total = subTotal - tax - shipping;
+        orderTax.setText(Double.toString(tax) + "€");
+        orderShippingFee.setText(Double.toString(shipping) + "€");
+        orderSubtotal.setText(Double.toString(subTotal) + "€");
+        orderTotal.setText(Double.toString(total) + "€");
     }
 }

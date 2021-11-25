@@ -42,7 +42,7 @@ public class LoginScreenController implements Initializable {
 			Singleton.getInstance().setUsername(username.getText().toString());
 			
 			FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(getClass().getResource("mainWindowNew.fxml"));
+	        loader.setLocation(getClass().getResource("mainWindow.fxml"));
 	        Parent mainWindowParent = loader.load();
 	        
 	        Scene mainWindowScene = new Scene(mainWindowParent);

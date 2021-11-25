@@ -92,7 +92,7 @@ public class NewProductController {
 
 	@FXML
     private void switchToProductManagementWindow(ActionEvent event) throws IOException {
-    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("productManagement.fxml"));
+    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("products.fxml"));
         Scene newProductViewScene = new Scene(mainViewParent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

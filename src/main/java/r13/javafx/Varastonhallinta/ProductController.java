@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductManagementController  {
+public class ProductController {
 
     private ProductAccessObject dao = new ProductAccessObject();
 
@@ -167,7 +167,7 @@ public class ProductManagementController  {
     @FXML
     private void switchToNewProductWindow(ActionEvent event) throws IOException {
     	/*
-    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("NewProduct.fxml"));
+    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("newProduct.fxml"));
         Scene newProductViewScene = new Scene(mainViewParent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
