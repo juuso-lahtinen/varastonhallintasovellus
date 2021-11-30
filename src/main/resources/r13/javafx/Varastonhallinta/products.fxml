@@ -18,6 +18,7 @@
                   <Button fx:id="deleteButton" layoutX="205.0" layoutY="2.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="17.0" prefWidth="71.0" text="Delete" />
                   <TextField fx:id="filterField" layoutX="47.0" layoutY="2.0" promptText="Search..." />
                   <Button fx:id="detailsButton" layoutX="286.0" layoutY="2.0" mnemonicParsing="false" onAction="#changeSceneToProductDetailsView" text="View details" />
+                  <Button fx:id="refreshBtn" layoutX="469.0" layoutY="2.0" mnemonicParsing="false" onAction="#initialize" text="Update" />
                </children>
             </AnchorPane>
           <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" SplitPane.resizableWithParent="false">

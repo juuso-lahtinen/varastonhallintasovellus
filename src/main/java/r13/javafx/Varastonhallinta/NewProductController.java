@@ -35,7 +35,7 @@ public class NewProductController {
     private TextField productNameField;
     
     @FXML
-    private TextArea productDescriptionField;
+    private TextField productDescriptionField;
     
     @FXML
     private TextField productPriceField;
@@ -92,7 +92,7 @@ public class NewProductController {
 
 	@FXML
     private void switchToProductManagementWindow(ActionEvent event) throws IOException {
-    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("products.fxml"));
+    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("productManagement.fxml"));
         Scene newProductViewScene = new Scene(mainViewParent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

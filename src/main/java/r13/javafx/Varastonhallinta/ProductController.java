@@ -15,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,7 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductController {
+public class ProductController  {
 
     private ProductAccessObject dao = new ProductAccessObject();
 
@@ -40,6 +41,9 @@ public class ProductController {
     
     @FXML
     private Button backButton;
+    
+    @FXML
+    private Button refreshBtn;
     
     @FXML
     private Button newProductButton;
@@ -74,17 +78,18 @@ public class ProductController {
     @FXML
     private TextField filterField;
     
-    @FXML
-    
-    
 
+    
+    
+    @FXML
     public void initialize() {
         tableId.setCellValueFactory(new PropertyValueFactory<Product, String>("id"));
         tableName.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
         tablePrice.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
         tableDescription.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));
         tableStock.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
-        tableLocation.setCellValueFactory(new PropertyValueFactory<Product, String>("location"));    
+        tableLocation.setCellValueFactory(new PropertyValueFactory<Product, String>("location")); 
+        productTable.setPlaceholder(new Label("No products found"));
         
         FilteredList<Product> filteredData = new FilteredList<>(getProducts(), p -> true);
         
@@ -167,7 +172,7 @@ public class ProductController {
     @FXML
     private void switchToNewProductWindow(ActionEvent event) throws IOException {
     	/*
-    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("newProduct.fxml"));
+    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("NewProduct.fxml"));
         Scene newProductViewScene = new Scene(mainViewParent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -179,7 +184,7 @@ public class ProductController {
 
         Stage stage = new Stage();
         stage.setTitle("Create a product");
-        stage.setScene(new Scene(loader.load(), 800, 600));
+        stage.setScene(new Scene(loader.load()));
 
         stage.show();
         
@@ -206,15 +211,29 @@ public class ProductController {
     
     @FXML
     private void changeSceneToProductDetailsView() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("singleProduct.fxml"));
+        
+        
+        Product p = productTable.getSelectionModel().getSelectedItem();
+    	
+	    if(p != null)	{
+	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("singleProduct.fxml"));
 
-        Stage stage = new Stage();
-        stage.setTitle("Manage product");
-        stage.setScene(new Scene(loader.load(), 800, 600));
+	        Stage stage = new Stage();
+	        stage.setTitle("Product details");
+	        stage.setScene(new Scene(loader.load()));
 
-        SingleProductController controller = loader.getController();
-        controller.initData(productTable.getSelectionModel().getSelectedItem());
+	        SingleProductController controller = loader.getController();
+	        controller.initData(productTable.getSelectionModel().getSelectedItem());
 
-        stage.show();
+	        stage.show();
+	    	
+	    } else	{
+	    	Platform.runLater(() -> {
+		        Alert dialog = new Alert(AlertType.ERROR, "Please select a product.", ButtonType.OK);
+		        dialog.showAndWait();
+		    });
+	    }
+        
+        
     }
 }

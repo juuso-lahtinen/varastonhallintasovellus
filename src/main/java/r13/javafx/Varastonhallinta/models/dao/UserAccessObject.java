@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import r13.javafx.Varastonhallinta.models.Product;
+import r13.javafx.Varastonhallinta.models.Shift;
 import r13.javafx.Varastonhallinta.models.User;
 
 import java.util.List;
@@ -125,4 +126,54 @@ public class UserAccessObject {
         }
         return users;
     }
+    
+    public static User getUser(String username) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        String query = "SELECT u FROM User u WHERE u.username = :username";
+        
+        TypedQuery<User> tq = em.createQuery(query, User.class);
+        tq.setParameter("username", username);
+        
+        User user = null;
+
+        try {
+            user = tq.getSingleResult();
+        } catch (NoResultException ex) {
+            ex.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return user;
+    }
+    
+    public static List getShiftsPerUser(User user) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        
+        // the lowercase p refers to the object
+        String strQuery = "SELECT shifts FROM User s WHERE s.id = :userid";
+
+        TypedQuery<Shift> tq = em.createQuery(strQuery, Shift.class);
+        tq.setParameter("userid", user.getId());
+
+        List<Shift> shifts = null;
+        try {
+            // Get matching product objects and output
+            shifts = tq.getResultList();
+        } catch (NoResultException ex) {
+            ex.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return shifts;
+        
+        
+       
+    }
+    
+    
+    
+    
+    
+    
 }

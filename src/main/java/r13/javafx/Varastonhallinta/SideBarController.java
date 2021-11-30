@@ -17,7 +17,7 @@ public class SideBarController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Todo
+        
     }
 
     @FXML
@@ -44,6 +44,11 @@ public class SideBarController implements Initializable {
     @FXML
     private void admin(MouseEvent event) throws IOException {
         loadPage("shiftsAdmin");
+    }
+    
+    @FXML
+    private void shifts(MouseEvent event) throws IOException {
+        loadPage("shifts");
     }
 
     private void loadPage(String page) throws IOException {
