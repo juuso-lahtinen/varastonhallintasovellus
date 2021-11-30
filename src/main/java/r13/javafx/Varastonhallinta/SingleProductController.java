@@ -1,6 +1,7 @@
 package r13.javafx.Varastonhallinta;
 
 import java.io.IOException;
+import java.util.function.UnaryOperator;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -8,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -20,10 +22,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
+import javafx.util.converter.NumberStringConverter;
 import r13.javafx.Varastonhallinta.models.OrderItem;
 import r13.javafx.Varastonhallinta.models.Product;
 import r13.javafx.Varastonhallinta.models.dao.OrderItemAccessObject;
@@ -121,6 +126,7 @@ public class SingleProductController {
 		sortedData.comparatorProperty().bind(orderItemTable.comparatorProperty());
 		orderItemTable.setItems(filteredData);	
 		orderItemTable.setPlaceholder(new Label("Item has no orders"));
+		
     }
 
     private ObservableList<OrderItem> getOrderItems() {
@@ -145,6 +151,21 @@ public class SingleProductController {
     	locationTextField.setVisible(false);
     	priceTextField.setVisible(false);
     	stockTextField.setVisible(false);
+    	
+    	UnaryOperator<Change> filter = change -> {
+    	    String text = change.getText();
+
+    	    if (text.matches("\\d{0,9}([\\.]\\d{0,9})?")) {
+    	        return change;
+    	    }
+
+    	    return null;
+    	};
+    	TextFormatter<String> stockFormatter = new TextFormatter<>(filter);
+    	TextFormatter<String> priceFormatter = new TextFormatter<>(filter);
+    	stockTextField.setTextFormatter(stockFormatter);
+    	priceTextField.setTextFormatter(priceFormatter);
+
 
     	
     	if(selectedProduct != null) {

@@ -59,7 +59,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label fx:id="idLabel" prefWidth="46.0" text="Label" GridPane.columnIndex="1" />
+                                    <Label fx:id="idLabel" prefHeight="17.0" prefWidth="320.0" text="Label" GridPane.columnIndex="1" />
                                     <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label fx:id="descriptionLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label fx:id="locationLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
