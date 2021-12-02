@@ -109,6 +109,25 @@ public class UserAccessObject {
         }
     }
 
+    public static boolean removeUserByUsername(String username) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        String query = "DELETE User u WHERE u.username = :username";
+
+        try {
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("username", username).executeUpdate();
+            em.getTransaction().commit();
+            System.out.println("Removed " + username);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Couldn't remove " + username);
+            return false;
+        } finally {
+            em.close();
+        }
+    }
+
     public static List getUsers() {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -126,15 +145,15 @@ public class UserAccessObject {
         }
         return users;
     }
-    
+
     public static User getUser(String username) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         String query = "SELECT u FROM User u WHERE u.username = :username";
-        
+
         TypedQuery<User> tq = em.createQuery(query, User.class);
         tq.setParameter("username", username);
-        
+
         User user = null;
 
         try {
@@ -146,10 +165,10 @@ public class UserAccessObject {
         }
         return user;
     }
-    
+
     public static List getShiftsPerUser(User user) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
-        
+
         // the lowercase p refers to the object
         String strQuery = "SELECT shifts FROM User s WHERE s.id = :userid";
 
@@ -166,14 +185,9 @@ public class UserAccessObject {
             em.close();
         }
         return shifts;
-        
-        
-       
+
+
     }
-    
-    
-    
-    
-    
-    
+
+
 }
