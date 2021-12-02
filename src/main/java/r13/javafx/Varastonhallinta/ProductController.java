@@ -24,13 +24,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Product;
+import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class ProductController {
+	
+	ResourceBundle bundle = Singleton.getInstance().getBundle();	
 
     private ProductAccessObject dao = new ProductAccessObject();
 
@@ -133,19 +137,19 @@ public class ProductController {
 	    if(p != null)	{
 	    	if(dao.removeProduct(p.getId()))	{
 	    		Platform.runLater(() -> {
-	    	        Alert dialog = new Alert(AlertType.INFORMATION, "Product removed.", ButtonType.OK);
+	    	        Alert dialog = new Alert(AlertType.INFORMATION, bundle.getString("removedTxt"), ButtonType.OK);
 	    	        dialog.showAndWait();
 	    	    });
 	    	} else	{
 	    		Platform.runLater(() -> {
-	    	        Alert dialog = new Alert(AlertType.ERROR, "Error removing product. Product is part of an order.", ButtonType.OK);
+	    	        Alert dialog = new Alert(AlertType.ERROR, bundle.getString("errorRemovingTxt"), ButtonType.OK);
 	    	        dialog.showAndWait();
 	    	    });
 	    	}
 	    	initialize();
 	    } else	{
 	    	Platform.runLater(() -> {
-		        Alert dialog = new Alert(AlertType.ERROR, "Please select a product.", ButtonType.OK);
+		        Alert dialog = new Alert(AlertType.ERROR, bundle.getString("productSelectTxt"), ButtonType.OK);
 		        dialog.showAndWait();
 		    });
 	    }
@@ -175,10 +179,10 @@ public class ProductController {
         window.setScene(newProductViewScene);
         window.show();
 */
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("newProduct.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("newProduct.fxml"), bundle);
 
         Stage stage = new Stage();
-        stage.setTitle("Create a product");
+        stage.setTitle(bundle.getString("titleTxt"));
         stage.setScene(new Scene(loader.load(), 800, 600));
 
         stage.show();

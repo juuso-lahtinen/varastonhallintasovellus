@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import r13.javafx.Varastonhallinta.models.Shift;
+import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.User;
 import r13.javafx.Varastonhallinta.models.dao.ShiftAccessObject;
 import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
@@ -19,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class NewShiftController implements Initializable {
 
-
+	ResourceBundle bundle = Singleton.getInstance().getBundle();	
     private UserAccessObject userDao = new UserAccessObject();
     private ShiftAccessObject shiftDao = new ShiftAccessObject();
 
@@ -111,19 +112,19 @@ public class NewShiftController implements Initializable {
                     (shiftEnd.isVisible() && shiftEnd.getValue() == null) || (customStart.isVisible() && customStart.getText().isEmpty()) ||
                     (customEnd.isVisible() && customEnd.getText().isEmpty())) {
                 Platform.runLater(() -> {
-                    Alert dialog = new Alert(Alert.AlertType.ERROR, "Please fill all the required fields", ButtonType.OK);
+                    Alert dialog = new Alert(Alert.AlertType.ERROR, bundle.getString("fillAll"), ButtonType.OK);
                     dialog.showAndWait();
                 });
             } else if (alreadyWorking(userForShift, shiftToAdd)) {
                 Platform.runLater(() -> {
-                    Alert dialog = new Alert(Alert.AlertType.ERROR, "User is already working", ButtonType.OK);
+                    Alert dialog = new Alert(Alert.AlertType.ERROR, bundle.getString("alreadyWork"), ButtonType.OK);
                     dialog.showAndWait();
                 });
             } else {
                 try {
                     shiftDao.addShift(shiftToAdd);
                     Platform.runLater(() -> {
-                        Alert dialog = new Alert(Alert.AlertType.INFORMATION, "Shift added", ButtonType.OK);
+                        Alert dialog = new Alert(Alert.AlertType.INFORMATION, bundle.getString("shiftAdded"), ButtonType.OK);
                         dialog.showAndWait();
                         clearFields();
                     });
@@ -134,7 +135,7 @@ public class NewShiftController implements Initializable {
 
         } catch (Exception e) {
             Platform.runLater(() -> {
-                Alert dialog = new Alert(Alert.AlertType.ERROR, "Custom time must be in following format: 07:15:00", ButtonType.OK);
+                Alert dialog = new Alert(Alert.AlertType.ERROR, bundle.getString("customTimeAlert"), ButtonType.OK);
                 dialog.showAndWait();
             });
             e.printStackTrace();

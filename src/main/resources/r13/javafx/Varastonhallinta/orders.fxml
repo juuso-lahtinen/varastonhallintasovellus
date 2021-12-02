@@ -12,14 +12,14 @@
    <children>
       <BorderPane prefHeight="34.0" prefWidth="620.0" style="-fx-background-color: white;">
          <left>
-            <TextField fx:id="searchBar" prefHeight="25.0" prefWidth="138.0" promptText="Search..." BorderPane.alignment="CENTER">
+            <TextField fx:id="searchBar" prefHeight="25.0" prefWidth="138.0" promptText="%searchPlaceholder" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="10.0" />
                </BorderPane.margin>
             </TextField>
          </left>
          <right>
-            <Button fx:id="openOrder" mnemonicParsing="false" onAction="#openOrder" text="Open" BorderPane.alignment="CENTER">
+            <Button fx:id="openOrder" mnemonicParsing="false" onAction="#openOrder" text="%openButton" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets right="10.0" />
                </BorderPane.margin>
@@ -30,10 +30,10 @@
          <children>
             <TableView fx:id="orderTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;">
               <columns>
-                <TableColumn fx:id="orderidCol" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" resizable="false" text="Order" />
-                <TableColumn fx:id="customerCol" minWidth="174.0" prefWidth="-1.0" resizable="false" text="Customer" />
-                  <TableColumn fx:id="dateCol" minWidth="151.0" prefWidth="-1.0" resizable="false" text="Order date" />
-                  <TableColumn fx:id="statusCol" minWidth="154.0" prefWidth="-1.0" resizable="false" text="Status" />
+                <TableColumn fx:id="orderidCol" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" resizable="false" text="%order" />
+                <TableColumn fx:id="customerCol" minWidth="174.0" prefWidth="-1.0" resizable="false" text="%customer" />
+                  <TableColumn fx:id="dateCol" minWidth="151.0" prefWidth="-1.0" resizable="false" text="%orderDate" />
+                  <TableColumn fx:id="statusCol" minWidth="154.0" prefWidth="-1.0" resizable="false" text="%status" />
               </columns>
             </TableView>
          </children>

@@ -14,7 +14,7 @@
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="400.0" spacing="5.0" style="-fx-background-color: white; -fx-border-color: #9e9e9e; -fx-border-width: 0px 0px 1px 0px;" BorderPane.alignment="CENTER">
          <children>
-            <Label text="New product">
+            <Label text="%newProduct">
                <font>
                   <Font name="Arial Bold" size="25.0" />
                </font>
@@ -33,22 +33,22 @@
    <center>
       <VBox fx:id="anchorPane2" style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="productNameField" promptText="Name">
+            <TextField fx:id="productNameField" promptText="%namePlaceholder">
                <VBox.margin>
                   <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="productPriceField" promptText="Price">
+            <TextField fx:id="productPriceField" promptText="%pricePlaceholder">
                <VBox.margin>
                   <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="productLocationField" promptText="Location">
+            <TextField fx:id="productLocationField" promptText="%locationPlaceholder">
                <VBox.margin>
                   <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                </VBox.margin>
             </TextField>
-            <TextArea fx:id="productDescriptionField" promptText="Description">
+            <TextArea fx:id="productDescriptionField" promptText="%descriptionPlaceholder">
                <VBox.margin>
                   <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                </VBox.margin>
@@ -59,7 +59,7 @@
    <bottom>
       <HBox style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addProduct" text="Add">
+            <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addProduct" text="%addButton">
                <HBox.margin>
                   <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                </HBox.margin>

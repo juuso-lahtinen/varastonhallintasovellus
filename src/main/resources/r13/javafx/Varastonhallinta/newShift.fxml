@@ -27,32 +27,32 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Date:">
+            <Label text="%date">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="10.0" layoutY="70.0" text="Employee:" GridPane.rowIndex="1">
+            <Label layoutX="10.0" layoutY="70.0" text="%employee" GridPane.rowIndex="1">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="10.0" layoutY="153.0" text="Start Time" GridPane.rowIndex="2">
+            <Label layoutX="10.0" layoutY="153.0" text="%startTime" GridPane.rowIndex="2">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="10.0" layoutY="253.0" text="End Time" GridPane.rowIndex="3">
+            <Label layoutX="10.0" layoutY="253.0" text="%endTime" GridPane.rowIndex="3">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <DatePicker fx:id="shiftDate" promptText="Select..." GridPane.columnIndex="1" />
-            <ComboBox fx:id="shiftEmployee" prefWidth="150.0" promptText="Select..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="shiftDate" promptText="%select" GridPane.columnIndex="1" />
+            <ComboBox fx:id="shiftEmployee" prefWidth="150.0" promptText="%select" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <ComboBox fx:id="shiftStart" prefWidth="150.0" promptText="Select..." />
-                  <Button fx:id="shiftStartCustom" mnemonicParsing="false" onAction="#setCustomStart" text="Set Custom">
+                  <ComboBox fx:id="shiftStart" prefWidth="150.0" promptText="%select" />
+                  <Button fx:id="shiftStartCustom" mnemonicParsing="false" onAction="#setCustomStart" text="%setCustom">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
@@ -62,7 +62,7 @@
                         <Font name="Arial" size="12.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="shiftStartCancel" layoutX="170.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelCustomStart" text="Cancel">
+                  <Button fx:id="shiftStartCancel" layoutX="170.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelCustomStart" text="%cancel">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
@@ -71,8 +71,8 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <ComboBox fx:id="shiftEnd" prefWidth="150.0" promptText="Select..." />
-                  <Button fx:id="shiftEndCustom" mnemonicParsing="false" onAction="#setCustomEnd" text="Set Custom">
+                  <ComboBox fx:id="shiftEnd" prefWidth="150.0" promptText="%select" />
+                  <Button fx:id="shiftEndCustom" mnemonicParsing="false" onAction="#setCustomEnd" text="%setCustom">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
@@ -82,7 +82,7 @@
                         <Font name="Arial" size="12.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="shiftEndCancel" layoutX="170.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelCustomEnd" text="Cancel">
+                  <Button fx:id="shiftEndCancel" layoutX="170.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelCustomEnd" text="%cancel">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
@@ -96,7 +96,7 @@
       </GridPane>
    </center>
    <bottom>
-      <Button fx:id="addShiftBtn" mnemonicParsing="false" onAction="#addShift" style="-fx-background-color: blue; -fx-text-fill: white;" text="Add Shift" BorderPane.alignment="CENTER_LEFT">
+      <Button fx:id="addShiftBtn" mnemonicParsing="false" onAction="#addShift" style="-fx-background-color: blue; -fx-text-fill: white;" text="%addShift" BorderPane.alignment="CENTER_LEFT">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
@@ -106,7 +106,7 @@
       <Insets bottom="15.0" left="15.0" top="15.0" />
    </padding>
    <top>
-      <Label text="Add a new shift" BorderPane.alignment="TOP_LEFT">
+      <Label text="%addNew" BorderPane.alignment="TOP_LEFT">
          <font>
             <Font name="Arial Bold" size="20.0" />
          </font>

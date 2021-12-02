@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import r13.javafx.Varastonhallinta.models.Singleton;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,7 +15,8 @@ import java.util.ResourceBundle;
 
 public class SideBarController implements Initializable {
 
-
+	ResourceBundle bundle = Singleton.getInstance().getBundle();	
+	
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Todo
@@ -48,7 +50,7 @@ public class SideBarController implements Initializable {
 
     private void loadPage(String page) throws IOException {
         Parent root = null;
-        root = FXMLLoader.load(getClass().getResource(page + ".fxml"));
+        root = FXMLLoader.load(getClass().getResource(page + ".fxml"), bundle);
         bp.setCenter(root);
     }
 }

@@ -19,6 +19,7 @@ import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 public class LoginScreenController implements Initializable {
 	
 	private UserAccessObject dao = new UserAccessObject();	
+	ResourceBundle bundle = Singleton.getInstance().getBundle();	
 	
 	public String currentUser;
 	private String loginErrorText;
@@ -42,7 +43,9 @@ public class LoginScreenController implements Initializable {
 			Singleton.getInstance().setUsername(username.getText().toString());
 			
 			FXMLLoader loader = new FXMLLoader();
+			loader.setResources(bundle);
 	        loader.setLocation(getClass().getResource("mainWindow.fxml"));
+
 	        Parent mainWindowParent = loader.load();
 	        
 	        Scene mainWindowScene = new Scene(mainWindowParent);
@@ -59,8 +62,6 @@ public class LoginScreenController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-			ResourceBundle bundle = Singleton.getInstance().getBundle();	
-			
 			loginErrorText = bundle.getString("loginErrorText");				
 	}
 	

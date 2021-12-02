@@ -10,22 +10,22 @@
    <left>
       <VBox prefHeight="400.0" prefWidth="121.0" style="-fx-background-color: #0D1824;" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onMouseClicked="#home" prefHeight="47.0" prefWidth="157.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Home" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#home" prefHeight="47.0" prefWidth="157.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="%home" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#orders" prefHeight="47.0" prefWidth="157.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Orders" textFill="WHITE">
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#orders" prefHeight="47.0" prefWidth="157.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="%orders" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#products" prefHeight="47.0" prefWidth="157.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Products" textFill="WHITE">
+            <Button layoutX="10.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#products" prefHeight="47.0" prefWidth="157.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="%products" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="104.0" mnemonicParsing="false" onMouseClicked="#admin" prefHeight="47.0" prefWidth="157.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Admin" textFill="WHITE">
+            <Button layoutX="10.0" layoutY="104.0" mnemonicParsing="false" onMouseClicked="#admin" prefHeight="47.0" prefWidth="157.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="%admin" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>

@@ -26,12 +26,12 @@
          <children>
             <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="571.0" spacing="10.0" GridPane.columnIndex="1">
                <children>
-                  <Button fx:id="delShift" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteShift" style="-fx-background-color: red; -fx-text-fill: white;" text="Delete">
+                  <Button fx:id="delShift" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteShift" style="-fx-background-color: red; -fx-text-fill: white;" text="%deleteButton">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="newShiftBtn" mnemonicParsing="false" onAction="#openNewShift" style="-fx-background-color: blue; -fx-text-fill: white;" text="New Shift">
+                  <Button fx:id="newShiftBtn" mnemonicParsing="false" onAction="#openNewShift" style="-fx-background-color: blue; -fx-text-fill: white;" text="%newShiftButton">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
@@ -43,14 +43,14 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Label text="Showing:">
+                  <Label text="%showing">
                      <font>
                         <Font name="Arial Bold" size="12.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="fromDate" prefHeight="25.0" prefWidth="138.0" promptText="From" showWeekNumbers="true" />
-                  <DatePicker fx:id="tillDate" prefHeight="25.0" prefWidth="138.0" promptText="Till" />
-                  <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateShifts" text="Update">
+                  <DatePicker fx:id="fromDate" prefHeight="25.0" prefWidth="138.0" promptText="%fromPlaceholder" showWeekNumbers="true" />
+                  <DatePicker fx:id="tillDate" prefHeight="25.0" prefWidth="138.0" promptText="%tillPlaceholder" />
+                  <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateShifts" text="%update">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
@@ -69,7 +69,7 @@
    <center>
       <TableView fx:id="shiftTable" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="874.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="employeeCol" prefWidth="243.0" resizable="false" text="Employee" />
+          <TableColumn fx:id="employeeCol" prefWidth="243.0" resizable="false" text="%employee" />
         </columns>
       </TableView>
    </center>

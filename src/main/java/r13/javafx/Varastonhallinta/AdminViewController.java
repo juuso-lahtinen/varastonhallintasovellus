@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Shift;
+import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.User;
 import r13.javafx.Varastonhallinta.models.dao.ShiftAccessObject;
 import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
@@ -31,6 +32,7 @@ public class AdminViewController implements Initializable {
     private ShiftAccessObject shiftDao = new ShiftAccessObject();
     private UserAccessObject userDao = new UserAccessObject();
     private List<TableColumn<User, String>> columns = new ArrayList<>();
+    ResourceBundle bundle = Singleton.getInstance().getBundle();	
 
     final static int MAX_DAYS = 60;
 
@@ -54,7 +56,7 @@ public class AdminViewController implements Initializable {
 
     @FXML
     void openNewShift(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("newShift.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("newShift.fxml"), bundle);
 
         Stage stage = new Stage();
         stage.setTitle("New shift");
@@ -81,10 +83,14 @@ public class AdminViewController implements Initializable {
             LocalTime endTime = LocalTime.parse(timeTable[1]);
 
             Shift shiftToDelete = user.getSingleShift(LocalDate.parse(date.getText()), startTime, endTime);
+            
+            //locale
+            String confTxt = bundle.getString("confirmation");
+            String confMsg = bundle.getString("confirmationText"); 
 
             Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmation.setTitle("Confirmation");
-            confirmation.setHeaderText("Are you sure you want to delete this shift?");
+            confirmation.setTitle(confTxt);
+            confirmation.setHeaderText(confMsg);
             Optional<ButtonType> result = confirmation.showAndWait();
             if (result.get() == ButtonType.OK) {
                 shiftDao.deleteShiftById(shiftToDelete.getId());
@@ -95,7 +101,7 @@ public class AdminViewController implements Initializable {
             }
         } catch (Exception e) {
             Platform.runLater(() -> {
-                Alert dialog = new Alert(Alert.AlertType.ERROR, "Select a shift to delete", ButtonType.OK);
+                Alert dialog = new Alert(Alert.AlertType.ERROR, bundle.getString("selectShift"), ButtonType.OK);
                 dialog.setTitle("Error");
                 dialog.showAndWait();
             });
