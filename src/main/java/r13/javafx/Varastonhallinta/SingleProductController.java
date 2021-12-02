@@ -1,26 +1,34 @@
 package r13.javafx.Varastonhallinta;
 
 import java.io.IOException;
+import java.util.function.UnaryOperator;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
+import javafx.util.converter.NumberStringConverter;
 import r13.javafx.Varastonhallinta.models.OrderItem;
 import r13.javafx.Varastonhallinta.models.Product;
 import r13.javafx.Varastonhallinta.models.dao.OrderItemAccessObject;
@@ -32,6 +40,15 @@ public class SingleProductController {
 
     private ProductAccessObject dao = new ProductAccessObject();
     private OrderItemAccessObject orderItemDao = new OrderItemAccessObject();
+    
+    @FXML
+    private TextField searchField;
+    
+    @FXML
+    private Button openEditBtn;
+    
+    @FXML
+    private Button searchBtn;
 
     @FXML
     private Button backBtn;
@@ -44,6 +61,9 @@ public class SingleProductController {
     
     @FXML
     private Button editBtn;
+    
+    @FXML
+    private Button resetBtn;
     
     @FXML
     private TableView<OrderItem> orderItemTable;
@@ -101,14 +121,12 @@ public class SingleProductController {
         orderId.setCellValueFactory(new PropertyValueFactory<OrderItem, String>("id"));
         quantity.setCellValueFactory(new PropertyValueFactory<OrderItem, Integer>("quantity"));
         price.setCellValueFactory(new PropertyValueFactory<OrderItem, Double>("price"));
-        
         FilteredList<OrderItem> filteredData = new FilteredList<>(getOrderItems(), p -> true);
-        
 		SortedList<OrderItem> sortedData = new SortedList<>(filteredData);
-
 		sortedData.comparatorProperty().bind(orderItemTable.comparatorProperty());
-
-		orderItemTable.setItems(filteredData);
+		orderItemTable.setItems(filteredData);	
+		orderItemTable.setPlaceholder(new Label("Item has no orders"));
+		
     }
 
     private ObservableList<OrderItem> getOrderItems() {
@@ -125,6 +143,7 @@ public class SingleProductController {
     	
     	saveBtn.setVisible(false);
     	cancelBtn.setVisible(false);
+    	resetBtn.setVisible(false);
     	editBtn.setVisible(true);
     	
     	nameTextField.setVisible(false);
@@ -132,6 +151,22 @@ public class SingleProductController {
     	locationTextField.setVisible(false);
     	priceTextField.setVisible(false);
     	stockTextField.setVisible(false);
+    	
+    	UnaryOperator<Change> filter = change -> {
+    	    String text = change.getText();
+
+    	    if (text.matches("\\d{0,9}([\\.]\\d{0,9})?")) {
+    	        return change;
+    	    }
+
+    	    return null;
+    	};
+    	TextFormatter<String> stockFormatter = new TextFormatter<>(filter);
+    	TextFormatter<String> priceFormatter = new TextFormatter<>(filter);
+    	stockTextField.setTextFormatter(stockFormatter);
+    	priceTextField.setTextFormatter(priceFormatter);
+
+
     	
     	if(selectedProduct != null) {
     		idLabel.setText(selectedProduct.getId());
@@ -144,10 +179,33 @@ public class SingleProductController {
     	
         
     }
+   
+
+    
+
+
+    public void initData(Product product) {
+        this.selectedProduct = product;
+        initializeDetails();
+        initializeTable();
+
+    }
+
+    @FXML
+    private void switchToProductManagementWindow(ActionEvent event) throws IOException {
+    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("productManagement.fxml"));
+        Scene newProductViewScene = new Scene(mainViewParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(newProductViewScene);
+        window.show();
+    }
     
     @FXML
     public void startEdit()	{
     	if(selectedProduct != null) {
+    		resetBtn.setVisible(true);
     		saveBtn.setVisible(true);
         	cancelBtn.setVisible(true);
         	editBtn.setVisible(false);
@@ -166,8 +224,7 @@ public class SingleProductController {
         	stockTextField.setText(Integer.toString(selectedProduct.getStock()));
     	}
     }
-
-    
+    @FXML
     public void saveEdit()	{
     	
     	Product product = new Product(selectedProduct.getId(), nameTextField.getText(), Double.parseDouble(priceTextField.getText()), descriptionTextField.getText(), Integer.parseInt(stockTextField.getText()), locationTextField.getText());
@@ -178,8 +235,20 @@ public class SingleProductController {
     	priceTextField.setVisible(false);
     	stockTextField.setVisible(false);
     	initData(dao.getProduct(selectedProduct.getId()));
+    	if(dao.editProduct(product) != null)	{
+    		Platform.runLater(() -> {
+    	        Alert dialog = new Alert(AlertType.INFORMATION, "Editing successful", ButtonType.OK);
+    	        dialog.showAndWait();
+    	    });
+    	} else	{
+    		Platform.runLater(() -> {
+    	        Alert dialog = new Alert(AlertType.INFORMATION, "Editing failed. Product with similar details exists", ButtonType.OK);
+    	        dialog.showAndWait();
+    	    });
+    		
+    	}
     }
-    
+    @FXML
     public void cancelEdit()	{
 
     	nameTextField.setVisible(false);
@@ -189,27 +258,43 @@ public class SingleProductController {
     	stockTextField.setVisible(false);
     	saveBtn.setVisible(false);
     	cancelBtn.setVisible(false);
+    	resetBtn.setVisible(false);
     	editBtn.setVisible(true);
 
     }
-    
-
-    public void initData(Product product) {
-        this.selectedProduct = product;
-        initializeDetails();
-        initializeTable();
-
-    }
-
     @FXML
-    private void switchToProductManagementWindow(ActionEvent event) throws IOException {
-    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("products.fxml"));
-        Scene newProductViewScene = new Scene(mainViewParent);
+	public void resetEdit()	{
+		
+    	nameTextField.setText(selectedProduct.getName());
+    	descriptionTextField.setText(selectedProduct.getDescription());
+    	locationTextField.setText(selectedProduct.getLocation());
+    	priceTextField.setText(Double.toString(selectedProduct.getPrice()));
+    	stockTextField.setText(Double.toString(selectedProduct.getStock()));
+	}
 
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        window.setScene(newProductViewScene);
-        window.show();
+
+    
+    
+    
+    /*
+    @FXML
+    private void openProductEditWindow() throws IOException {
+        
+
+	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("productEdit.fxml"));
+
+	        Stage stage = new Stage();
+	        stage.setTitle("Edit product");
+	        stage.setScene(new Scene(loader.load()));
+
+	        ProductEditController controller = loader.getController();
+	        controller.initData(selectedProduct);
+
+	        stage.show();
+        
+        
     }
+    */
 
 }
