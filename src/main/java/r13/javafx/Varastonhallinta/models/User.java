@@ -33,6 +33,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Shift> shifts;
+    
+    @Column(name = "\"isAdmin\"")
+    private Boolean isAdmin;
 
 
     public User(String username, String password, String firstName, String lastName) {
@@ -40,9 +43,18 @@ public class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.isAdmin = false;
     }
 
-    public User() {
+    public Boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public User() {
 
     }
 

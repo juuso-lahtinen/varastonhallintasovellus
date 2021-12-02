@@ -55,7 +55,7 @@ public class UserAccessObjectTest {
 
         assertTrue(userDAO.checkLogin(user.getUsername(), user.getPassword()), "getDBUsername doesn't work");
 
-        userDAO.removeUser(newUser.getUsername());
+        userDAO.removeUserByUsername(newUser.getUsername());
     }
 
 
