@@ -12,7 +12,7 @@ public class ShiftAccessObject {
             .createEntityManagerFactory("test");
 
     public static void main(String[] args) {
-        System.out.println(getShiftsByUserId("54a0e234-c980-4be6-a737-adcc137d132a"));
+
 
     }
 

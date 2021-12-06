@@ -17,7 +17,8 @@ import java.util.List;
 public class UserAccessObject {
 
     public static void main(String[] args) {
-        removeUser("da7c9aa3-2705-4658-aaae-fc91d5da6f11");
+        User newUser = new User("test", "pass", "Test", "User", true);
+        addUser(newUser);
     }
 
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence

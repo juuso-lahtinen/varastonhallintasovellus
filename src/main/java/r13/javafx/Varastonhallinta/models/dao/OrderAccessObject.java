@@ -57,7 +57,7 @@ public class OrderAccessObject {
     public static void setOrderProcessed(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
-        String query = "UPDATE Order o SET o.orderStatusCode='293edb06-6e18-4251-9da8-dc5f457124c9' WHERE o.id = :id";
+        String query = "UPDATE Order o SET o.orderStatusCode='60ff029d-f91f-4b89-a3bd-6e87538d45d6' WHERE o.id = :id";
 
         try {
             em.getTransaction().begin();
@@ -74,7 +74,7 @@ public class OrderAccessObject {
     public static void setOrderNotProcessed(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
-        String query = "UPDATE Order o SET o.orderStatusCode='f0a7dfb3-ff48-4e9c-b0a5-ccada90b7fb9' WHERE o.id = :id";
+        String query = "UPDATE Order o SET o.orderStatusCode='d32f2d6f-109b-480b-9454-34dd1334db27' WHERE o.id = :id";
 
         try {
             em.getTransaction().begin();
