@@ -97,7 +97,7 @@ public class ProductController {
         tableDescription.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));
         tableStock.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
         tableLocation.setCellValueFactory(new PropertyValueFactory<Product, String>("location")); 
-        productTable.setPlaceholder(new Label("No products found"));
+        productTable.setPlaceholder(new Label(bundle.getString("tablePlaceholder")));
         
         FilteredList<Product> filteredData = new FilteredList<>(getProducts(), p -> true);
         
@@ -193,9 +193,6 @@ public class ProductController {
         Stage stage = new Stage();
 
         stage.setTitle(bundle.getString("titleTxt"));
-        stage.setScene(new Scene(loader.load(), 800, 600));
-
-        stage.setTitle("Create a product");
         stage.setScene(new Scene(loader.load()));
 
 
@@ -230,10 +227,10 @@ public class ProductController {
         Product p = productTable.getSelectionModel().getSelectedItem();
     	
 	    if(p != null)	{
-	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("singleProduct.fxml"));
+	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("singleProduct.fxml"), bundle);
 
 	        Stage stage = new Stage();
-	        stage.setTitle("Product details");
+	        stage.setTitle(bundle.getString("productsTitle"));
 	        stage.setScene(new Scene(loader.load()));
 
 	        SingleProductController controller = loader.getController();
@@ -243,7 +240,7 @@ public class ProductController {
 	    	
 	    } else	{
 	    	Platform.runLater(() -> {
-		        Alert dialog = new Alert(AlertType.ERROR, "Please select a product.", ButtonType.OK);
+		        Alert dialog = new Alert(AlertType.ERROR, bundle.getString("productErrorTxt"), ButtonType.OK);
 		        dialog.showAndWait();
 		    });
 	    }

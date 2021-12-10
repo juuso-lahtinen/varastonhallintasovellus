@@ -22,7 +22,7 @@
    <top>
       <HBox spacing="5.0" style="-fx-background-color: white; -fx-border-color: #9e9e9e; -fx-border-width: 0px 0px 1px 0px;" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Product details">
+            <Label text="%productDetails">
                <font>
                   <Font name="Arial Bold" size="25.0" />
                </font>
@@ -39,7 +39,7 @@
    <left>
       <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="Details">
+          <Tab text="%detailsTab">
             <content>
               <AnchorPane>
                      <children>
@@ -66,11 +66,11 @@
                                     <Label fx:id="priceLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                     <Label fx:id="stockLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                     <Label text="ID" />
-                                    <Label text="Name" GridPane.rowIndex="1" />
-                                    <Label text="Description" GridPane.rowIndex="2" />
-                                    <Label text="Location" GridPane.rowIndex="3" />
-                                    <Label text="Price" GridPane.rowIndex="4" />
-                                    <Label text="Stock" GridPane.rowIndex="5" />
+                                    <Label text="%name" GridPane.rowIndex="1" />
+                                    <Label text="%description" GridPane.rowIndex="2" />
+                                    <Label text="%location" GridPane.rowIndex="3" />
+                                    <Label text="%price" GridPane.rowIndex="4" />
+                                    <Label text="%stock" GridPane.rowIndex="5" />
                                     <TextField fx:id="nameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField fx:id="descriptionTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="locationTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -83,10 +83,10 @@
                               </GridPane>
                               <ButtonBar nodeOrientation="RIGHT_TO_LEFT">
                                 <buttons>
-                                    <Button fx:id="resetBtn" mnemonicParsing="false" onAction="#resetEdit" text="Reset" />
-                                    <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
-                                    <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveEdit" text="Save" />
-                                    <Button fx:id="editBtn" mnemonicParsing="false" onAction="#startEdit" text="Edit" />
+                                    <Button fx:id="resetBtn" mnemonicParsing="false" onAction="#resetEdit" text="%resetButton" />
+                                    <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancelEdit" text="%cancel" />
+                                    <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveEdit" text="%saveButton" />
+                                    <Button fx:id="editBtn" mnemonicParsing="false" onAction="#startEdit" text="%editButton" />
                                 </buttons>
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
@@ -101,15 +101,15 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Orders">
+            <Tab text="%ordersTab">
               <content>
                 <AnchorPane>
                      <children>
                         <TableView fx:id="orderItemTable" prefHeight="250.0" prefWidth="600.0">
                           <columns>
                             <TableColumn fx:id="orderId" prefWidth="126.0" text="ID" />
-                              <TableColumn fx:id="quantity" prefWidth="161.0" text="Quantity" />
-                              <TableColumn fx:id="price" prefWidth="175.0" text="Price" />
+                              <TableColumn fx:id="quantity" prefWidth="161.0" text="%quantityTxt" />
+                              <TableColumn fx:id="price" prefWidth="175.0" text="%price" />
                           </columns>
                         </TableView>
                      </children>

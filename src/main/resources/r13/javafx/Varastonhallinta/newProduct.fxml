@@ -26,35 +26,6 @@
          </padding>
       </HBox>
    </top>
-<<<<<<< HEAD
-   <center>
-      <VBox fx:id="anchorPane2" style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
-         <children>
-            <TextField fx:id="productNameField" promptText="%namePlaceholder">
-               <VBox.margin>
-                  <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="productPriceField" promptText="%pricePlaceholder">
-               <VBox.margin>
-                  <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="productLocationField" promptText="%locationPlaceholder">
-               <VBox.margin>
-                  <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
-               </VBox.margin>
-            </TextField>
-            <TextArea fx:id="productDescriptionField" promptText="%descriptionPlaceholder">
-               <VBox.margin>
-                  <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
-               </VBox.margin>
-            </TextArea>
-         </children>
-      </VBox>
-   </center>
-=======
->>>>>>> d909e7c8837bce266702c58fbd1e646ae9e879bc
    <bottom>
       <HBox style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
          <children>
@@ -63,7 +34,7 @@
                   <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="addBtn1" mnemonicParsing="false" onAction="#addProduct" text="Clear">
+            <Button fx:id="addBtn1" mnemonicParsing="false" onAction="#addProduct" text="%clearButton">
                <HBox.margin>
                   <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                </HBox.margin>
@@ -84,10 +55,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Name:" />
-            <Label text="Description:" GridPane.rowIndex="1" />
-            <Label text="Location:" GridPane.rowIndex="2" />
-            <Label text="Price:" GridPane.rowIndex="3" />
+            <Label text="%name" />
+            <Label text="%description" GridPane.rowIndex="1" />
+            <Label text="%location" GridPane.rowIndex="2" />
+            <Label text="%price" GridPane.rowIndex="3" />
             <TextField fx:id="productNameField" GridPane.columnIndex="1" />
             <TextField fx:id="productDescriptionField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="productLocationField" prefHeight="25.0" prefWidth="277.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

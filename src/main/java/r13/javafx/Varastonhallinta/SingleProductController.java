@@ -1,6 +1,7 @@
 package r13.javafx.Varastonhallinta;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import javafx.application.Platform;
@@ -9,7 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -26,15 +26,16 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.util.converter.NumberStringConverter;
 import r13.javafx.Varastonhallinta.models.OrderItem;
 import r13.javafx.Varastonhallinta.models.Product;
+import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.dao.OrderItemAccessObject;
 import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
 
 public class SingleProductController {
+	
+	ResourceBundle bundle = Singleton.getInstance().getBundle();
 
     private Product selectedProduct;
 
@@ -125,7 +126,7 @@ public class SingleProductController {
 		SortedList<OrderItem> sortedData = new SortedList<>(filteredData);
 		sortedData.comparatorProperty().bind(orderItemTable.comparatorProperty());
 		orderItemTable.setItems(filteredData);	
-		orderItemTable.setPlaceholder(new Label("Item has no orders"));
+		orderItemTable.setPlaceholder(new Label(bundle.getString("orderTablePlaceholder")));
 		
     }
 
@@ -237,12 +238,12 @@ public class SingleProductController {
     	initData(dao.getProduct(selectedProduct.getId()));
     	if(dao.editProduct(product) != null)	{
     		Platform.runLater(() -> {
-    	        Alert dialog = new Alert(AlertType.INFORMATION, "Editing successful", ButtonType.OK);
+    	        Alert dialog = new Alert(AlertType.INFORMATION, bundle.getString("editSuccessfulTxt"), ButtonType.OK);
     	        dialog.showAndWait();
     	    });
     	} else	{
     		Platform.runLater(() -> {
-    	        Alert dialog = new Alert(AlertType.INFORMATION, "Editing failed. Product with similar details exists", ButtonType.OK);
+    	        Alert dialog = new Alert(AlertType.INFORMATION, bundle.getString("editFailedTxt"), ButtonType.OK);
     	        dialog.showAndWait();
     	    });
     		

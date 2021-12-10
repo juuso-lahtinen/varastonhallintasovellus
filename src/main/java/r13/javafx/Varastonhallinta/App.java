@@ -23,7 +23,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {	
         scene = new Scene(loadFXML("loginscreen"), 800, 600);
-        stage.setTitle("Varastonhallinta");
+        stage.setTitle(bundle.getString("mainTitle"));
         stage.setScene(scene);
         stage.show();
     }

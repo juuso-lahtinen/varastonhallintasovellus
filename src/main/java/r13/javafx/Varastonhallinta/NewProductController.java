@@ -1,6 +1,7 @@
 package r13.javafx.Varastonhallinta;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -15,13 +16,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Product;
+import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
 
 public class NewProductController {
+	
+	ResourceBundle bundle = Singleton.getInstance().getBundle();	
 	
     private ProductAccessObject dao = new ProductAccessObject();
 
@@ -55,7 +58,7 @@ public class NewProductController {
     private void addProduct() {
     	if(productNameField.getText().trim().equals("") || productPriceField.getText().trim().equals("") || productLocationField.getText().trim().equals(""))	{
     		Platform.runLater(() -> {
-    	        Alert dialog = new Alert(AlertType.ERROR, "Please fill all the required fields", ButtonType.OK);
+    	        Alert dialog = new Alert(AlertType.ERROR, bundle.getString("fillAll"), ButtonType.OK);
     	        dialog.showAndWait();
     	    });
     		
@@ -63,13 +66,13 @@ public class NewProductController {
     		Product product = new Product ("123", productNameField.getText(), Double.parseDouble(productPriceField.getText()), productDescriptionField.getText(), 0, productLocationField.getText());
     		if(dao.addProduct(product) != null)	{
         		Platform.runLater(() -> {
-        	        Alert dialog = new Alert(AlertType.INFORMATION, "Product added", ButtonType.OK);
+        	        Alert dialog = new Alert(AlertType.INFORMATION, bundle.getString("addSuccessful"), ButtonType.OK);
         	        dialog.showAndWait();
         	        clear();
         	    });
         	} else	{
         		Platform.runLater(() -> {
-        	        Alert dialog = new Alert(AlertType.ERROR, "Error adding product", ButtonType.OK);
+        	        Alert dialog = new Alert(AlertType.ERROR, bundle.getString("addError"), ButtonType.OK);
         	        dialog.showAndWait();
         	    });
         	}

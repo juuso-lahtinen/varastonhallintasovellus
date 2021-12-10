@@ -59,7 +59,7 @@ public class AdminViewController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("newShift.fxml"), bundle);
 
         Stage stage = new Stage();
-        stage.setTitle("New shift");
+        stage.setTitle(bundle.getString("newShiftTitle"));
         stage.setScene(new Scene(loader.load()));
         // Pass controller if needed
         //SingleOrderViewController controller = loader.getController();
@@ -144,8 +144,8 @@ public class AdminViewController implements Initializable {
             fetchShifts();
         } else {
             Platform.runLater(() -> {
-                Alert dialog = new Alert(Alert.AlertType.ERROR, "Can not show over " + MAX_DAYS + " days", ButtonType.OK);
-                dialog.setTitle("Too many days selected");
+                Alert dialog = new Alert(Alert.AlertType.ERROR, bundle.getString("tooManyDaysTxt") + " " + MAX_DAYS + " " + bundle.getString("tooManyDaysTxt2"), ButtonType.OK);
+                dialog.setTitle(bundle.getString("tooManyDaysTitle"));
                 dialog.showAndWait();
             });
         }

@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Order;
+import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.dao.OrderAccessObject;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class OrderController implements Initializable {
+	
+	ResourceBundle bundle = Singleton.getInstance().getBundle();	
 
     private OrderAccessObject dao = new OrderAccessObject();
 
@@ -47,10 +50,10 @@ public class OrderController implements Initializable {
 
     @FXML
     private void openOrder() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("singleOrder.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("singleOrder.fxml"), bundle);
 
         Stage stage = new Stage();
-        stage.setTitle("Manage order");
+        stage.setTitle(bundle.getString("manageOrderTitle"));
         stage.setScene(new Scene(loader.load(), 800, 600));
 
         // Pass selected order

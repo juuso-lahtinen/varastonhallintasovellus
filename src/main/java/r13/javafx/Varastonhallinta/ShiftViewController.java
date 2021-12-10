@@ -28,6 +28,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ShiftViewController implements Initializable {
+	
+	ResourceBundle bundle = Singleton.getInstance().getBundle();	
 
     private ShiftAccessObject shiftDao = new ShiftAccessObject();
     private UserAccessObject userDao = new UserAccessObject();
@@ -49,10 +51,10 @@ public class ShiftViewController implements Initializable {
 
     @FXML
     void openNewShift(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("newShift.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("newShift.fxml"), bundle);
 
         Stage stage = new Stage();
-        stage.setTitle("New shift");
+        stage.setTitle(bundle.getString("newShiftTitle"));
         stage.setScene(new Scene(loader.load()));
         // Pass controller if needed
         //SingleOrderViewController controller = loader.getController();
@@ -97,8 +99,8 @@ public class ShiftViewController implements Initializable {
             fetchShifts();
         } else {
             Platform.runLater(() -> {
-                Alert dialog = new Alert(Alert.AlertType.ERROR, "Can not show over " + MAX_DAYS + " days", ButtonType.OK);
-                dialog.setTitle("Too many days selected");
+            	Alert dialog = new Alert(Alert.AlertType.ERROR, bundle.getString("tooManyDaysTxt") + " " + MAX_DAYS + " " + bundle.getString("tooManyDaysTxt2"), ButtonType.OK);
+                dialog.setTitle(bundle.getString("tooManyDaysTitle"));
                 dialog.showAndWait();
             });
         }
