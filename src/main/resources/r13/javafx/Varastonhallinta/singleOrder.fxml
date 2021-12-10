@@ -129,17 +129,17 @@
                <children>
                   <HBox prefHeight="24.0" prefWidth="199.0" spacing="10.0">
                      <children>
-                        <Label text="Status">
+                        <Label text="%status">
                            <font>
                               <Font name="Arial Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="orderStatus" text="Order Status" />
+                        <Label fx:id="orderStatus" text="%orderStatus" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="processBtn" mnemonicParsing="false" onAction="#processOrder" text="Process">
+                        <Button fx:id="processBtn" mnemonicParsing="false" onAction="#processOrder" text="%processButton">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font>
