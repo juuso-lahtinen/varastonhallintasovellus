@@ -43,7 +43,11 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Order> orders;
 
-    public Customer(String id, String email, String password, String firstName, String lastName, String phone, Timestamp registeredAt, String accessToken) {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "\"addressId\"", referencedColumnName = "id")
+    private Address address;
+
+    public Customer(String id, String email, String password, String firstName, String lastName, String phone, Timestamp registeredAt, String accessToken, Address address) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -52,6 +56,7 @@ public class Customer {
         this.phone = phone;
         this.registeredAt = registeredAt;
         this.accessToken = accessToken;
+        this.address = address;
     }
 
     public Customer() {
@@ -127,5 +132,13 @@ public class Customer {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

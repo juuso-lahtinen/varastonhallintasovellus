@@ -4,15 +4,16 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.OrderItem;
 import r13.javafx.Varastonhallinta.models.dao.OrderAccessObject;
 import r13.javafx.Varastonhallinta.models.dao.OrderItemAccessObject;
+import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SingleOrderController {
 
@@ -36,6 +37,12 @@ public class SingleOrderController {
 
     @FXML
     private Label customerPostal;
+
+    @FXML
+    private Label orderStatus;
+
+    @FXML
+    private Button processBtn;
 
     @FXML
     private TableView<OrderItem> orderItemsTable;
@@ -67,10 +74,42 @@ public class SingleOrderController {
     @FXML
     private Label orderSubtotal;
 
+    @FXML
+    void processOrder(ActionEvent event) {
+        Order order = orderDao.getOrderByOrderId(selectedOrder.getId());
+        AtomicBoolean invalidStock = new AtomicBoolean(false);
+
+        if (!alreadyProcessed(order)) {
+            orderItemsTable.getItems().stream().forEach(item -> {
+                if (item.getQuantity() > item.getProduct().getStock()) {
+                    invalidStock.set(true);
+                }
+            });
+
+            if (!invalidStock.get()) {
+                orderItemsTable.getItems().stream().forEach(item -> {
+                    productDao.decreaseStock(item.getProduct().getId(), item.getQuantity());
+                });
+                orderDao.setOrderProcessed(order.getId());
+                orderStatus.setText(order.getOrderStatusCode().getDescription());
+                Alert a = new Alert(Alert.AlertType.INFORMATION, "Order processed", ButtonType.OK);
+                a.showAndWait();
+            } else {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Invalid stock", ButtonType.OK);
+                a.showAndWait();
+            }
+        } else {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Order already processed", ButtonType.OK);
+            a.showAndWait();
+
+        }
+    }
+
     private Order selectedOrder = null;
 
     private OrderItemAccessObject dao = new OrderItemAccessObject();
     private OrderAccessObject orderDao = new OrderAccessObject();
+    private ProductAccessObject productDao = new ProductAccessObject();
 
     public void initData(Order order) {
         this.selectedOrder = order;
@@ -78,6 +117,10 @@ public class SingleOrderController {
         customerName.setText(selectedOrder.getCustomer().getFirstName() + " " + selectedOrder.getCustomer().getLastName());
         customerEmail.setText(selectedOrder.getCustomer().getEmail());
         customerPhone.setText(selectedOrder.getCustomer().getPhone());
+        customerAddress.setText(selectedOrder.getCustomer().getAddress().getAddress());
+        customerCity.setText(selectedOrder.getCustomer().getAddress().getCity());
+        customerPostal.setText(selectedOrder.getCustomer().getAddress().getPostal());
+        orderStatus.setText(selectedOrder.getOrderStatusCode().getDescription());
         populateItemsTable();
         setTotalValues();
     }
@@ -116,5 +159,9 @@ public class SingleOrderController {
         orderShippingFee.setText(Double.toString(shipping) + "€");
         orderSubtotal.setText(Double.toString(subTotal) + "€");
         orderTotal.setText(Double.toString(total) + "€");
+    }
+
+    private Boolean alreadyProcessed(Order o) {
+        return o.getOrderStatusCode().getDescription().equals("Order has been processed") ? true : false;
     }
 }
