@@ -18,7 +18,7 @@ public class App extends Application {
     private static Scene scene;
     private static Locale fiLocale = new Locale("fi", "FI");
     private static Locale enLocale = new Locale("en", "US");
-    private static ResourceBundle bundle = ResourceBundle.getBundle("bundles/TextResources", fiLocale);    
+    static ResourceBundle bundle = ResourceBundle.getBundle("bundles/TextResources");    
 
     @Override
     public void start(Stage stage) throws IOException {	

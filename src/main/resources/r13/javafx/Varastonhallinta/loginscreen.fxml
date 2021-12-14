@@ -40,6 +40,16 @@
                   <Font size="15.0" />
                </font></Label>
             <Label fx:id="loginError" layoutX="30.0" layoutY="220.0" prefHeight="17.0" prefWidth="218.0" textFill="RED" />
+            <ImageView fx:id="fiLocaleButton" fitHeight="30.0" fitWidth="50.0" layoutX="67.0" layoutY="327.0" onMouseClicked="#changeLocaleToFI" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 5, 0.3, 0.3, 0.0);">
+               <image>
+                  <Image url="@images/flagFI.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="enLocaleButton" fitHeight="30.0" fitWidth="50.0" layoutX="151.0" layoutY="329.0" onMouseClicked="#changeLocaleToEN" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 5, 0.3, 0.3, 0.0);">
+               <image>
+                  <Image url="@images/flagUS.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

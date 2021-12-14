@@ -2,6 +2,7 @@ package r13.javafx.Varastonhallinta;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -12,26 +13,43 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
 public class LoginScreenController implements Initializable {
 	
-	private UserAccessObject dao = new UserAccessObject();	
-	ResourceBundle bundle = Singleton.getInstance().getBundle();	
-	
-	public String currentUser;
-	private String loginErrorText;
-	
-	@FXML
-	private Button loginButton;
-	@FXML
-	private Label loginError;
-	@FXML
-	private TextField username;
-	@FXML
-	private PasswordField password;
+	Locale locale;
+    ResourceBundle bundle = ResourceBundle.getBundle("bundles/TextResources"); 
+    private UserAccessObject dao = new UserAccessObject();	
+    public String currentUser;
+    @FXML
+    private Label loginLabel;
+
+    @FXML
+    private TextField username;
+
+    @FXML
+    private PasswordField password;
+
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private Label usernameLabel;
+
+    @FXML
+    private Label passwordLabel;
+
+    @FXML
+    private Label loginError;
+
+    @FXML
+    private ImageView fiLocaleButton;
+
+    @FXML
+    private ImageView enLocaleButton;
 	
 	@FXML
 	public void checkLogin(ActionEvent event) throws IOException {
@@ -56,13 +74,29 @@ public class LoginScreenController implements Initializable {
 	        window.show(); 
 	        
 		} else {
-			loginError.setText(loginErrorText);
+			loginError.setText(bundle.getString("loginErrorText"));
 		}		
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-			loginErrorText = bundle.getString("loginErrorText");				
+						
+	}
+	
+	@FXML
+	public void changeLocaleToFI() {
+		locale = new Locale("fi", "FI");
+		bundle = ResourceBundle.getBundle("bundles/TextResources", locale);
+		System.out.println("locale changed to FI");
+		Singleton.getInstance().setBundle(bundle);
+	}
+	
+	@FXML
+	public void changeLocaleToEN() {
+		locale = new Locale("en", "US");
+		bundle = ResourceBundle.getBundle("bundles/TextResources", locale);
+		System.out.println("locale changed to EN");
+		Singleton.getInstance().setBundle(bundle);
 	}
 	
 }
