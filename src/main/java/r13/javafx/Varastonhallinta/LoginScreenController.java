@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
-public class LoginScreenController implements Initializable {
+public class LoginScreenController {
 	
 	Locale locale;
     ResourceBundle bundle = ResourceBundle.getBundle("bundles/TextResources"); 
@@ -78,17 +78,19 @@ public class LoginScreenController implements Initializable {
 		}		
 	}
 	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-						
-	}
-	
 	@FXML
 	public void changeLocaleToFI() {
 		locale = new Locale("fi", "FI");
 		bundle = ResourceBundle.getBundle("bundles/TextResources", locale);
 		System.out.println("locale changed to FI");
 		Singleton.getInstance().setBundle(bundle);
+		
+		loginLabel.setText(bundle.getString("loginLabel"));
+		usernameLabel.setText(bundle.getString("username"));
+		passwordLabel.setText(bundle.getString("password"));
+		loginButton.setText(bundle.getString("loginButton"));
+		username.setPromptText(bundle.getString("username"));
+		password.setPromptText(bundle.getString("password"));
 	}
 	
 	@FXML
@@ -97,6 +99,13 @@ public class LoginScreenController implements Initializable {
 		bundle = ResourceBundle.getBundle("bundles/TextResources", locale);
 		System.out.println("locale changed to EN");
 		Singleton.getInstance().setBundle(bundle);
+		
+		loginLabel.setText(bundle.getString("loginLabel"));
+		usernameLabel.setText(bundle.getString("username"));
+		passwordLabel.setText(bundle.getString("password"));
+		loginButton.setText(bundle.getString("loginButton"));
+		username.setPromptText(bundle.getString("username"));
+		password.setPromptText(bundle.getString("password"));
 	}
 	
 }
