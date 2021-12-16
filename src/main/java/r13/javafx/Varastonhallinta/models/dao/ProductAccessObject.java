@@ -2,22 +2,18 @@ package r13.javafx.Varastonhallinta.models.dao;
 
 import r13.javafx.Varastonhallinta.models.Product;
 import r13.javafx.Varastonhallinta.models.ProductCategory;
+
 import javax.persistence.*;
 import java.util.List;
 
 
-
-
 public class ProductAccessObject {
-	
+
+    // Create an EntityManagerFactory when you start the application
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
-
-    public static void main(String[] args) {
-        removeProduct("f6a05785-3e72-43c0-99af-0755881f524c");
-    }
-
+    // Decrement Product stock based on ProductId and parameter amount in the database
     public static void decreaseStock(String id, int amount) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -35,6 +31,7 @@ public class ProductAccessObject {
         }
     }
 
+    // Create a new product category in the database
     public static void createProductCategory(String name, String description) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -60,6 +57,7 @@ public class ProductAccessObject {
         }
     }
 
+    // Returns a list of all products from the database
     public static List getProducts() {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -77,6 +75,7 @@ public class ProductAccessObject {
         return products;
     }
 
+    // Returns a single Product based on ProductId from the database
     public static Product getProduct(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -98,6 +97,7 @@ public class ProductAccessObject {
         return product;
     }
 
+    // Add a new Product to the database
     public static Product addProduct(Product product) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -119,17 +119,17 @@ public class ProductAccessObject {
             em.close();
         }
     }
-    
-    
-    public static boolean removeProduct(String id) {
-    	
-    	if(id == null || (getProduct(id) == null))	{
-    		return false;
-    	}
 
-    	EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
-    	String query = "DELETE Product p WHERE p.id = :id";
-    	
+    // Remove Product based on ProductId from the database
+    public static boolean removeProduct(String id) {
+
+        if (id == null || (getProduct(id) == null)) {
+            return false;
+        }
+
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        String query = "DELETE Product p WHERE p.id = :id";
+
         try {
 
             em.getTransaction().begin();
@@ -145,11 +145,10 @@ public class ProductAccessObject {
             em.close();
         }
     }
-    
 
+
+    // Edit a single Product in the database
     public static Product editProduct(Product product) {
-
-
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         EntityTransaction transaction = null;

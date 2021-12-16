@@ -7,25 +7,19 @@ import java.util.List;
 
 public class OrderAccessObject {
 
+    // Create an EntityManagerFactory when you start the application
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
-
-    public static void main(String[] args) {
-        setOrderNotProcessed("a923174d-f2ad-4618-a1ca-2db455d18744");
-    }
-
+    // Returns a list of Orders from the database
     public static List getOrders() {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
-        // the lowercase p refers to the object
         String strQuery = "SELECT o FROM Order o WHERE o.id IS NOT NULL";
 
-        // Issue the query and all Products
         TypedQuery<Order> tq = em.createQuery(strQuery, Order.class);
         List<Order> orders = null;
         try {
-            // Get matching product objects and output
             orders = tq.getResultList();
         } catch (NoResultException ex) {
             ex.printStackTrace();
@@ -35,6 +29,7 @@ public class OrderAccessObject {
         return orders;
     }
 
+    // Returns an Order based on parameter id from the database
     public static Order getOrderByOrderId(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -54,6 +49,7 @@ public class OrderAccessObject {
         return order;
     }
 
+    // Update Order as processed in the database
     public static void setOrderProcessed(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -71,6 +67,7 @@ public class OrderAccessObject {
         }
     }
 
+    // Update Order as not processed in the database
     public static void setOrderNotProcessed(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
