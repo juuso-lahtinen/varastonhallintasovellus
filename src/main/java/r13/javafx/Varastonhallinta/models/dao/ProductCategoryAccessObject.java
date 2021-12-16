@@ -3,14 +3,14 @@ package r13.javafx.Varastonhallinta.models.dao;
 import r13.javafx.Varastonhallinta.models.ProductCategory;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.UUID;
 
 public class ProductCategoryAccessObject {
 
+    // Create an EntityManagerFactory when you start the application
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
+    // Create a new ProductCategory with a name and description to the database
     public static void createProductCategory(String name, String description) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 

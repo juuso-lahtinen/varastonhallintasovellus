@@ -20,7 +20,6 @@ import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;

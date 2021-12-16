@@ -8,14 +8,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ShiftAccessObject {
+
+    // Create an EntityManagerFactory when you start the application
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
-    public static void main(String[] args) {
 
-
-    }
-
+    // Add a new Shift to the database
     public static Shift addShift(Shift shift) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -38,6 +37,7 @@ public class ShiftAccessObject {
         }
     }
 
+    // Delete a single Shift based on ShiftId from the database
     public static boolean deleteShiftById(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         String query = "DELETE Shift s WHERE s.id = :id";
@@ -55,23 +55,7 @@ public class ShiftAccessObject {
         }
     }
 
-    public static Shift getShiftByUserId(String id) {
-        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
-        String query = "SELECT s FROM Shift s WHERE s.user.id = :id";
-        TypedQuery<Shift> tq = em.createQuery(query, Shift.class);
-        tq.setParameter("id", id);
-        Shift shift = null;
-
-        try {
-            shift = tq.getSingleResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-        return shift;
-    }
-
+    // Returns a list of Shifts based on UserId from the database
     public static List getShiftsByUserId(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         String query = "SELECT s FROM Shift s WHERE s.user.id = :id";
@@ -81,25 +65,6 @@ public class ShiftAccessObject {
         List<Shift> shifts = null;
 
         try {
-            shifts = tq.getResultList();
-        } catch (NoResultException ex) {
-            ex.printStackTrace();
-        } finally {
-            em.close();
-        }
-        return shifts;
-    }
-
-    public static List getShifts() {
-        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
-
-        // the lowercase p refers to the object
-        String strQuery = "SELECT s FROM Shift s WHERE s.id IS NOT NULL";
-
-        TypedQuery<Shift> tq = em.createQuery(strQuery, Shift.class);
-        List<Shift> shifts = null;
-        try {
-            // Get matching product objects and output
             shifts = tq.getResultList();
         } catch (NoResultException ex) {
             ex.printStackTrace();

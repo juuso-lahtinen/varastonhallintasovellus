@@ -9,36 +9,25 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
+
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.Shift;
 import r13.javafx.Varastonhallinta.models.Singleton;
@@ -57,7 +46,7 @@ import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
  * @authors Olli Kolkki, Severi Reivinen, Juuso Lahtinen
  */
 public class MainController implements Initializable {
-	
+
 
     /** The bp. */
     @FXML
@@ -66,12 +55,12 @@ public class MainController implements Initializable {
     /** The ap. */
     @FXML
     private AnchorPane ap;
-    
-    
-    /** The bundle. */
-    ResourceBundle bundle = Singleton.getInstance().getBundle();	
 
-	
+
+    /** The bundle. */
+    ResourceBundle bundle = Singleton.getInstance().getBundle();
+
+
     /** The shift dao. */
     private ShiftAccessObject shiftDao = new ShiftAccessObject();
     
@@ -94,9 +83,9 @@ public class MainController implements Initializable {
     /** The employee col. */
     @FXML
     private TableColumn<User, String> employeeCol;
-    
+
     /** The dao. */
-    
+
     private OrderAccessObject dao = new OrderAccessObject();
     
     /** The order table. */
@@ -118,14 +107,14 @@ public class MainController implements Initializable {
     /** The status col. */
     @FXML
     private TableColumn<Order, String> statusCol;
-    
+
     /** The username field. */
     @FXML
     private Text usernameField;
 
-    
+
     /**
-     * Opens home view.
+     * Open home view
      *
      * @param event the event
      */
@@ -135,7 +124,7 @@ public class MainController implements Initializable {
     }
 
     /**
-     * Opens order view.
+     * Open order view
      *
      * @param event the event
      * @throws IOException Signals that an I/O exception has occurred.
@@ -146,7 +135,7 @@ public class MainController implements Initializable {
     }
 
     /**
-     * Opens product view.
+     * Open product view
      *
      * @param event the event
      * @throws IOException Signals that an I/O exception has occurred.
@@ -154,11 +143,11 @@ public class MainController implements Initializable {
     @FXML
     private void products(MouseEvent event) throws IOException {
         loadPage("products");
-        
+
     }
 
     /**
-     * Opens admin view.
+     * Open admin view
      *
      * @param event the event
      * @throws IOException Signals that an I/O exception has occurred.
@@ -167,9 +156,9 @@ public class MainController implements Initializable {
     private void admin(MouseEvent event) throws IOException {
         loadPage("shiftsAdmin");
     }
-    
+
     /**
-     * Opens shift view.
+     * Open shift view
      *
      * @param event the event
      * @throws IOException Signals that an I/O exception has occurred.
@@ -178,7 +167,7 @@ public class MainController implements Initializable {
     private void shifts(MouseEvent event) throws IOException {
         loadPage("shifts");
     }
-    
+
     /**
      * Log out.
      *
@@ -187,8 +176,8 @@ public class MainController implements Initializable {
      */
     @FXML
     private void logOut(MouseEvent event) throws IOException {
-    	Singleton.getInstance().setUsername(null);
-    	loadPage("loginscreen");
+        Singleton.getInstance().setUsername(null);
+        loadPage("loginscreen");
     }
 
     /**
@@ -203,6 +192,7 @@ public class MainController implements Initializable {
         bp.setCenter(root);
     }
 
+
     /**
      * Initialize.
      *
@@ -211,34 +201,34 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	
-    	fillShiftTable();
-    	fillOrderTable();
-    	usernameField.setText(Singleton.getInstance().getUsername());
+
+        fillShiftTable();
+        fillOrderTable();
+        usernameField.setText(Singleton.getInstance().getUsername());
     }
-    
+
     /**
-     * Fill order table with data from database.
+     * Fill order table.
      */
-    private void fillOrderTable()	{
-    	
-    	  orderidCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
-          customerCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCustomer().getFirstName() + " " + cellData.getValue().getCustomer().getLastName()));
-          dateCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOrderedAt().toString()));
-          statusCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOrderStatusCode().getDescription()));
-          FilteredList<Order> filteredData = new FilteredList(FXCollections.observableArrayList(dao.getOrders()), p -> true);
-          SortedList<Order> sortedData = new SortedList<>(filteredData);
-          sortedData.comparatorProperty().bind(orderTable.comparatorProperty());
-          orderTable.setItems(sortedData);
-    	
+    private void fillOrderTable() {
+
+        orderidCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+        customerCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCustomer().getFirstName() + " " + cellData.getValue().getCustomer().getLastName()));
+        dateCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOrderedAt().toString()));
+        statusCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOrderStatusCode().getDescription()));
+        FilteredList<Order> filteredData = new FilteredList(FXCollections.observableArrayList(dao.getOrders()), p -> true);
+        SortedList<Order> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(orderTable.comparatorProperty());
+        orderTable.setItems(sortedData);
+
     }
-    
-    
+
+
     /**
      * Fill shift table.
      */
-    private void fillShiftTable()	{
-    	//Default date values
+    private void fillShiftTable() {
+        //Default date values
         LocalDate now = LocalDate.now();
         LocalDate weekFromNow = LocalDate.now().plusDays(MAX_DAYS);
 
@@ -273,7 +263,7 @@ public class MainController implements Initializable {
     private void fetchShifts() {
         ObservableList<User> shifts = FXCollections.observableArrayList(userDao.getUser(username));
         shiftTable.setItems(shifts);
-        
+
         shiftTable.getItems().forEach(u -> u.setShifts(shiftDao.getShiftsByUserId(u.getId())));
     }
 

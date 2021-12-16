@@ -16,14 +16,11 @@ import java.util.List;
 
 public class UserAccessObject {
 
-    public static void main(String[] args) {
-        User newUser = new User("test", "pass", "Test", "User", true);
-        addUser(newUser);
-    }
-
+    // Create an EntityManagerFactory when you start the application
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
+    // Check if the given parameters match a row in the database
     public boolean checkLogin(String username, String password) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -42,6 +39,7 @@ public class UserAccessObject {
         }
     }
 
+    // Returns a single User based on username from the database
     public static User getDBUsername(String username) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -62,6 +60,7 @@ public class UserAccessObject {
         return user;
     }
 
+    // Add a new User to the database
     public static User addUser(User user) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -84,6 +83,7 @@ public class UserAccessObject {
         }
     }
 
+    // Remove a single user based on UserId from the database
     public static boolean removeUser(String id) {
 
         if (id == null || (getDBUsername(id) == null)) {
@@ -110,6 +110,7 @@ public class UserAccessObject {
         }
     }
 
+    // Remove a single User based on username from the database
     public static boolean removeUserByUsername(String username) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         String query = "DELETE User u WHERE u.username = :username";
@@ -129,6 +130,7 @@ public class UserAccessObject {
         }
     }
 
+    // Returns a full list of Users from the database
     public static List getUsers() {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -147,6 +149,7 @@ public class UserAccessObject {
         return users;
     }
 
+    // Returns a single User based on username from the database
     public static User getUser(String username) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -167,6 +170,7 @@ public class UserAccessObject {
         return user;
     }
 
+    // Return a list of Shifts based on User from the database
     public static List getShiftsPerUser(User user) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -186,9 +190,5 @@ public class UserAccessObject {
             em.close();
         }
         return shifts;
-
-
     }
-
-
 }

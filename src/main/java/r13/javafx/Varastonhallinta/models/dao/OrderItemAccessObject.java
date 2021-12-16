@@ -11,10 +11,8 @@ public class OrderItemAccessObject {
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
-    public static void main(String[] args) {
-        System.out.println(getOrderItemsByOrderId("a923174d-f2ad-4618-a1ca-2db455d18744"));
-    }
 
+    // Returns a list of OrderItems based on OrderId from the database
     public static List getOrderItemsByOrderId(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -33,7 +31,8 @@ public class OrderItemAccessObject {
         }
         return orderItems;
     }
-    
+
+    // Returns a list of OrderItems based on ProductId from the database
     public static List getOrderItemsByProductId(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 

@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import r13.javafx.Varastonhallinta.models.Shift;
 import r13.javafx.Varastonhallinta.models.Singleton;
