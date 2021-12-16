@@ -11,4 +11,4 @@ Sovellus mahdollistaa tilausten tarkastelun ja käsittelyn. Lisäksi sovulluksen
 - PostgreSQL versio 13
 - Viimeisin Java-versio
 
-Jotta sovellus saadaan yhdistettyä tietokantaan, tulee tietokannan yhteystiedot asettaa persistance.xml - tiedostoonn.
+Jotta sovellus saadaan yhdistettyä tietokantaan, tulee tietokannan yhteystiedot asettaa persistance.xml - tiedostoon.
