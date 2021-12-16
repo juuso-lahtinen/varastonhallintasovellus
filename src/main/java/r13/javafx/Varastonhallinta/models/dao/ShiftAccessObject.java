@@ -9,12 +9,20 @@ import java.util.List;
 
 public class ShiftAccessObject {
 
-    // Create an EntityManagerFactory when you start the application
+
+    /**
+     * Create an EntityManagerFactory when you start the application
+     */
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
 
-    // Add a new Shift to the database
+    /**
+     * Add a new Shift to the database
+     *
+     * @param shift Shift
+     * @return Shift
+     */
     public static Shift addShift(Shift shift) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -37,7 +45,12 @@ public class ShiftAccessObject {
         }
     }
 
-    // Delete a single Shift based on ShiftId from the database
+    /**
+     * Delete a single Shift based on ShiftId from the database
+     *
+     * @param id shiftId
+     * @return boolean based on if the query was successful
+     */
     public static boolean deleteShiftById(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         String query = "DELETE Shift s WHERE s.id = :id";
@@ -55,7 +68,10 @@ public class ShiftAccessObject {
         }
     }
 
-    // Returns a list of Shifts based on UserId from the database
+    /**
+     * @param id userId
+     * @return List of Shifts based on UserId from the database
+     */
     public static List getShiftsByUserId(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         String query = "SELECT s FROM Shift s WHERE s.user.id = :id";

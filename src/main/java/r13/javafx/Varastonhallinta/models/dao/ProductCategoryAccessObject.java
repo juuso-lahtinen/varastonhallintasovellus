@@ -6,11 +6,19 @@ import javax.persistence.*;
 
 public class ProductCategoryAccessObject {
 
-    // Create an EntityManagerFactory when you start the application
+    /**
+     * Create an EntityManagerFactory when you start the application
+     */
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
-    // Create a new ProductCategory with a name and description to the database
+
+    /**
+     * Create a new ProductCategory with a name and description to the database
+     *
+     * @param name        Category name
+     * @param description Category description
+     */
     public static void createProductCategory(String name, String description) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 

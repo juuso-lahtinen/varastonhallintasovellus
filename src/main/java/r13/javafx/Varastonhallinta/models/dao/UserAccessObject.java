@@ -16,11 +16,19 @@ import java.util.List;
 
 public class UserAccessObject {
 
-    // Create an EntityManagerFactory when you start the application
+    /**
+     * Create an EntityManagerFactory when you start the application
+     */
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
-    // Check if the given parameters match a row in the database
+    /**
+     * Check if the given parameters match a row in the database
+     *
+     * @param username
+     * @param password
+     * @return boolean based on if the login was successfully
+     */
     public boolean checkLogin(String username, String password) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -39,7 +47,12 @@ public class UserAccessObject {
         }
     }
 
-    // Returns a single User based on username from the database
+    /**
+     * Used in tests
+     *
+     * @param username String username
+     * @return single User based on username from the database
+     */
     public static User getDBUsername(String username) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -60,7 +73,12 @@ public class UserAccessObject {
         return user;
     }
 
-    // Add a new User to the database
+    /**
+     * Add a new User to the database
+     *
+     * @param user User
+     * @return User
+     */
     public static User addUser(User user) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -83,34 +101,12 @@ public class UserAccessObject {
         }
     }
 
-    // Remove a single user based on UserId from the database
-    public static boolean removeUser(String id) {
-
-        if (id == null || (getDBUsername(id) == null)) {
-            return false;
-        }
-
-        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
-        String query = "DELETE User u WHERE u.id = :id";
-
-        try {
-
-            em.getTransaction().begin();
-            em.createQuery(query).setParameter("id", id).executeUpdate();
-            em.getTransaction().commit();
-            System.out.println("removal success" + id);
-            return true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("removal fail" + id);
-            return false;
-        } finally {
-            em.close();
-        }
-    }
-
-    // Remove a single User based on username from the database
+    /**
+     * Remove a single User based on username from the database
+     *
+     * @param username String username
+     * @return boolean based on if the query was successful
+     */
     public static boolean removeUserByUsername(String username) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         String query = "DELETE User u WHERE u.username = :username";
@@ -130,7 +126,9 @@ public class UserAccessObject {
         }
     }
 
-    // Returns a full list of Users from the database
+    /**
+     * @return Full list of Users from the database
+     */
     public static List getUsers() {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -149,7 +147,10 @@ public class UserAccessObject {
         return users;
     }
 
-    // Returns a single User based on username from the database
+    /**
+     * @param username String username
+     * @return single User based on username from the database
+     */
     public static User getUser(String username) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -168,27 +169,5 @@ public class UserAccessObject {
             em.close();
         }
         return user;
-    }
-
-    // Return a list of Shifts based on User from the database
-    public static List getShiftsPerUser(User user) {
-        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
-
-        // the lowercase p refers to the object
-        String strQuery = "SELECT shifts FROM User s WHERE s.id = :userid";
-
-        TypedQuery<Shift> tq = em.createQuery(strQuery, Shift.class);
-        tq.setParameter("userid", user.getId());
-
-        List<Shift> shifts = null;
-        try {
-            // Get matching product objects and output
-            shifts = tq.getResultList();
-        } catch (NoResultException ex) {
-            ex.printStackTrace();
-        } finally {
-            em.close();
-        }
-        return shifts;
     }
 }

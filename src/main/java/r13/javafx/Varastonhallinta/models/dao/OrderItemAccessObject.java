@@ -7,12 +7,18 @@ import java.util.List;
 
 public class OrderItemAccessObject {
 
-    // Create an EntityManagerFactory when you start the application
+    /**
+     * Create an EntityManagerFactory when you start the application
+     */
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
 
-    // Returns a list of OrderItems based on OrderId from the database
+    /**
+     *
+     * @param id orderId
+     * @return List of OrderItems based on OrderId from the database
+     */
     public static List getOrderItemsByOrderId(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -32,7 +38,11 @@ public class OrderItemAccessObject {
         return orderItems;
     }
 
-    // Returns a list of OrderItems based on ProductId from the database
+    /**
+     *
+     * @param id productId
+     * @return List of OrderItems based on ProductId from the database
+     */
     public static List getOrderItemsByProductId(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 

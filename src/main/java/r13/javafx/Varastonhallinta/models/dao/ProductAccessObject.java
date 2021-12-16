@@ -9,11 +9,19 @@ import java.util.List;
 
 public class ProductAccessObject {
 
-    // Create an EntityManagerFactory when you start the application
+    /**
+     * Create an EntityManagerFactory when you start the application
+     */
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("test");
 
-    // Decrement Product stock based on ProductId and parameter amount in the database
+
+    /**
+     * Decrement Product stock based on ProductId and parameter amount in the database
+     *
+     * @param id     productId
+     * @param amount amount to decrease
+     */
     public static void decreaseStock(String id, int amount) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -31,7 +39,12 @@ public class ProductAccessObject {
         }
     }
 
-    // Create a new product category in the database
+    /**
+     * Create a new product category in the database
+     *
+     * @param name        Category name
+     * @param description Category description
+     */
     public static void createProductCategory(String name, String description) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -57,7 +70,9 @@ public class ProductAccessObject {
         }
     }
 
-    // Returns a list of all products from the database
+    /**
+     * @return List of all products from the database
+     */
     public static List getProducts() {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -75,7 +90,10 @@ public class ProductAccessObject {
         return products;
     }
 
-    // Returns a single Product based on ProductId from the database
+    /**
+     * @param id productId
+     * @return Single Product based on ProductId from the database
+     */
     public static Product getProduct(String id) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -97,7 +115,12 @@ public class ProductAccessObject {
         return product;
     }
 
-    // Add a new Product to the database
+    /**
+     * Add a new Product to the database
+     *
+     * @param product Product
+     * @return Product or null
+     */
     public static Product addProduct(Product product) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -120,7 +143,12 @@ public class ProductAccessObject {
         }
     }
 
-    // Remove Product based on ProductId from the database
+    /**
+     * Remove Product based on ProductId from the database
+     *
+     * @param id productId
+     * @return Product based on ProductId from the database
+     */
     public static boolean removeProduct(String id) {
 
         if (id == null || (getProduct(id) == null)) {
@@ -147,7 +175,10 @@ public class ProductAccessObject {
     }
 
 
-    // Edit a single Product in the database
+    /**
+     * @param product Product
+     * @return Single Product in the database
+     */
     public static Product editProduct(Product product) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
