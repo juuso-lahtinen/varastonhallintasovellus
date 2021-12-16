@@ -1,6 +1,5 @@
 package r13.javafx.Varastonhallinta;
 
-import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
@@ -9,12 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -26,98 +20,134 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.OrderItem;
 import r13.javafx.Varastonhallinta.models.Product;
 import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.dao.OrderItemAccessObject;
 import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
 
+/**
+ * Controller for the details view of a single product. Contains product editing functions and data of the products that are a part of an order.
+ * @author Olli Kolkki
+ */
 public class SingleProductController {
 	
+	/** The bundle used for localization. */
 	ResourceBundle bundle = Singleton.getInstance().getBundle();
 
+    /** The the product of which details are shown. */
     private Product selectedProduct;
 
+    /** The database access object for products */
     private ProductAccessObject dao = new ProductAccessObject();
+    
+    /** The database access object for order items. */
     private OrderItemAccessObject orderItemDao = new OrderItemAccessObject();
     
+    /** The search field. */
     @FXML
     private TextField searchField;
     
+    /** The open edit btn. */
     @FXML
     private Button openEditBtn;
     
+    /** The search btn. */
     @FXML
     private Button searchBtn;
 
+    /** The back btn. */
     @FXML
     private Button backBtn;
     
+    /** The cancel btn. */
     @FXML
     private Button cancelBtn;
 
+    /** The save btn. */
     @FXML
     private Button saveBtn;
     
+    /** The edit btn. */
     @FXML
     private Button editBtn;
     
+    /** The reset btn. */
     @FXML
     private Button resetBtn;
     
+    /** The order item table. */
     @FXML
     private TableView<OrderItem> orderItemTable;
 
+    /** The order id. */
     @FXML
     private TableColumn<OrderItem, String> orderId;
 
+    /** The quantity. */
     @FXML
     private TableColumn<OrderItem, Integer> quantity;
 
+    /** The price. */
     @FXML
     private TableColumn<OrderItem, Double> price;
 
 
+    /** The product tab back btn. */
     @FXML
     private Button productTabBackBtn;
 
+    /** The id label. */
     @FXML
     private Label idLabel;
 
+    /** The name label. */
     @FXML
     private Label nameLabel;
 
+    /** The description label. */
     @FXML
     private Label descriptionLabel;
 
+    /** The location label. */
     @FXML
     private Label locationLabel;
 
+    /** The price label. */
     @FXML
     private Label priceLabel;
 
+    /** The stock label. */
     @FXML
     private Label stockLabel;
 
+    /** The general tab back btn. */
     @FXML
     private Button generalTabBackBtn;
     
+    /** The name text field. */
     @FXML
     private TextField nameTextField;
     
+    /** The description text field. */
     @FXML
     private TextField descriptionTextField;
     
+    /** The location text field. */
     @FXML
     private TextField locationTextField;
     
+    /** The price text field. */
     @FXML
     private TextField priceTextField;
     
+    /** The stock text field. */
     @FXML
     private TextField stockTextField;
 
+    /**
+     * Initializes the JavaFX table for data of this product as an item in orders
+     */
     public void initializeTable() {
         orderId.setCellValueFactory(new PropertyValueFactory<OrderItem, String>("id"));
         quantity.setCellValueFactory(new PropertyValueFactory<OrderItem, Integer>("quantity"));
@@ -130,6 +160,11 @@ public class SingleProductController {
 		
     }
 
+    /**
+     * Gets the order items for the table
+     *
+     * @return the order items
+     */
     private ObservableList<OrderItem> getOrderItems() {
     	if(selectedProduct != null) {
 	        ObservableList<OrderItem> orderItems = FXCollections.observableArrayList(orderItemDao.getOrderItemsByProductId(selectedProduct.getId()));
@@ -140,6 +175,9 @@ public class SingleProductController {
     	}
     }
 
+    /**
+     * Initializes the details of the product and defines element visibility.
+     */
     private void initializeDetails() {
     	
     	saveBtn.setVisible(false);
@@ -185,6 +223,11 @@ public class SingleProductController {
     
 
 
+    /**
+     * Used to receive the selected product object from previous view.
+     *
+     * @param product the product
+     */
     public void initData(Product product) {
         this.selectedProduct = product;
         initializeDetails();
@@ -192,17 +235,10 @@ public class SingleProductController {
 
     }
 
-    @FXML
-    private void switchToProductManagementWindow(ActionEvent event) throws IOException {
-    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("productManagement.fxml"));
-        Scene newProductViewScene = new Scene(mainViewParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(newProductViewScene);
-        window.show();
-    }
     
+    /**
+     * Called when edit button is pressed. Changes visibility of Textfield elements
+     */
     @FXML
     public void startEdit()	{
     	if(selectedProduct != null) {
@@ -225,6 +261,10 @@ public class SingleProductController {
         	stockTextField.setText(Integer.toString(selectedProduct.getStock()));
     	}
     }
+    
+    /**
+     * Saves edited data and displays appropriate alert windows.
+     */
     @FXML
     public void saveEdit()	{
     	
@@ -249,6 +289,10 @@ public class SingleProductController {
     		
     	}
     }
+    
+    /**
+     * Called when editing is cancelled.
+     */
     @FXML
     public void cancelEdit()	{
 
@@ -263,6 +307,10 @@ public class SingleProductController {
     	editBtn.setVisible(true);
 
     }
+    
+    /**
+     * Called when reset button is pressed.
+     */
     @FXML
 	public void resetEdit()	{
 		
@@ -272,30 +320,5 @@ public class SingleProductController {
     	priceTextField.setText(Double.toString(selectedProduct.getPrice()));
     	stockTextField.setText(Double.toString(selectedProduct.getStock()));
 	}
-
-
-
-    
-    
-    
-    /*
-    @FXML
-    private void openProductEditWindow() throws IOException {
-        
-
-	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("productEdit.fxml"));
-
-	        Stage stage = new Stage();
-	        stage.setTitle("Edit product");
-	        stage.setScene(new Scene(loader.load()));
-
-	        ProductEditController controller = loader.getController();
-	        controller.initData(selectedProduct);
-
-	        stage.show();
-        
-        
-    }
-    */
 
 }

@@ -34,61 +34,81 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
+/**
+ * Controller for the product management view, containing a table of all the products.
+ * @author Olli Kolkki
+ */
 public class ProductController {
 	
+	/** The bundle used for localization. */
 	ResourceBundle bundle = Singleton.getInstance().getBundle();	
 
-
-
-
+    /** The data access object used for accessing the Product table in the database. */
     private ProductAccessObject dao = new ProductAccessObject();
 
+    /** The add btn. */
     @FXML
     private Button addBtn;
     
     
+    /** The back button. */
     @FXML
     private Button backButton;
     
+    /** The refresh btn. */
     @FXML
     private Button refreshBtn;
     
+    /** The new product button. */
     @FXML
     private Button newProductButton;
     
+    /** The delete button. */
     @FXML
     private Button deleteButton;
 
+    /** The product table. */
     @FXML
     private TableView<Product> productTable;
 
+    /** The table id. */
     @FXML
     private TableColumn<Product, String> tableId;
 
+    /** The table name. */
     @FXML
     private TableColumn<Product, String> tableName;
 
+    /** The table price. */
     @FXML
     private TableColumn<Product, Double> tablePrice;
 
+    /** The table description. */
     @FXML
     private TableColumn<Product, String> tableDescription;
 
+    /** The table stock. */
     @FXML
     private TableColumn<Product, Integer> tableStock;
 
+    /** The table location. */
     @FXML
     private TableColumn<Product, String> tableLocation;
 
+    /** The table category. */
     @FXML
     private TableColumn<Product, String> tableCategory;
 
+    /** The filter field. */
     @FXML
     private TextField filterField;
     
 
     
     
+    /**
+     * Initializes the table with all products and filters them if search field is used
+     */
     @FXML
     public void initialize() {
         tableId.setCellValueFactory(new PropertyValueFactory<Product, String>("id"));
@@ -128,16 +148,20 @@ public class ProductController {
 		productTable.setItems(sortedData);
     }
 
+    /**
+     * Gets the product data from the database.
+     *
+     * @return List of all the products
+     */
     private ObservableList<Product> getProducts() {
         ObservableList<Product> products = FXCollections.observableArrayList(dao.getProducts());
         return products;
     }
     
-    
-    
-    
-    
-    
+
+    /**
+     * Called when product is deleted. Controls appropriate alert windows.
+     */
     @FXML
     private void deleteProduct()	{
     	
@@ -165,6 +189,12 @@ public class ProductController {
     }
     
 
+    /**
+     * Changes scene to main view.
+     *
+     * @param event the event
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @FXML
     public void changeSceneToMainView(ActionEvent event) throws IOException {
         Parent mainViewParent = FXMLLoader.load(getClass().getResource("mainwindow.fxml"));
@@ -177,17 +207,15 @@ public class ProductController {
     }
     
 
+    /**
+     * Switches scene to new product window.
+     *
+     * @param event the event
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @FXML
     private void switchToNewProductWindow(ActionEvent event) throws IOException {
-    	/*
-    	Parent mainViewParent = FXMLLoader.load(getClass().getResource("NewProduct.fxml"));
-        Scene newProductViewScene = new Scene(mainViewParent);
 
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(newProductViewScene);
-        window.show();
-*/
         FXMLLoader loader = new FXMLLoader(getClass().getResource("newProduct.fxml"), bundle);
 
         Stage stage = new Stage();
@@ -199,27 +227,13 @@ public class ProductController {
 
         stage.show();
         
-        
     }
-    /*
-    @FXML
-    public void changeSceneToProductDetailsView(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("singleProduct.fxml"));
-        Parent orderViewParent = loader.load();
-
-        Scene singleOrderViewScene = new Scene(orderViewParent);
-
-        SingleProductController controller = loader.getController();
-        controller.initData(productTable.getSelectionModel().getSelectedItem());
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(singleOrderViewScene);
-        window.show();
-    }
-    */
-    
+   
+    /**
+     * Changes scene to product details view. Gives an alert if no product is selected or selection is invalid
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @FXML
     private void changeSceneToProductDetailsView() throws IOException {
         

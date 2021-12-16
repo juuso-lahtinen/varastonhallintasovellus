@@ -22,38 +22,55 @@ import r13.javafx.Varastonhallinta.models.Product;
 import r13.javafx.Varastonhallinta.models.Singleton;
 import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
 
+/**
+ * Controller for the New product window. Used to create new Products.
+ * @author Olli Kolkki
+ */
 public class NewProductController {
 	
+	/** The bundle used for localization. */
 	ResourceBundle bundle = Singleton.getInstance().getBundle();	
 	
+    /** The data access object used for accessing the Product table in the database. */
     private ProductAccessObject dao = new ProductAccessObject();
 
+    /** The add btn. */
     @FXML
     private Button addBtn;
     
+    /** The product id field. */
     @FXML
     private TextField productIdField;
     
+    /** The product name field. */
     @FXML
     private TextField productNameField;
     
+    /** The product description field. */
     @FXML
     private TextField productDescriptionField;
     
+    /** The product price field. */
     @FXML
     private TextField productPriceField;
     
+    /** The product location field. */
     @FXML
     private TextField productLocationField;
     
     
+    /** The back button. */
     @FXML
     private Button backButton;
     
+    /** The anchor pane holding all the elements. */
     @FXML
     private VBox anchorPane2;
     
     
+    /**
+     * Called when a product is added. Returns alert messages if data entered is insufficient, incorrect or contains duplicate values.
+     */
     @FXML
     private void addProduct() {
     	if(productNameField.getText().trim().equals("") || productPriceField.getText().trim().equals("") || productLocationField.getText().trim().equals(""))	{
@@ -82,6 +99,9 @@ public class NewProductController {
 
 
     
+    /**
+     * Clears all the text fields.
+     */
     private void clear() {
     	for (Node node : anchorPane2.getChildren()) {
     	    if (node instanceof TextField) {
@@ -93,6 +113,12 @@ public class NewProductController {
 	}
 
 
+	/**
+	 * Switches to product management window.
+	 *
+	 * @param event the event
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@FXML
     private void switchToProductManagementWindow(ActionEvent event) throws IOException {
     	Parent mainViewParent = FXMLLoader.load(getClass().getResource("productManagement.fxml"));
