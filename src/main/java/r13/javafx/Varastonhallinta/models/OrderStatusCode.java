@@ -5,12 +5,15 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
+/**
+ * Represents the status of an individual order. Determines if the order is processed or not
+ * @author Severi Reivinen
+ */
 @Entity()
 @Table(name = "\"OrderStatusCode\"")
 public class OrderStatusCode {
 
-    /** The id. */
+    /** The automatically generated id of the status code. */
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -20,23 +23,23 @@ public class OrderStatusCode {
     @Column(name = "id", nullable = false)
     private String id;
 
-    /** The processed. */
+    /** If the order is processed or not. */
     @Column(name = "processed")
     private Boolean processed;
 
-    /** The description. */
+    /** References the processed order. */
     @Column(name = "description")
     private String description;
 
-    /** The orders. */
+    /** References the orders that have a status set. */
     @OneToMany(mappedBy = "orderStatusCode")
     private List<Order> orders;
 
     /**
      * Instantiates a new order status code.
      *
-     * @param processed the processed
-     * @param description the description
+     * @param processed returns true if the order is processed and false if its not
+     * @param description references the orders that have a status set
      */
     public OrderStatusCode(Boolean processed, String description) {
         this.processed = processed;
