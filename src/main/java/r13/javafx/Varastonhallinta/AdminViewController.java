@@ -19,20 +19,19 @@ import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AdminViewController implements Initializable {
 
     private ShiftAccessObject shiftDao = new ShiftAccessObject();
     private UserAccessObject userDao = new UserAccessObject();
     private List<TableColumn<User, String>> columns = new ArrayList<>();
-    ResourceBundle bundle = Singleton.getInstance().getBundle();	
+    ResourceBundle bundle = Singleton.getInstance().getBundle();
 
     final static int MAX_DAYS = 60;
 
@@ -83,10 +82,10 @@ public class AdminViewController implements Initializable {
             LocalTime endTime = LocalTime.parse(timeTable[1]);
 
             Shift shiftToDelete = user.getSingleShift(LocalDate.parse(date.getText()), startTime, endTime);
-            
+
             //locale
             String confTxt = bundle.getString("confirmation");
-            String confMsg = bundle.getString("confirmationText"); 
+            String confMsg = bundle.getString("confirmationText");
 
             Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
             confirmation.setTitle(confTxt);
