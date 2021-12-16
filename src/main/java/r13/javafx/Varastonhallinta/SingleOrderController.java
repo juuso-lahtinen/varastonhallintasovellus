@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * The Class SingleOrderController.
  * Controller for singleOrder.fxml
  * Class contains necessary methods to show relevant information of an order
- * @authors Olli Kolkki, Severi Reivinen, Juuso Lahtinen
+ * @author Olli Kolkki, Severi Reivinen, Juuso Lahtinen
  */
 public class SingleOrderController {
 

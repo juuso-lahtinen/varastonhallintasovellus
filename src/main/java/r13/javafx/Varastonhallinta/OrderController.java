@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
  * Controller for orders.fxml
  * Opens up the order view.
  * Ability to look up a single order.
- * @authors Olli Kolkki, Severi Reivinen, Juuso Lahtinen
+ * @author Olli Kolkki, Severi Reivinen, Juuso Lahtinen
  */
 public class OrderController implements Initializable {
 	

@@ -15,7 +15,7 @@ import r13.javafx.Varastonhallinta.models.Singleton;
  * The "main" class. 
  * This class starts the program.
  * Localization bundle is first set here to default, then can be later modified.
- * @authors Olli Kolkki, Severi Reivinen, Juuso Lahtinen
+ * @author Olli Kolkki, Severi Reivinen, Juuso Lahtinen
  */
 public class App extends Application {
 

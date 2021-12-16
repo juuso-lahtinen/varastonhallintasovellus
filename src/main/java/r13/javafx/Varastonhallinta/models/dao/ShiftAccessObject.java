@@ -72,6 +72,8 @@ public class ShiftAccessObject {
     }
 
     /**
+     * Returns list of Shifts based on UserId from the database
+     *
      * @param id userId
      * @return List of Shifts based on UserId from the database
      */

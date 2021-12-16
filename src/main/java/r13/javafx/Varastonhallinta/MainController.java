@@ -43,7 +43,7 @@ import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
  * Class contains:
  * The side bar navigation and its features to switch between tabs, without opening a new window for every scene.
  * Functionality of home-tab; shows logged in user and the user's shifts. And active orders.
- * @authors Olli Kolkki, Severi Reivinen, Juuso Lahtinen
+ * @author Olli Kolkki, Severi Reivinen, Juuso Lahtinen
  */
 public class MainController implements Initializable {
 

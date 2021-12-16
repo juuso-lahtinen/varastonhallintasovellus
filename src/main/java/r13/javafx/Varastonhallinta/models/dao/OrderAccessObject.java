@@ -20,6 +20,7 @@ public class OrderAccessObject {
             .createEntityManagerFactory("test");
 
     /**
+     * Returns list of Orders from the database
      * @return List of Orders from the database
      */
     public static List getOrders() {
@@ -41,6 +42,7 @@ public class OrderAccessObject {
 
     /**
      *
+     * Returns order based on parameter id from the database
      * @param id orderId
      * @return Order based on parameter id from the database
      */

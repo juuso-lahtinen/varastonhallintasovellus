@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Represents a product thats contained within an Order. Contains references to the Product
  * and the Order
- * 
+ *
  * @author Severi Reivinen
  */
 
@@ -22,6 +22,7 @@ public class OrderItemAccessObject {
 
 
     /**
+     * Returns list of OrderItems based on OrderId from the database
      *
      * @param id orderId
      * @return List of OrderItems based on OrderId from the database
@@ -46,6 +47,7 @@ public class OrderItemAccessObject {
     }
 
     /**
+     * Returns list of OrderItems based on ProductId from the database
      *
      * @param id productId
      * @return List of OrderItems based on ProductId from the database

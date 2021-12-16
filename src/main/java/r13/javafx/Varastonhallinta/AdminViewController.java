@@ -30,7 +30,7 @@ import java.util.*;
  * The Class AdminViewController.
  * Controller for shiftsAdmin.fxml.
  * Class contains methods to view, create and delete shifts.
- * @authors Olli Kolkki, Severi Reivinen, Juuso Lahtinen
+ * @author Olli Kolkki, Severi Reivinen, Juuso Lahtinen
  */
 public class AdminViewController implements Initializable {
 

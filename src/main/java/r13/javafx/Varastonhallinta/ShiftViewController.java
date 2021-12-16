@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
  * The Class ShiftViewController.
  * Controller for shifts.fxml.
  * Shows the user work days in a table view.
- * @authors Olli Kolkki, Severi Reivinen, Juuso Lahtinen
+ * @author Olli Kolkki, Severi Reivinen, Juuso Lahtinen
  */
 public class ShiftViewController implements Initializable {
 	

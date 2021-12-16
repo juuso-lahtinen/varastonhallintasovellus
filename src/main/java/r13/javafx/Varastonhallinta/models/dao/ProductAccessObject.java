@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Class contains methods for communication with the database for products
- * 
+ *
  * @author Olli Kolkki
  */
 
@@ -76,6 +76,8 @@ public class ProductAccessObject {
     }
 
     /**
+     * Returns list of all products from the database
+     *
      * @return List of all products from the database
      */
     public static List getProducts() {
@@ -96,6 +98,8 @@ public class ProductAccessObject {
     }
 
     /**
+     * Returns single Product based on ProductId from the database
+     *
      * @param id productId
      * @return Single Product based on ProductId from the database
      */
@@ -181,6 +185,8 @@ public class ProductAccessObject {
 
 
     /**
+     * Edit single Product in the database
+     *
      * @param product Product
      * @return Single Product in the database
      */

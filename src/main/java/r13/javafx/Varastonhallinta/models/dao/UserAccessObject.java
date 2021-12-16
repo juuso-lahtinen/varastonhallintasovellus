@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Class contains methods for communication with the database for users
+ *
  * @author Juuso Lahtinen
  */
 public class UserAccessObject {
@@ -26,8 +27,8 @@ public class UserAccessObject {
     /**
      * Check if the given parameters match a row in the database
      *
-     * @param username
-     * @param password
+     * @param username String username
+     * @param password String password
      * @return boolean based on if the login was successfully
      */
     public boolean checkLogin(String username, String password) {
@@ -128,6 +129,8 @@ public class UserAccessObject {
     }
 
     /**
+     * Returns full list of Users from the database
+     *
      * @return Full list of Users from the database
      */
     public static List getUsers() {
@@ -149,6 +152,8 @@ public class UserAccessObject {
     }
 
     /**
+     * Returns single User based on username from the database
+     *
      * @param username String username
      * @return single User based on username from the database
      */

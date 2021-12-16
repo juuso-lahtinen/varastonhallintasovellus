@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
  * The Class NewShiftController.
  * Controller for newShift.fxml
  * Allows creating new shifts for singular workers (users).
- * @authors Olli Kolkki, Severi Reivinen, Juuso Lahtinen
+ * @author Olli Kolkki, Severi Reivinen, Juuso Lahtinen
  */
 public class NewShiftController implements Initializable {
 
