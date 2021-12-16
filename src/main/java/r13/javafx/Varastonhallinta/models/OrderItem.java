@@ -4,10 +4,16 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+/**
+ * Represents a product thats contained within an Order. Contains references to the Product
+ * and the Order
+ * @author Severi Reivinen
+ */
 @Entity()
 @Table(name = "\"OrderItem\"")
 public class OrderItem {
 
+    /** The id. */
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -17,16 +23,20 @@ public class OrderItem {
     @Column(name = "id", nullable = false)
     private String id;
 
+    /** The quantity of products. */
     @Column(name = "quantity")
     private int quantity;
 
+    /** Sum of all the product prices. */
     @Column(name = "price")
     private double price;
 
+    /** The product. */
     @ManyToOne
     @JoinColumn(name = "\"productId\"", nullable = false)
     private Product product;
 
+    /** The order this item is associated with. */
     @ManyToOne
     @JoinColumn(name = "\"orderId\"")
     private Order order;
@@ -35,6 +45,9 @@ public class OrderItem {
         return order;
     }
 
+    /**
+     * Instantiates a new order item.
+     */
     public OrderItem() {
 
     }
