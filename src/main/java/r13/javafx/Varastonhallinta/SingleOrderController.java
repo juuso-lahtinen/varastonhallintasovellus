@@ -15,65 +15,95 @@ import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * The Class SingleOrderController.
+ * Controller for singleOrder.fxml
+ * Class contains necessary methods to show relevant information of an order
+ * @authors Olli Kolkki, Severi Reivinen, Juuso Lahtinen
+ */
 public class SingleOrderController {
 
+    /** The order id. */
     @FXML
     private Label orderId;
 
+    /** The customer name. */
     @FXML
     private Label customerName;
 
+    /** The customer email. */
     @FXML
     private Label customerEmail;
 
+    /** The customer phone. */
     @FXML
     private Label customerPhone;
 
+    /** The customer address. */
     @FXML
     private Label customerAddress;
 
+    /** The customer city. */
     @FXML
     private Label customerCity;
 
+    /** The customer postal. */
     @FXML
     private Label customerPostal;
 
+    /** The order status. */
     @FXML
     private Label orderStatus;
 
+    /** The process btn. */
     @FXML
     private Button processBtn;
 
+    /** The order items table. */
     @FXML
     private TableView<OrderItem> orderItemsTable;
 
+    /** The order item product. */
     @FXML
     private TableColumn<OrderItem, String> orderItemProduct;
 
+    /** The order item price. */
     @FXML
     private TableColumn<OrderItem, Double> orderItemPrice;
 
+    /** The order item quantity. */
     @FXML
     private TableColumn<OrderItem, Integer> orderItemQuantity;
 
+    /** The order item subtotal. */
     @FXML
     private TableColumn<OrderItem, Double> orderItemSubtotal;
 
+    /** The order item stock. */
     @FXML
     private TableColumn<OrderItem, Integer> orderItemStock;
 
+    /** The order total. */
     @FXML
     private Label orderTotal;
 
+    /** The order tax. */
     @FXML
     private Label orderTax;
 
+    /** The order shipping fee. */
     @FXML
     private Label orderShippingFee;
 
+    /** The order subtotal. */
     @FXML
     private Label orderSubtotal;
 
+    /**
+     * Process order. Show appropriate alerts if processing cannot be done.
+     *
+     * @param event the event
+     */
     @FXML
     void processOrder(ActionEvent event) {
         Order order = orderDao.getOrderByOrderId(selectedOrder.getId());
@@ -105,12 +135,23 @@ public class SingleOrderController {
         }
     }
 
+    /** The selected order. */
     private Order selectedOrder = null;
 
+    /** The dao. */
     private OrderItemAccessObject dao = new OrderItemAccessObject();
+    
+    /** The order dao. */
     private OrderAccessObject orderDao = new OrderAccessObject();
+    
+    /** The product dao. */
     private ProductAccessObject productDao = new ProductAccessObject();
 
+    /**
+     * Initializes the data.
+     *
+     * @param order the order
+     */
     public void initData(Order order) {
         this.selectedOrder = order;
         orderId.setText(selectedOrder.getId());
@@ -125,6 +166,9 @@ public class SingleOrderController {
         setTotalValues();
     }
 
+    /**
+     * Gets data from database and fills tables with the data.
+     */
     private void populateItemsTable() {
         orderItemProduct.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
         orderItemPrice.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getProduct().getPrice()).asObject());
@@ -150,6 +194,9 @@ public class SingleOrderController {
         });
     }
 
+    /**
+     * Sets the total values.
+     */
     private void setTotalValues() {
         double subTotal = orderDao.getOrderByOrderId(selectedOrder.getId()).getOrderItems().stream().mapToDouble(i -> i.getProduct().getPrice()).sum();
         double tax = Math.round(((subTotal * 0.10) * 100.0) / 100.0);
@@ -161,6 +208,12 @@ public class SingleOrderController {
         orderTotal.setText(Double.toString(total) + "€");
     }
 
+    /**
+     * Already processed.
+     *
+     * @param o the o
+     * @return the boolean
+     */
     private Boolean alreadyProcessed(Order o) {
         return o.getOrderStatusCode().getDescription().equals("Order has been processed") ? true : false;
     }

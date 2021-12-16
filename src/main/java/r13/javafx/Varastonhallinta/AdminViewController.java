@@ -27,33 +27,61 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+
+
+/**
+ * The Class AdminViewController.
+ * Controller for shiftsAdmin.fxml.
+ * Class contains methods to view, create and delete shifts.
+ * @authors Olli Kolkki, Severi Reivinen, Juuso Lahtinen
+ */
 public class AdminViewController implements Initializable {
 
+    /** The shift dao. */
     private ShiftAccessObject shiftDao = new ShiftAccessObject();
+    
+    /** The user dao. */
     private UserAccessObject userDao = new UserAccessObject();
+    
+    /** The columns. */
     private List<TableColumn<User, String>> columns = new ArrayList<>();
+    
+    /** The bundle. */
     ResourceBundle bundle = Singleton.getInstance().getBundle();	
 
+    /** The Constant MAX_DAYS. */
     final static int MAX_DAYS = 60;
 
+    /** The new shift btn. */
     @FXML
     private Button newShiftBtn;
 
+    /** The del shift. */
     @FXML
     private Button delShift;
 
+    /** The from date. */
     @FXML
     private DatePicker fromDate;
 
+    /** The till date. */
     @FXML
     private DatePicker tillDate;
 
+    /** The shift table. */
     @FXML
     private TableView<User> shiftTable;
 
+    /** The employee col. */
     @FXML
     private TableColumn<User, String> employeeCol;
 
+    /**
+     * Opens new shift view, to create a new shift.
+     *
+     * @param event the event
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @FXML
     void openNewShift(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("newShift.fxml"), bundle);
@@ -67,6 +95,11 @@ public class AdminViewController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Delete shift.
+     *
+     * @param event the event
+     */
     @FXML
     void deleteShift(ActionEvent event) {
         try {
@@ -108,6 +141,11 @@ public class AdminViewController implements Initializable {
         }
     }
 
+    /**
+     * Updates the table view.
+     *
+     * @param event the event
+     */
     @FXML
     void updateShifts(ActionEvent event) {
         LocalDate newStart = fromDate.getValue();
@@ -152,6 +190,12 @@ public class AdminViewController implements Initializable {
     }
 
 
+    /**
+     * Initialize.
+     *
+     * @param location the location
+     * @param resources the resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -185,6 +229,13 @@ public class AdminViewController implements Initializable {
         shiftTable.getSelectionModel().setCellSelectionEnabled(true);
     }
 
+    /**
+     * Sets a maximum value of days shown in table view.
+     *
+     * @param startDate the start date
+     * @param tillDate the till date
+     * @return true, if successful
+     */
     private boolean tooManyDays(LocalDate startDate, LocalDate tillDate) {
         if (ChronoUnit.DAYS.between(startDate, tillDate) > MAX_DAYS) {
             return true;
@@ -192,6 +243,9 @@ public class AdminViewController implements Initializable {
         return false;
     }
 
+    /**
+     * Fetch shifts from database.
+     */
     private void fetchShifts() {
         ObservableList<User> shifts = FXCollections.observableArrayList(userDao.getUsers());
         shiftTable.setItems(shifts);

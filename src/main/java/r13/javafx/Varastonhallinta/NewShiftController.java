@@ -18,46 +18,73 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * The Class NewShiftController.
+ * Controller for newShift.fxml
+ * Allows creating new shifts for singular workers (users).
+ * @authors Olli Kolkki, Severi Reivinen, Juuso Lahtinen
+ */
 public class NewShiftController implements Initializable {
 
+	/** The bundle. */
 	ResourceBundle bundle = Singleton.getInstance().getBundle();	
+    
+    /** The user dao. */
     private UserAccessObject userDao = new UserAccessObject();
+    
+    /** The shift dao. */
     private ShiftAccessObject shiftDao = new ShiftAccessObject();
 
 
+    /** The shift date. */
     @FXML
     private DatePicker shiftDate;
 
+    /** The shift employee. */
     @FXML
     private ComboBox<String> shiftEmployee;
 
+    /** The shift start. */
     @FXML
     private ComboBox<LocalTime> shiftStart;
 
+    /** The shift end. */
     @FXML
     private ComboBox<LocalTime> shiftEnd;
 
+    /** The shift start custom. */
     @FXML
     private Button shiftStartCustom;
 
+    /** The custom start. */
     @FXML
     private TextField customStart;
 
+    /** The shift start cancel. */
     @FXML
     private Button shiftStartCancel;
 
+    /** The shift end custom. */
     @FXML
     private Button shiftEndCustom;
 
+    /** The custom end. */
     @FXML
     private TextField customEnd;
 
+    /** The shift end cancel. */
     @FXML
     private Button shiftEndCancel;
 
+    /** The add shift btn. */
     @FXML
     private Button addShiftBtn;
 
+    /**
+     * cancel custom end time.
+     *
+     * @param event the event
+     */
     @FXML
     void cancelCustomEnd(ActionEvent event) {
         shiftEnd.setVisible(true);
@@ -68,6 +95,11 @@ public class NewShiftController implements Initializable {
         shiftEnd.toBack();
     }
 
+    /**
+     * cancel custom start time.
+     *
+     * @param event the event
+     */
     @FXML
     void cancelCustomStart(ActionEvent event) {
         shiftStart.setVisible(true);
@@ -78,6 +110,11 @@ public class NewShiftController implements Initializable {
         shiftStart.toBack();
     }
 
+    /**
+     * set the custom end time.
+     *
+     * @param event the new custom end
+     */
     @FXML
     void setCustomEnd(ActionEvent event) {
         shiftEnd.setVisible(false);
@@ -88,6 +125,11 @@ public class NewShiftController implements Initializable {
         customEnd.toBack();
     }
 
+    /**
+     * set the custom end time.
+     *
+     * @param event the new custom start
+     */
     @FXML
     void setCustomStart(ActionEvent event) {
         shiftStart.setVisible(false);
@@ -99,6 +141,11 @@ public class NewShiftController implements Initializable {
 
     }
 
+    /**
+     * Adds the shift.
+     *
+     * @param event the event
+     */
     @FXML
     void addShift(ActionEvent event) {
         try {
@@ -143,6 +190,12 @@ public class NewShiftController implements Initializable {
     }
 
 
+    /**
+     * Initialize.
+     *
+     * @param location the location
+     * @param resources the resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillTimeTabs();
@@ -150,6 +203,9 @@ public class NewShiftController implements Initializable {
         customInitials();
     }
 
+    /**
+     * Custom initials.
+     */
     private void customInitials() {
         customStart.setVisible(false);
         customEnd.setVisible(false);
@@ -158,6 +214,9 @@ public class NewShiftController implements Initializable {
 
     }
 
+    /**
+     * Fill user menu.
+     */
     private void fillUserMenu() {
         List<User> users = userDao.getUsers();
         users.forEach(u -> {
@@ -165,6 +224,9 @@ public class NewShiftController implements Initializable {
         });
     }
 
+    /**
+     * Fill time tabs.
+     */
     private void fillTimeTabs() {
         shiftStart.getItems().add(LocalTime.parse("06:00:00"));
         shiftStart.getItems().add(LocalTime.parse("09:00:00"));
@@ -177,6 +239,9 @@ public class NewShiftController implements Initializable {
         shiftEnd.getItems().add(LocalTime.parse("22:00:00"));
     }
 
+    /**
+     * Clear fields.
+     */
     private void clearFields() {
         shiftDate.getEditor().clear();
         shiftEmployee.getSelectionModel().clearSelection();
@@ -184,7 +249,14 @@ public class NewShiftController implements Initializable {
         shiftEnd.getSelectionModel().clearSelection();
     }
 
-    // Super simple check if the user is working
+    /**
+     * Super simple check if the user is already working.
+     * 
+     * @param user the user
+     * @param shift the shift
+     * @return true, if successful
+     */
+    
     private boolean alreadyWorking(User user, Shift shift) {
         boolean isWorking = false;
         List<Shift> userShifts = shiftDao.getShiftsByUserId(user.getId());

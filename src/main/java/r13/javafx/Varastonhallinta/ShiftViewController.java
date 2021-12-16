@@ -27,28 +27,54 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The Class ShiftViewController.
+ * Controller for shifts.fxml.
+ * Shows the user work days in a table view.
+ * @authors Olli Kolkki, Severi Reivinen, Juuso Lahtinen
+ */
 public class ShiftViewController implements Initializable {
 	
+	/** The bundle. */
 	ResourceBundle bundle = Singleton.getInstance().getBundle();	
 
+    /** The shift dao. */
     private ShiftAccessObject shiftDao = new ShiftAccessObject();
+    
+    /** The user dao. */
     private UserAccessObject userDao = new UserAccessObject();
+    
+    /** The columns. */
     private List<TableColumn<User, String>> columns = new ArrayList<>();
+    
+    /** The username. */
     private String username = Singleton.getInstance().getUsername();
+    
+    /** The Constant MAX_DAYS. */
     final static int MAX_DAYS = 60;
 
+    /** The from date. */
     @FXML
     private DatePicker fromDate;
 
+    /** The till date. */
     @FXML
     private DatePicker tillDate;
 
+    /** The shift table. */
     @FXML
     private TableView<User> shiftTable;
 
+    /** The employee col. */
     @FXML
     private TableColumn<User, String> employeeCol;
 
+    /**
+     * Open new shift creation window.
+     *
+     * @param event the event
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @FXML
     void openNewShift(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("newShift.fxml"), bundle);
@@ -63,6 +89,11 @@ public class ShiftViewController implements Initializable {
     }
 
     
+    /**
+     * Updates the shifts view with possibly new shifts.
+     *
+     * @param event the event
+     */
     @FXML
     void updateShifts(ActionEvent event) {
         LocalDate newStart = fromDate.getValue();
@@ -107,6 +138,12 @@ public class ShiftViewController implements Initializable {
     }
 
 
+    /**
+     * Initialize.
+     *
+     * @param location the location
+     * @param resources the resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -140,6 +177,13 @@ public class ShiftViewController implements Initializable {
         shiftTable.getSelectionModel().setCellSelectionEnabled(true);
     }
 
+    /**
+     * Sets a maximum value of days shown in table view.
+     *
+     * @param startDate the start date
+     * @param tillDate the till date
+     * @return true, if successful
+     */
     private boolean tooManyDays(LocalDate startDate, LocalDate tillDate) {
         if (ChronoUnit.DAYS.between(startDate, tillDate) > MAX_DAYS) {
             return true;
@@ -147,6 +191,9 @@ public class ShiftViewController implements Initializable {
         return false;
     }
 
+    /**
+     * Fetch shifts.
+     */
     private void fetchShifts() {
         ObservableList<User> shifts = FXCollections.observableArrayList(userDao.getUser(username));
         shiftTable.setItems(shifts);
