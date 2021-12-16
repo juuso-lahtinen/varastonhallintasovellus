@@ -16,6 +16,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import r13.javafx.Varastonhallinta.models.Product;
@@ -63,9 +64,10 @@ public class NewProductController {
     @FXML
     private Button backButton;
     
-    /** The anchor pane holding all the elements. */
+    
+    /** The grid pane holding all the textfields and labels */
     @FXML
-    private VBox anchorPane2;
+    private GridPane gridPane;
     
     
     /**
@@ -103,7 +105,7 @@ public class NewProductController {
      * Clears all the text fields.
      */
     private void clear() {
-    	for (Node node : anchorPane2.getChildren()) {
+    	for (Node node : gridPane.getChildren()) {
     	    if (node instanceof TextField) {
     	        ((TextField)node).setText("");
     	    } else if (node instanceof TextArea)	{

@@ -43,7 +43,7 @@
       </HBox>
    </bottom>
    <left>
-      <GridPane prefHeight="150.0" prefWidth="400.0" style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
+      <GridPane fx:id="gridPane" prefHeight="150.0" prefWidth="400.0" style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" />
