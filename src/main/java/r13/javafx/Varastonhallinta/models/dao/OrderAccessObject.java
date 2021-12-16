@@ -5,6 +5,12 @@ import r13.javafx.Varastonhallinta.models.Order;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Class contains methods for communication with the database for orders
+ * 
+ * @author Severi Reivinen
+ */
+
 public class OrderAccessObject {
 
     /**

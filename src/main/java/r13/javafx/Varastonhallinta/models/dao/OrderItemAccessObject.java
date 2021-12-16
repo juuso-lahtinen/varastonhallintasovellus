@@ -5,6 +5,13 @@ import r13.javafx.Varastonhallinta.models.OrderItem;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Represents a product thats contained within an Order. Contains references to the Product
+ * and the Order
+ * 
+ * @author Severi Reivinen
+ */
+
 public class OrderItemAccessObject {
 
     /**

@@ -1,11 +1,14 @@
 package r13.javafx.Varastonhallinta.models.dao;
 
-import r13.javafx.Varastonhallinta.models.Order;
 import r13.javafx.Varastonhallinta.models.Shift;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
+
+/**
+ * Class contains methods for communication with the database for shifts
+ * @author Severi Reivinen
+ */
 
 public class ShiftAccessObject {
 

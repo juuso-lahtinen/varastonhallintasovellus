@@ -10,20 +10,32 @@ import r13.javafx.Varastonhallinta.models.User;
 import r13.javafx.Varastonhallinta.models.dao.UserAccessObject;
 
 
+/**
+ * Testing of UserAccessObject
+ * @author Olli Kolkki
+ */
 public class UserAccessObjectTest {
 
+    /** The user DAO. */
     private UserAccessObject userDAO = new UserAccessObject();
 
 
+    /** The user. */
     private User user;
 
 
+    /**
+     * Before each.
+     */
     @BeforeEach
     public void beforeEach() {
         user = new User("esimerkkiEero", "salasana", "Eero", "Esimerkki");
     }
 
 
+    /**
+     * Test for adding a user
+     */
     @Test
     @Order(1)
     @DisplayName("Test for adding a user")
@@ -41,6 +53,9 @@ public class UserAccessObjectTest {
         userDAO.removeUserByUsername(newUser.getUsername());
     }
 
+    /**
+     * Test for logging in
+     */
     @Test
     @Order(2)
     @DisplayName("Test for logging in")

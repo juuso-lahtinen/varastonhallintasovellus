@@ -19,21 +19,38 @@ import r13.javafx.Varastonhallinta.models.dao.ProductAccessObject;
 
 
 
+/**
+ * The Class ProductAccessObjectTest.
+ * Tests for various different product testing.
+ * @author Olli Kolkki
+ */
 public class ProductAccessObjectTest {
 	
+	/** The product DAO. */
 	private ProductAccessObject productDAO = new ProductAccessObject();
 	
 
+	/** The product. */
 	private Product product;
+	
+	/** The product state. */
 	private boolean productState = false;
+	
+	/** The product id. */
 	private String productId;
 	
+	/**
+	 * Before each.
+	 */
 	@BeforeEach
 	public void beforeEach() {
 		product = new Product("123", "Boots", 99.99, "Big red boots", 66, "BBBBB");
 	}
 	
 	
+	/**
+	 * Test for adding a product
+	 */
 	@Test
 	@Order(1)
 	@DisplayName("Test for adding a product")
@@ -58,6 +75,9 @@ public class ProductAccessObjectTest {
 	
 	
 	
+	/**
+	 * Identical products should not exist
+	 */
 	@Test
 	@Order(2)
 	@DisplayName("Identical products should not exist")
@@ -81,6 +101,9 @@ public class ProductAccessObjectTest {
 	}
 	
 	
+	/**
+	 * Removing a non-existent product should not work
+	 */
 	@Test
 	@Order(3)
 	@DisplayName("Removing a non-existent product should not work")
@@ -91,6 +114,9 @@ public class ProductAccessObjectTest {
 		assertFalse(productDAO.removeProduct(fakeproduct3.getId()), "removeProduct() - Non-existent product was removed");
 	}
 	
+	/**
+	 * Editing the details of a product should work
+	 */
 	@Test
 	@Order(4)
 	@DisplayName("Editing the details of a product should work")

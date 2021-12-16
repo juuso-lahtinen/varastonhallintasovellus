@@ -6,6 +6,11 @@ import r13.javafx.Varastonhallinta.models.ProductCategory;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Class contains methods for communication with the database for products
+ * 
+ * @author Olli Kolkki
+ */
 
 public class ProductAccessObject {
 

@@ -7,13 +7,14 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import r13.javafx.Varastonhallinta.models.Product;
-import r13.javafx.Varastonhallinta.models.Shift;
 import r13.javafx.Varastonhallinta.models.User;
 
 import java.util.List;
 
-
+/**
+ * Class contains methods for communication with the database for users
+ * @author Juuso Lahtinen
+ */
 public class UserAccessObject {
 
     /**
